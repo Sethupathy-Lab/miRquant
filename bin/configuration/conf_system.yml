@@ -1,0 +1,10 @@
+# System configuration for submitting jobs
+lsf:
+    log: Log.txt
+    queue: week
+    memory: 16
+
+job_sub_threaded:
+    log: Log.txt
+    queue: week
+    memory: 16
