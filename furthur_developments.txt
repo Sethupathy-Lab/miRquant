@@ -1,0 +1,2 @@
+Update version of cutadapt
+-allow for the easy implementation of degenerate bases in adapter sequence
