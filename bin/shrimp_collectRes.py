@@ -120,9 +120,9 @@ def write_output_file(outDir, res, name, e_di, sum, exMat):
     fname = '{}/{}/{}_{}.txt'.format(outDir, name, res, name)
     with open(fname, 'a+') as f:
         for k, v in e_di.iteritems():
-            f.write('{}\tCount:{}\tEM:{}'.format(k, ftoi(round(sum[k], 7)), ftoi(round(exMat[k], 7))))
+            f.write('{}\tCount:{}\tEM:{}'.format(k, ftoi(sum[k]), ftoi(exMat[k])))
             for edit in sorted(v):
-                item = '{}:{}'.format(edit, ftoi(round(v[edit], 7)))
+                item = '{}:{}'.format(edit, ftoi(v[edit]))
                 f.write('\t{}'.format(item))
             f.write('\n')
 

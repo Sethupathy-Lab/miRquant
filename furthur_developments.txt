@@ -1,2 +1,6 @@
 Update version of cutadapt
 -allow for the easy implementation of degenerate bases in adapter sequence
+
+Add barcode.txt to generate_adapter_files
+-if people want to manually define barcodes and samples, allow this
+functionality

@@ -70,6 +70,7 @@ def load_SHRiMP_res(shrimp_dir):
     hits = {}
     maps = {}
     perMatch = {}
+    print files
     for fi in files:
         with open(fi, 'r') as f:
             header = f.readline()

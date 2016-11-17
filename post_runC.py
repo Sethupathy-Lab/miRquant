@@ -2,10 +2,14 @@
 
 import sys
 import os
+from bin.utils import return_sample_results_directories
 
 summary_li = ['3p_summary', '5p_summary', 'shift_summary', 'lenDist_summary', 'ed_summary']
-for sample in sys.argv[1:]:
-    g1_dir = '{}/IntermediateFiles/g1Results/'.format(sample)
+
+sample_res = return_sample_results_directories(sys.argv[1])
+for sample in sample_res:
+    print sample
+    g1_dir = '{}IntermediateFiles/g1Results/'.format(sample)
     try:
         os.makedirs('{}trash'.format(g1_dir))
     except OSError:

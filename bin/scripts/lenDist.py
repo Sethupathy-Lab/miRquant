@@ -17,62 +17,40 @@ usage='''
 import sys
 import argparse
 import os
-from itertools import islice
-from os.path import splitext, basename, isfile
 import f_utils
 
 
-def set_path_to_fastqs(samples):
+def read_lengths_dict(samples):
     '''
-    Add the location of the <Sample>.fq to basePath
+    Load the length distribution data into a dictionary
     '''
-    fastq_path = []
-    for s in samples:
-        fi = '{}/IntermediateFiles/{}fq'.format(s, os.path.basename(s))
-        fastq_path.append(f_utils.check_file(fi))
-    return [fi for fi in fastq_path if fi]
-
-
-def get_read_lengths(samples):    
-    '''
-    Make a dictionary of file names, read lengths, and total reads
-    '''
-    file_di = {}
-    len_di = {}
-    tot = {}
+    out_di = {}
+    lengths = {}
     for file in samples:
-        base = os.path.basename(file)
-        tot[base] = 0
-        file_di[base] = {}
-        with open(file, 'r') as f:
-            for l in islice(f, 1, None, 4):
-                read_len = len(l.rstrip())
-                len_di[read_len] = 1
-                try:
-                    file_di[base][read_len] += 1
-                except KeyError:
-                    file_di[base][read_len] = 1
-                tot[base] += 1
-    return file_di, len_di, tot
+        with open(file, 'r') as fi:
+            name = fi.readline().rstrip().split('\t')[1]
+            out_di[name] = {}
+            for l in fi:
+                a, b = l.rstrip().split('\t')
+                out_di[name][a] = b
+                lengths[a] = 1
+    return out_di, sorted(lengths)
 
 
-def write_lenDist_output(file_di, len_di, tot, outPath):
+def write_length_distribution(outPath, len_di, lengths):
     '''
     Calculate read length ratio and write to output fore each sample
     '''
     output_name = '{}{}'.format(outPath, 'length_distribution.csv')
     with open(output_name, "w") as f:
-        f.write(',{}\n'.format(','.join(sorted(file_di))))
-        for some_len in sorted(len_di):
-            f.write(str(some_len))
-            for sample in sorted(file_di):
-                re=0
-                if some_len in file_di[sample]:
-                    re=file_di[sample][some_len]/float(tot[sample]) * 100
+        f.write(',{}\n'.format(','.join(sorted(len_di))))
+        for len in lengths:
+            f.write(len)
+            for sample in sorted(len_di):
                 try:
-                    f.write(',{0:.1f}'.format(re))
-                except:
-                    print "WARNING: Writing failed for {}".format(sample)
+                    f.write(',{}'.format(len_di[sample][len]))
+                except KeyError:
+                    f.write(',0')
             f.write('\n')
     return output_name
 
@@ -84,11 +62,10 @@ def create_length_dist_image(out_dir, out_name):
     os.system('Rscript --vanilla {}/lenDistGraph.R {}'.format(out_dir, out_name))
         
 
-def main(basePath, outPath):
-    samples = f_utils.get_sample_basePath(basePath)
-    samples = set_path_to_fastqs(samples)
-    file_di, len_di, tot = get_read_lengths(samples)
-    out_name = write_lenDist_output(file_di, len_di, tot, outPath)
+def main(outPath, samples):
+    samples = f_utils.set_path_to_files_glob(samples, 'ead_length_histo')
+    len_di, lengths = read_lengths_dict(samples)
+    out_name = write_length_distribution(outPath, len_di, lengths)
     create_length_dist_image(os.path.dirname(__file__), out_name)
 
 
@@ -97,12 +74,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
              description='Analyzed the length distribution of trimmed reads')
     parser.add_argument(
-             'basePath', 
-             action='store', 
-             help='Path to where the sample output folders are located')
-    parser.add_argument(
              'outPath', 
              action='store', 
              help='Path to where the output file will be located')
+    parser.add_argument(
+             'samples', 
+             action='store', 
+             nargs='+',
+             help='Path to where the sample output folders are located')
     arg = parser.parse_args()
-    main(arg.basePath, arg.outPath)
+    main(arg.outPath, arg.samples)

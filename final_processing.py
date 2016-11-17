@@ -32,8 +32,7 @@ from bin.utils import load_mirquant_config_file
 from bin.scripts import f_utils, \
                         generate_mapping_info, \
                         lenDist, \
-                        genNormalRPMM, \
-                        genNormalRPMMM
+                        generate_normalized_counts
 
 
 def create_output_folder(outPath):
@@ -52,40 +51,49 @@ def create_output_folder(outPath):
     return d
 
 
-def mapping_stats(basePath, outPath):
+def sample_input_location(basePath, outPath):
+    '''
+    Get the sample input location for the final output scripts
+    '''
+    samps = [s[:-1] for s in glob.glob('{}/*.'.format(basePath))]
+    return ['{}{}/output/'.format(outPath, os.path.basename(s)) for s in samps]
+
+
+def mapping_stats(outPath, samples):
     '''
     Run mapping_stats.py on all the samples
     '''
     print "Calculating mapping statistics... "
-    generate_mapping_info.main(basePath, outPath)
+    print samples
+    generate_mapping_info.main(outPath, samples)
     print "DONE!\n"
 
 
-def length_distribution(basePath, outPath):
+def length_distribution(outPath, samples):
     '''
     Run lenDist.py on all the samples, with the --image flag
     '''
     print "Running length distribution script..."
-    lenDist.main(basePath, outPath)
+    lenDist.main(outPath, samples)
     print "DONE!\n"
 
 
-def RPMMandRPMMM(basePath, outPath, species):
+def RPMMandRPMMM(species, outPath, samples):
     '''
     Run RPMM and RPMMM on all the samples
     '''
     print "Generating normalized counts tables..."
-    genNormalRPMM.main(basePath, outPath, species)
-    genNormalRPMMM.main(basePath, outPath, species)
+    generate_normalized_counts.main(species, outPath, samples)
     print "DONE!\n"
        
 
 def main(basePath):
     cfg = load_mirquant_config_file('./bin/configuration/')
     outPath = create_output_folder(cfg['paths']['output'])
-    mapping_stats(basePath, outPath)
-    length_distribution(basePath, outPath)
-    RPMMandRPMMM(basePath, outPath, cfg['parameters']['species'])
+    samples = sample_input_location(basePath, cfg['paths']['output'])
+    mapping_stats(outPath, samples)
+    length_distribution(outPath, samples)
+    RPMMandRPMMM(cfg['parameters']['species'], outPath, samples)
 
 
 if __name__ == '__main__':

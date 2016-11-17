@@ -4,9 +4,12 @@ import sys
 import glob
 import os
 from bin.utils import load_mirquant_config_file, \
-                      sample_output_paths
+                      sample_output_paths, \
+                      return_sample_results_directories
 
-for sample in sys.argv[1:]:
+
+sample_res = return_sample_results_directories(sys.argv[1])
+for sample in sample_res:
     cfg = load_mirquant_config_file('./bin/configuration/')
     out_di = sample_output_paths(cfg['paths']['output'], os.path.basename(sample)[:-1])
     g1Res_path = '{}/IntermediateFiles/g1Results/'.format(sample)

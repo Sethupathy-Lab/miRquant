@@ -97,7 +97,7 @@ def write_bowtie_results_file(dirName, chr_str, output_li):
         fo.write('{}\n'.format('\n'.join(output_li)))
 
 
-def bowtie_chromosome_results(bowtie_res, hits, counts, windows):    
+def bowtie_chromosome_results(bowtie_res, hits, counts, windows, temp_d):    
     '''
     Checks for an overlap between the bowtie result and a window region.
     Adds all counts that fall within that window region.
@@ -107,7 +107,7 @@ def bowtie_chromosome_results(bowtie_res, hits, counts, windows):
     baseDirName = os.path.split(os.path.abspath(bowtie_res))[0]
     dirName = '{}/g1Results/'.format(baseDirName)
     os.system('mkdir -p {}'.format(dirName))
-    tname = 'temp_file.txt'
+    tname = '{}bowtie_postprocessing_temp.txt'.format(temp_d)
     for chr, loc in sorted(hits.iteritems()):
         readWin = bowtie_aln_overlapping_windows(loc, tname, windows)
         outArray = []
@@ -135,13 +135,12 @@ def bowtie_chromosome_results(bowtie_res, hits, counts, windows):
         
         logging.info("Total counts = {0:.2f}, after adding counts from {1}".format(c, chr))
         write_bowtie_results_file(dirName, chr, outArray)
-    os.system('rm {}'.format(tname))
 
 
-def main(windows, bowtie_res):
+def main(windows, bowtie_res, temp_d):
     logging.info('\n### Running bowtie post-processing ###')
     hits, counts = load_bowtie_hits(bowtie_res)
-    bowtie_chromosome_results(bowtie_res, hits, counts, windows)
+    bowtie_chromosome_results(bowtie_res, hits, counts, windows, temp_d)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -155,5 +154,9 @@ if __name__ == '__main__':
         'bowtie_results',
         action='store',
         help='Combined bowtie results (*allGS.bed)')
+    parser.add_argument(
+        'temp_dir',
+        action='store',
+        help='Define folder where temporary file will be saved')
     arg = parser.parse_args()
-    main(arg.windows, arg.bowtie_results)
+    main(arg.windows, arg.bowtie_results, arg.temp_dir)

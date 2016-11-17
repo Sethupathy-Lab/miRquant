@@ -22,13 +22,18 @@ from utils import check_input, \
                   load_mirquant_config_file
 
 
-def get_name_and_dir(file):
+def check_for_adapter_file(file):
     '''
-    Returns file name and location
+    Checks if adapter file exists for file, if it doesn't,
+    returns file name and location
     '''
+    logging.info('\n### Generating adapter file ###')
     dir = '{}/'.format(os.path.dirname(file))
     name = os.path.basename(file).replace('.fastq', '')
-    return dir, name
+    if os.path.isfile('{}{}.adaptor'.format(dir, name)):
+        logging.info('Existing adapter file to be used for {}'.format(name))
+        return 'null', 'null', False
+    return dir, name, True
 
 
 def validate_adapter(adapter):
@@ -112,8 +117,9 @@ def write_adapter_file(dirc, name, adapter):
 def main(file = sys.argv[1], log_dir = './'):
     check_input()
     cfg = load_mirquant_config_file()
-    dirc, name = get_name_and_dir(file)
-    check_for_barcode_file()
-    barcode = scan_fastq_for_barcode(file, name, log_dir)
-    adapter = create_adapter(barcode, cfg['cutadapt']['adapter'])
-    write_adapter_file(dirc, name, adapter)
+    dirc, name, need_adapt = check_for_adapter_file(file)
+    if need_adapt == True:
+        check_for_barcode_file()
+        barcode = scan_fastq_for_barcode(file, name, log_dir)
+        adapter = create_adapter(barcode, cfg['cutadapt']['adapter'])
+        write_adapter_file(dirc, name, adapter)

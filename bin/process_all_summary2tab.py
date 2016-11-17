@@ -14,7 +14,8 @@ import os
 import argparse
 import subprocess as sp
 from utils import check_input, \
-                  load_mirquant_config_file
+                  load_mirquant_config_file, \
+                  sample_output_paths
 
 
 def summary_to_tab(sum2tab, file, config_path):
@@ -58,13 +59,13 @@ def write_total_and_miR_mapped_to_stats(samp_path, samp_name, miRc, tRNAc):
         null = f.readline()
         count = f.readline().split('\t')[5]
 
-    with open('{}/{}stats'.format(samp_path, samp_name), 'a+') as fo:
+    with open('{}/{}.stats'.format(samp_path, samp_name), 'a+') as fo:
         fo.write('Mapped: {}\n'.format(count))
         fo.write('miRMapped: {}\n'.format(miRc))
         fo.write('tRNAMapped: {}\n'.format(int(tRNAc)))
         
 
-def run_summary2Tab_clust(cfg, spec, samples):
+def run_summary2Tab_clust(cfg, spec, sample):
     '''
     Takes the sample output directory as the input further processes
     the compiled results output by collectRes.py.  Moves the output
@@ -73,42 +74,49 @@ def run_summary2Tab_clust(cfg, spec, samples):
     sum2tab = '{}bin/summary2Tab_clust.py'.format(cfg['mirquant'])
     cfg_path = '{}bin/configuration/'.format(cfg['mirquant'])
     sum_file_path = '/IntermediateFiles/g1Results/'
-    for samp_path in samples:
-        samp_name = os.path.basename(samp_path)
-        out_di = sample_output_paths(cfg['paths']['output'], samp_name)
-        sum_dir = '{}{}'.format(samp_path, sum_file_path)
-        os.chdir(sum_dir)
-
-        summary_to_tab(sum2tab, 'lenDist_summary.txt', cfg_path)
-        summary_to_tab(sum2tab, '3p_summary.txt', cfg_path)
-        summary_to_tab(sum2tab, 'ed_summary.txt', cfg_path)
-
-        miRc = summary_3p_of_subtype(spec, 'miR')
-        tRNAc = summary_3p_of_subtype('tRNA', 'tRNA')
-
-        write_total_and_miR_mapped_to_stats(samp_path, samp_name, miRc, tRNAc)
-
-        os.system('mv TAB*.txt Shrimp_results.bed {}'.format(out_di['output']))
         
+    samp_name = os.path.basename(sample)[:-1]
+    sum_dir = '{}{}'.format(sample, sum_file_path)
+    os.chdir(sum_dir)
 
-def write_summary_table(samples):
+    summary_to_tab(sum2tab, 'lenDist_summary.txt', cfg_path)
+    summary_to_tab(sum2tab, '3p_summary.txt', cfg_path)
+    summary_to_tab(sum2tab, 'ed_summary.txt', cfg_path)
+
+    miRc = summary_3p_of_subtype(spec, 'miR')
+    tRNAc = summary_3p_of_subtype('tRNA', 'tRNA')
+
+    write_total_and_miR_mapped_to_stats(sample, samp_name, miRc, tRNAc)
+
+        
+def move_files_to_out_dir(out_di, sample, samp_name):
+    '''
+    Move files to sample output directory.
+    '''
+    os.system('mv TAB*.txt Shrimp_results.bed {}'.format(out_di['output']))
+    os.system('cp {}/{}.stats {}'.format(sample, samp_name, out_di['output']))
+
+
+def write_summary_table(sample):
     '''
     Prints out the stats for the run
     '''
-    Table, TKeys = {}, []
-    for samp_path in samples:
-        samp_name = os.path.basename(samp_path)
-        with open('{}/{}stats'.format(samp_path, samp_name), 'r') as f:
-            for l in f:
-                print l.rstrip()
+    samp_name = os.path.basename(sample)
+    with open('{}/{}stats'.format(sample, samp_name), 'r') as f:
+        for l in f:
+            print l.rstrip()
 
 
 def main(samples):
     os.chdir('./bin')
-    check_input()
     cfg = load_mirquant_config_file() 
-    run_summary2Tab_clust(cfg['paths'], cfg['parameters']['species'], samples)
-    write_summary_table(samples)
+    check_input()
+    for sample in samples:
+        samp_name = os.path.basename(sample[:-1])
+        out_di = sample_output_paths(cfg['paths']['output'], samp_name)
+        run_summary2Tab_clust(cfg['paths'], cfg['parameters']['species'], sample)
+        move_files_to_out_dir(out_di, sample, samp_name)
+        write_summary_table(sample)
 
 
 if __name__ == '__main__':
@@ -117,6 +125,6 @@ if __name__ == '__main__':
     parser.add_argument(
              'samples', 
              action='store', 
-             help='Path to where the sample output folders are located')
+             help='Path to where the sample output folder is located')
     arg = parser.parse_args()
-    main(arg.samples)
+    main(arg.sample)

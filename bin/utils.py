@@ -14,6 +14,51 @@ import sys
 import logging
 
 
+def check_input():
+    '''
+    Check whether there were arguments supplied to the script, otherwise
+    print the usage and exit
+    '''
+    if len(sys.argv) < 2:
+        print usage
+        sys.exit()
+
+
+def return_sample_results_directories(dir_):
+    '''
+    List content of directory and return directories ending in period (sample 
+    directories).
+    '''
+    return ['{}{}'.format(dir_, d) for d in os.listdir(dir_) if d[-1] == '.']
+
+
+def check_logging_level(level):
+    '''
+    Check to see how verbose the logging should be.
+    '''
+    if level == 'v':
+        return 'logging.WARNING'
+    elif level == 'vv':
+        return 'logging.INFO'
+    elif level == 'vvv':
+        return 'logging.DEBUG'
+    else:
+        print 'ERROR: Logging level not recognized'
+        print 'Use v for low ouput, vv for mid output, and vvv for high output'
+    sys.exit()
+
+
+def initiate_logging(log_path = './', log_name = 'log.txt', log_l = 'vvv'):
+    '''
+    Creates a logging file for standard out
+    '''
+    log_l = check_logging_level(log_l)
+    log_fi = '{}{}'.format(log_path, log_name)
+    logging.basicConfig(filename = log_fi, 
+                        format = '%(message)s',
+                        level=logging.DEBUG)
+
+
 def load_mirquant_config_file(config_path = './configuration/'):
     '''
     Load miRquant configuration file, which contains the various arguments,
@@ -23,6 +68,14 @@ def load_mirquant_config_file(config_path = './configuration/'):
     with open('{}conf_miRquant.yml'.format(config_path), 'r') as config_f:
         cfg = yaml.load(config_f)
     return cfg
+
+
+def sample_output_paths(out_path, sample):
+    '''
+    Sets up the output directories for the sample.
+    '''
+    out_dir = '{}{}'.format(out_path, sample)
+    return {l: '{}/{}/'.format(out_dir, l) for l in ['output', 'log', 'temp']}
 
 
 def resource_paths(species, paths, para):
@@ -49,42 +102,6 @@ def resource_paths(species, paths, para):
             log.ERROR('Generate this resource file before running miRquant')
             sys.exit()
     return [genome, table, tableL, tRNAlib, tRNAbed, tRNAbed12, refAnn, genBase]
-
-
-def check_input():
-    '''
-    Check whether there were arguments supplied to the script, otherwise
-    print the usage and exit
-    '''
-    if len(sys.argv) < 2:
-        print usage
-        sys.exit()
-
-
-def sample_output_paths(out_path, sample):
-    '''
-    Sets up the output directory for the sample.
-    '''
-    out_loc_di = {}
-    out_loc_di['name'] = sample
-    out_dir = '{}{}'.format(out_path, sample)
-    if not os.path.isdir(out_dir):
-        os.makedirs(out_dir)
-    for out_loc in ['output', 'log', 'temp']:
-        if not os.path.isdir('{}/{}'.format(out_dir, out_loc)):
-            os.makedirs('{}/{}'.format(out_dir, out_loc))
-        out_loc_di[out_loc] = '{}/{}/'.format(out_dir, out_loc)
-    return out_loc_di
-
-
-def initiate_logging(log_path = './', log_name = 'log.txt'):
-    '''
-    Creates a logging file for standard out
-    '''
-    log_fi = '{}{}'.format(log_path, log_name)
-    logging.basicConfig(filename = log_fi, 
-                        format = '%(message)s',
-                        level=logging.DEBUG)
 
 
 def ftoi(x):

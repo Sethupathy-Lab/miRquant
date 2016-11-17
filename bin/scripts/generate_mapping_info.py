@@ -25,9 +25,9 @@ def mapping_stats_dict(samples):
     '''
     out_di = {}
     for file in samples:
-        dir = dirname(file)
-        name = dir.split('/')[-1]
-        out_di[name] = {"File" : file}
+        name = os.path.splitext(os.path.basename(file))[0]
+        out_dir = '/'.join(file.split('/')[:-2])
+        out_di[name] = {"File" : out_dir}
         with open(file, 'r') as fi:
             for l in fi:
                 a, b = l.rstrip().split(":")
@@ -87,7 +87,7 @@ def write_mapping_file(out_di, out_dir, line_head_li):
     '''
     Writes the output dictionary to a file, called MappingInfoTable.csv
     '''
-    with open('{}/MappingInfoTable.csv'.format(out_dir), 'w') as f:
+    with open('{}/Mapping_Statistics.csv'.format(out_dir), 'w') as f:
         f.write('Sample_name,{}\n'.format(','.join(sorted(out_di))))
         for item in line_head_li:
             f.write('{}'.format(item[1]))
@@ -96,9 +96,8 @@ def write_mapping_file(out_di, out_dir, line_head_li):
             f.write('\n')
 
 
-def main(basePath, outPath):
-    samples = f_utils.get_sample_basePath(basePath)
-    samples = f_utils.set_path_to_files_basename(samples, '', 'stats')
+def main(outPath, samples):
+    samples = f_utils.set_path_to_files_glob(samples, 'stats')
     out_di = mapping_stats_dict(samples)
     out_di = calculate_additional_stats(out_di)
     line_head_li = output_line_headers()
@@ -110,12 +109,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
              description=usage)
     parser.add_argument(
-             'basePath', 
-             action='store', 
-             help='Path to where the sample output folders are located')
-    parser.add_argument(
              'outPath', 
              action='store', 
              help='Path to where the output file will be located')
+    parser.add_argument(
+             'samples', 
+             nargs = '+',
+             action='store', 
+             help='Path to where the sample output folders are located')
     arg = parser.parse_args()
-    main(arg.basePath, arg.outPath)
+    main(arg.outPath, arg.samples)

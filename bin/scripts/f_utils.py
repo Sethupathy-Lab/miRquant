@@ -61,3 +61,26 @@ def set_path_to_files_basename(basePaths, path_to_file, ext):
     if len([f for f in fastq_path if f]) == 0:
         print 'No files found, exiting script: {}'.format(sys.argv[0])
     return [path for path in fastq_path if path]
+
+
+def check_for_one_glob_file(s, term):
+    '''
+    Check to make sure there is only one file returned for each sample
+    '''
+    files = glob.glob('{}/*{}*'.format(s, term))
+    if len(files) == 1:
+        return files[0]
+    elif len(files) < 1:
+        print 'No files for {}'.format(os.path.basename(s))
+        sys.exit()
+    elif len(files) > 1:
+        print 'Too many files for {}'.format(os.path.basename(s))
+        print 'Should return 1, returned these: {}'.format(', '.join(files))
+        sys.exit()
+
+
+def set_path_to_files_glob(samples, term):
+    '''
+    Search directory for file and add to sample list.
+    '''
+    return [check_for_one_glob_file(s, term) for s in samples]

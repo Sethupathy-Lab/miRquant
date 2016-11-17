@@ -3,9 +3,6 @@
 export PATH=/proj/.test/roach/miRNA/bin:./:$PATH
 export PYTHONPATH=/proj/.test/roach/miRNA/lib/python/
 export PATH=$PATH:/proj/.test/roach/miRNA/SHRiMP_2_2_2/bin
-#export SHRIMP_FOLDER=/proj/.test/roach/miRNA/SHRiMP_2_2_2
-
-#export JB_GENOME_DIR=/proj/seth_lab/projects/genome/
 
 
 module unload bedtools

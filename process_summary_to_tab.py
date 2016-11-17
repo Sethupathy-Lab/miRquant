@@ -2,6 +2,9 @@
 
 import sys
 from bin import process_all_summary2tab
+from bin.utils import return_sample_results_directories
 
-process_all_summary2tab.main(sys.argv[1:])
+samples = return_sample_results_directories(sys.argv[1])
+
+process_all_summary2tab.main(samples)
 

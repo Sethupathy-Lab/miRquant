@@ -58,16 +58,21 @@ def define_input_varibles(para):
     return MINrna, GENOME
 
 
-def set_up_output_folder(fi):
+def set_up_output_folder(fi, out_path):
     '''
-    Get file name components and create IntermediateFiles directory
+    Get file name components and create IntermediateFiles directory and
+    output directories
     '''
-    dr = dirname(fi)
-    fi_name = basename(fi)
+    dr, fi_name = os.path.dirname(fi), os.path.basename(fi)
     fi_base, fi_ext = splitext(fi_name)
     dr_i = '{}/{}./IntermediateFiles'.format(dr, fi_base)
     if not os.path.isdir(dr_i):
         os.makedirs(dr_i)
+    out_dir = '{}{}'.format(out_path, fi_base)
+    if os.path.isdir(out_dir):
+        os.system('rm -r {}'.format(out_dir))
+    for out_loc in ['output', 'log', 'temp']:
+        os.makedirs('{}/{}'.format(out_dir, out_loc))
     return dr, dr_i, fi_base
 
 
@@ -275,9 +280,7 @@ def reduce_shrimp_res(temp_dir, dr_i):
         files = glob.glob('{}*SHRiMPwait.txt'.format(temp_dir))
         if len(files) == 0:
             logging.info('\nReducing SHRiMP size files to single file')
-            chr_dirs = glob.glob('{}/g1Results/CHR*/'.format(dr_i))
-            for chr in chr_dirs:
-                os.system('bsub python reduce_shrimp.py {}'.format(chr))
+            os.system('bsub python reduce_shrimp.py {}'.format(dr_i))
             break
         elif c >= (60 * 24):
             logging.warning('SHRiMP alignment did not finish correctly')
@@ -285,6 +288,7 @@ def reduce_shrimp_res(temp_dir, dr_i):
             sys.exit()
         elif c % 5 == 0:
             print '{} minutes elapsed'.format(c)
+            time.sleep(60)
         else:
             time.sleep(60)
         c += 1
@@ -294,7 +298,7 @@ def main(arg):
     os.chdir('./bin')
     check_input()
     cfg = load_mirquant_config_file()
-    dr, dr_i, fi_base = set_up_output_folder(arg.sample)
+    dr, dr_i, fi_base = set_up_output_folder(arg.sample, cfg['paths']['output'])
     out_di = sample_output_paths(cfg['paths']['output'], fi_base)
     initiate_logging(out_di['log'], 'chainSubmission.log')
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
@@ -311,7 +315,7 @@ def main(arg):
     window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA)
     mapping_statistics(arg.sample, lib, dr, fi_base)
     run_shrimp_alignment(MINrna, MAXrna, lib, out_di['log'], out_di['temp'])
-    bt_postProcEM.main('{}_merge.bed'.format(lib), '{}_allGS.bed'.format(lib))
+    bt_postProcEM.main('{}_merge.bed'.format(lib), '{}_allGS.bed'.format(lib), out_di['temp'])
     reduce_shrimp_res(out_di['temp'], dr_i)
 
 
