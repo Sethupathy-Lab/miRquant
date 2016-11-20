@@ -9,12 +9,12 @@ If you don’t already have a directory:
 $ mkdir /proj/seth_lab/users/ONYEN
 $ cd /proj/seth_lab/users/ONYEN
 $ module load git
-$ git clone https://github.com/Sethupathy-Lab/smRNA_pipeline.git
+$ git clone https://github.com/Sethupathy-Lab/miRquant_py.git
 ```
 
 Due to size constraints, the resources folder couldn't be hosted on github.  These can be generated using the scripts and commands in the resources folder, or pre-generated resource files can be obtained by emailing Matt.Kanke@gmail.com
 
-Now you will have a directory: `/proj/seth_lab/users/ONYEN/smRNA_pipeline`
+Now you will have a directory: `/proj/seth_lab/users/ONYEN/miRquant_py`
 Most code is run from this directory!
 
 
@@ -145,10 +145,10 @@ $ bsub python process_summary_to_tab.py path/to/MY_PROJECT_NAME/
 ```
 After run finishes, you should see:
 ```
-$ cd /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/
+$ cd path/to/MY_PROJECT_NAME/
 $ cat */*.stats
 
-file:/proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/FILE.fastq
+file:path/to/MY_PROJECT_NAME/FILE.fastq
 TotReads:6149484.00000000000000000000
 TrimmReads:3730081.00000000000000000000
 ShortReads:1938220.00000000000000000000
@@ -162,10 +162,6 @@ Mapped and miRMapped indicate the number of reads mapped to the genome and to mi
 
 The log file above will also contain a table that you can use to put together the mapping stats for your project.
 
-TCGA files have adapters already trimmed.
-There is no need to generate the adapter files in the previous section.
-All following steps remain the same, but use the chainSubmissionTCGA script.
-
 Outputs:
 For each Sample:
   TAB_3p_summary.txt       -   3'-end differences
@@ -175,7 +171,7 @@ For each Sample:
   Shrimp_results.bed       -   bed file containing all results
 
 ##Final processing
-Run the muliple final analyses by using this wrapper script.
+Run the muliple final analyses.
 ```
 $ module load python/2.7.6
 $ module load R
@@ -184,7 +180,6 @@ $ python final_processing.py path/to/MY_PROJECT_NAME/
 This will produce the mapping statistics, read length distribution, reads per million mapped, reads per million miRs mapped, and the Eucledian distances between the samples.
 
 These final outputs will be in the output folder specified in the configuration file, in a directory named year_month_day_miRquant_num, where the year, month, and day refer to the date and the num will correspond to how many times miRquant had been run on that day.
-
 
 The final processing scripts create single sheets to be assembled for the final excel report.
 
