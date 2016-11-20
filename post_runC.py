@@ -9,7 +9,7 @@ summary_li = ['3p_summary', '5p_summary', 'shift_summary', 'lenDist_summary', 'e
 sample_res = return_sample_results_directories(sys.argv[1])
 for sample in sample_res:
     print sample
-    g1_dir = '{}IntermediateFiles/g1Results/'.format(sample)
+    g1_dir = '{}/IntermediateFiles/g1Results/'.format(sample)
     try:
         os.makedirs('{}trash'.format(g1_dir))
     except OSError:
