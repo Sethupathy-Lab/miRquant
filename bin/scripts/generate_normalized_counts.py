@@ -114,7 +114,6 @@ def write_output(sample_dict, output_name, outPath):
 
 def main(species, outPath, samples):
     samples = f_utils.set_path_to_files_glob(samples, 'TAB_lenDist_summary.txt')
-    print samples
     datout, window, tot_c, mirs_dat, mirs, mirs_c = get_data_from_file(samples, species)
     all_wind = windows_to_norm_counts(datout, window, tot_c)
     mir_wind = windows_to_norm_counts(mirs_dat, mirs, mirs_c)

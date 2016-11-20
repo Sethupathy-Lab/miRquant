@@ -12,9 +12,9 @@ paths:
 # Location of necessary files
 parameters:
     genome_release:
-        rn4
+        mm9
     species:
-        rno
+        mmu
     Minimum Read Length:
         14
 # Load in options for cutAdapt
