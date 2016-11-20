@@ -90,40 +90,21 @@ shrimp:
         33   <- quality requirement for SHRiMP alignment
 ```
 
-####Double check your adapter files have generated correctly:
-```
-$ cat adapter.log
-```
-For each sample, you should see something like this output from the script:
-```
-Sample: SAMPLE.fastq
-
-Output saved as: /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/SAMPLE.adaptor
-
-Adaptor sequence: TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACGATCAGATCTCGTATGCCGTCTTCTGCTTG
-```
-
-Your adapter sequence should only include nucleotides, if it doesn't, try re-running the script and defining where the barcode is in the sample name.  The adapter files are saved in the same location as the sample fastq.
-
-ALTERNATLY: If not a TrueSeq library prep you need a file with the same name as the .fastq file with the extension .adaptor (note the spelling! There was originally two separate files .adapter and .adaptor, and I have never bothered to change the code.): The file must contain one line with the 3’ adapter for the prep used.
-
-
 ####Run the chain submission script:
-From the smallRNApipeline directory:
+From the miRquant directory:
 ```
 $ cd /proj/seth_lab/users/ONYEN/miRquant
 
-$ python miRquant.py /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/*.fastq
+$ python miRquant.py path/to/MY_PROJECT_NAME/*.fastq
 
 ```
-Review /proj/seth_lab/users/ONYEN/miRquant/example.README for an explanation of the inputs.
 
 Check that your jobs are running
 `$ bjobs`
 
 ####Once all jobs have finished ( “No unfinished jobs” message):
 This might take awhile depending on the number of samples run.
-Once the chain submission has finished, you can see if there were any errors in your logfile (chainSub.log in the command above).
+Once the chain submission has finished, you can see if there were any errors in your log files.  The log files will be located in the output folder specified in the configuration file in a directory of the sample name, in a logs directory.
 
 In your MY_PROJECT_NAME directory, there will be a directory for each FILENAME.fastq (called FILENAME.)
 
@@ -150,17 +131,17 @@ EMmiss = # of reads that fail to exactly align to genome
 ####Run the next stage to collect results:
 From your pipeline directory (/proj/seth_lab/users/ONYEN/miRquant):
 ```
-$ python runC.py /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/
+$ python runC.py path/to/MY_PROJECT_NAME/
 ```
 
 Once all of those jobs have finished running, run:
 ```
-$ python post_runC.py /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/
+$ python post_runC.py path/to/MY_PROJECT_NAME/
 ```
 
 ####Run the next stage to generate TAB separated files:
 ```
-$ bsub python process_summary_to_tab.py /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/
+$ bsub python process_summary_to_tab.py path/to/MY_PROJECT_NAME/
 ```
 After run finishes, you should see:
 ```
