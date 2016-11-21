@@ -12,10 +12,8 @@ $ module load git
 $ git clone https://github.com/Sethupathy-Lab/miRquant_py.git
 ```
 
-Due to size constraints, the resources folder couldn't be hosted on github.  These can be generated using the scripts and commands in the resources folder, or pre-generated resource files can be obtained by emailing Matt.Kanke@gmail.com
-
 Now you will have a directory: `/proj/seth_lab/users/ONYEN/miRquant_py`
-Most code is run from this directory!
+All of the code is run from this directory!
 
 
 ####Make a folder for your run in the smallRNA directory (/proj/seth_lab/projects/smallRNA/)
