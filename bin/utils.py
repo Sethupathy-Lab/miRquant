@@ -29,7 +29,7 @@ def return_sample_results_directories(dir_):
     List content of directory and return directories ending in period (sample 
     directories).
     '''
-    return ['{}{}'.format(dir_, d) for d in os.listdir(dir_) if d[-1] == '.']
+    return ['{}/{}'.format(dir_, d) for d in os.listdir(dir_) if d[-1] == '.']
 
 
 def check_logging_level(level):

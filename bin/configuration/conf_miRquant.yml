@@ -5,7 +5,7 @@ paths:
     mirquant:
         /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/
     output:
-        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/
+        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/lab_meeting_mirquant_output/
     resources:
         /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/bin/resources/
 
