@@ -552,9 +552,7 @@ def main():
     bt = '{}.results'.format(sys.argv[1])
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
     mir_file, TRNAfile = res_li[1], res_li[5]
-    print bt
     outDir = os.path.dirname(bt)
-    print outDir
     filesLib = glob.glob('{}/../*LIB.fa'.format(os.path.dirname(dirc)))[0] 
     print_run_info(dirc, bt, cfg['parameters']['species'], outDir, filesLib)
     btWins, EM = result_file_dict(bt, dirc)
@@ -563,11 +561,11 @@ def main():
 
     bedFile = [] 
     for res in sorted(btWins):
-        print res
         mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, mirs, outDir, mirquant_output)
 
     write_summary_to_log(counters)
     write_shrimp_results_bed(sys.argv[1], bedFile)
+    os.system('rm {}'.format(sys.argv[2])) 
 
 
 if __name__ == '__main__':
