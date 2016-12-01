@@ -28,11 +28,13 @@ import size_separate_reads
 import bt_postProcEM
 import reduce_shrimp
 import time
-from utils import check_input, \
-                  load_mirquant_config_file, \
+from utils import load_mirquant_config_file, \
+                  load_sys_config_file, \
+                  build_job, \
                   initiate_logging, \
                   resource_paths, \
-                  sample_output_paths
+                  sample_output_paths, \
+                  remove_if_exists
 
 
 def pipe_to_logger(cmd):
@@ -69,8 +71,7 @@ def set_up_output_folder(fi, out_path):
     if not os.path.isdir(dr_i):
         os.makedirs(dr_i)
     out_dir = '{}{}'.format(out_path, fi_base)
-    if os.path.isdir(out_dir):
-        os.system('rm -r {}'.format(out_dir))
+    remove_if_exists(out_dir)
     for out_loc in ['output', 'log', 'temp']:
         os.makedirs('{}/{}'.format(out_dir, out_loc))
     return dr, dr_i, fi_base
@@ -160,12 +161,10 @@ def combine_all_bowtie_results(minRNA, maxRNA, lib):
     Combine all bowtie results and re-format result line
     '''
     logging.info('Combining all bowtie hits...')
-    if os.path.isfile('{}_allGS.bed'.format(lib)):
-        os.system('rm {}_allGS.bed'.format(lib))
+    remove_if_exists('{}_allGS.bed'.format(lib))
     for length in range(minRNA, maxRNA + 1):
         OUTgs = '{}_allGS.bed'.format(lib)
         A1 = '{}_{}.hits'.format(lib, length)
-        B1 = '{}_{}.noHit'.format(lib, length)
         cmd = 'awk -v N={}-1 -F"\\t" \'{{print $3"\\t"$4"\\t"$4+N"\\t"$1" "$5" "$6"\\t1\\t"$2}}\' {} >> {}'.format(length, A1, OUTgs)
         os.system(cmd)
     return OUTgs
@@ -241,17 +240,8 @@ def mapping_statistics(ARG, lib, dr, fi_base):
         f.write('EMhits:{}\n'.format(align_reads))
         f.write('EMmiss:{}\n'.format(unalign_reads))
 
-#    fasta_char = 0
-#    with open('{}_LIB.fa'.format(lib), 'r') as f:
-#        for l in f:
-#            fasta_char += len(l.rstrip())
-#    windows = file_line_count('{}_merge.bed'.format(lib))
-#    loc = '{}/{}./IntermediateFiles/*.noHit'.format(dr, fi_base)
-#    for file in glob.glob(loc):
-#        unalign_reads += file_line_count(file) / 4
 
-
-def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir):
+def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir, job):
     '''
     Run shrimp and bowtie post-processing
     '''
@@ -264,30 +254,30 @@ def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir):
         shrimp_log_dir = '{}SHRiMP/{}/'.format(log_dir, length)
         if not os.path.isdir(shrimp_log_dir):
             os.makedirs(shrimp_log_dir)
-        shrimp_log = '{}Shrimp_sub_{}.log'.format(shrimp_log_dir, length)
-        cmd = 'bsub -o {} python shrimp_proc.py {} {}_LIB.fa {}_ {}'.format(
-                    shrimp_log, length, lib, lib, shrimp_log_dir)
-        logging.info('Shrimp submission: {}'.format(cmd))
+        cmd = '{} python shrimp_proc.py {} {}_LIB.fa {}_ {}'.format(
+                    job, length, lib, lib, shrimp_log_dir)
+        logging.info('SHRiMP submission: {}'.format(cmd))
         os.system(cmd)
 
 
-def reduce_shrimp_res(temp_dir, dr_i):
+def reduce_shrimp_res(temp_dir, dr_i, job):
     '''
     Check to see if jobs have finished running
     '''
     c = 0
+    logging.info('Waiting for SHRiMP to finish...')
     while True:
         files = glob.glob('{}*SHRiMPwait.txt'.format(temp_dir))
         if len(files) == 0:
             logging.info('\nReducing SHRiMP size files to single file')
-            os.system('bsub python reduce_shrimp.py {}'.format(dr_i))
+            os.system('{} python reduce_shrimp.py {}'.format(job, dr_i))
             break
         elif c >= (60 * 24):
-            logging.warning('SHRiMP alignment did not finish correctly')
-            logging.warning('Check logs and try running again')
+            logging.warning('SHRiMP alignment did not finish in alotted time')
+            logging.warning('Check logs and try running miRquant again')
             sys.exit()
         elif c % 5 == 0:
-            print '{} minutes elapsed'.format(c)
+            logging.info('{} minutes elapsed'.format(c))
             time.sleep(60)
         else:
             time.sleep(60)
@@ -296,8 +286,9 @@ def reduce_shrimp_res(temp_dir, dr_i):
 
 def main(arg):
     os.chdir('./bin')
-    check_input()
     cfg = load_mirquant_config_file()
+    scfg = load_sys_config_file()
+    job = build_job(scfg['job'])
     dr, dr_i, fi_base = set_up_output_folder(arg.sample, cfg['paths']['output'])
     out_di = sample_output_paths(cfg['paths']['output'], fi_base)
     initiate_logging(out_di['log'], 'chainSubmission.log')
@@ -314,14 +305,14 @@ def main(arg):
         bowtie(fi, length, BI, cfg['bowtie'])
     window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA)
     mapping_statistics(arg.sample, lib, dr, fi_base)
-    run_shrimp_alignment(MINrna, MAXrna, lib, out_di['log'], out_di['temp'])
+    run_shrimp_alignment(MINrna, MAXrna, lib, out_di['log'], out_di['temp'], job)
     bt_postProcEM.main('{}_merge.bed'.format(lib), '{}_allGS.bed'.format(lib), out_di['temp'])
-    reduce_shrimp_res(out_di['temp'], dr_i)
+    reduce_shrimp_res(out_di['temp'], dr_i, job)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-            description='''miRquant - analysis of small RNA sequencing data''',
+            description='''Wrapper for cutadapt, bowtie, window generation, and SHRiMP''',
             formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('sample',
                         action='store',

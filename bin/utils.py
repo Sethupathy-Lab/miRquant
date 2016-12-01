@@ -14,6 +14,14 @@ import sys
 import logging
 
 
+def remove_if_exists(path_):
+    '''
+    Check whether a file or directory exists, and if so, remove it
+    '''
+    if os.path.exists(path_):
+        os.system('rm -r {}'.format(path_))
+    
+
 def check_input():
     '''
     Check whether there were arguments supplied to the script, otherwise
@@ -65,9 +73,32 @@ def load_mirquant_config_file(config_path = './configuration/'):
     paths, and executable parameters supplied by the user.  File is in yaml
     format.
     '''
-    with open('{}conf_miRquant.yml'.format(config_path), 'r') as config_f:
+    with open('{}/conf_miRquant.yml'.format(config_path), 'r') as config_f:
         cfg = yaml.load(config_f)
     return cfg
+
+
+def load_sys_config_file(config_path = './configuration/'):
+    '''
+    Load miRquant configuration file, which contains the various arguments,
+    paths, and executable parameters supplied by the user.  File is in yaml
+    format.
+    '''
+    with open('{}/conf_system.yml'.format(config_path), 'r') as config_f:
+        cfg = yaml.load(config_f)
+    return cfg
+
+
+def build_job(di):
+    '''
+    Builds job command line from system configuration yaml di
+    '''
+    cmd = ''
+    for job in di:
+        cmd += '{} '.format(job)
+        for k, v in di[job].iteritems():
+            cmd += '{} {} '.format(k, v)
+    return cmd
 
 
 def sample_output_paths(out_path, sample):

@@ -65,12 +65,10 @@ def load_SHRiMP_res(shrimp_dir):
     tagCount = 0
     
     files = glob.glob('{}/*.out'.format(shrimp_dir))
-    print files
 
     hits = {}
     maps = {}
     perMatch = {}
-    print files
     for fi in files:
         with open(fi, 'r') as f:
             header = f.readline()

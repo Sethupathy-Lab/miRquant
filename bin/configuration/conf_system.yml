@@ -1,10 +1,10 @@
 # System configuration for submitting jobs
-lsf:
-    log: Log.txt
-    queue: week
-    memory: 16
+job:
+    bsub:
+        -q: week
 
-job_sub_threaded:
-    log: Log.txt
-    queue: week
-    memory: 16
+job_quick:
+    bsub:
+        -q: hour
+
+# This will be edited to fit your job scheduler (eg slurm, lsf, ect)

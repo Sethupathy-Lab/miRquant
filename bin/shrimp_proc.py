@@ -110,7 +110,6 @@ def shrimp_submission(pypath, shrimp_cfg, seedList, lib, shl_dir, reads):
     of the genome, and the alignment
     '''
     os.environ['SHRIMP_FOLDER'] = shrimp_cfg['path']
-    #print shrimpFolder
     shrimpFolder = shrimp_cfg['path']
     qual = shrimp_cfg['quality']
     pypath = ''

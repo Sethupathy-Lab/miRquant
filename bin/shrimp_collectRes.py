@@ -15,13 +15,12 @@ from utils import load_mirquant_config_file,\
 
 
 def print_run_info(dirc, bt, species, outDir, windows_fa):
-    print 'Run Info:'
-    print 'Chromosome # and path:', dirc
-    print 'Bowtie results file:', bt
-    print 'Species genome:', species 
-    print 'Output directory:', outDir
-    print 'Window fasta:', windows_fa
-    print
+    logging.info('Run Info:')
+    logging.info('Chromosome # and path: {}'.format(dirc))
+    logging.info('Bowtie results file: {}'.format(bt))
+    logging.info('Species genome: {}'.format(species))
+    logging.info('Output directory: {}'.format(outDir))
+    logging.info('Window fasta: {}\n'.format(windows_fa))
 
 
 def result_file_dict(bt, dirc):
@@ -69,12 +68,11 @@ def get_miR_info(mir_file):
             try:
                 ind = mHp.index(mSeq)
             except:
-                print 'Mature not in hairpin'
-                print mName
-                print 'Hairpin:', mHp
-                print 'Mature seq', mSeq
+                logging.warning('Mature not in hairpin')
+                logging.warning(mName)
+                logging.warning('Hairpin: {}'.format(mHp))
+                logging.warning('Mature seq {}\n'.format(mSeq))
                 ind = -1
-                print
             if mStr == "+":
                 loc = int(mSt) + ind - 1
             else:
@@ -240,7 +238,7 @@ def counts_over_thresh(mName, out_di, edits, lens, pCountArray, REFString, key, 
                         eName = '>'.join(map(str, [ed_loc, refN, edN]))
                                
                         if tRNAi[kkey] != 'NA':
-                            print '{}: {}: {},{}, {}: {}\t{}'.format(e, kkey, key, p, eName, tRNAi[kkey], REFString)
+                            logging.info('{}: {}: {},{}, {}: {}\t{}'.format(e, kkey, key, p, eName, tRNAi[kkey], REFString))
                         try:
                             out_di['E'][mName][eName] += countE # Add Pcount val
                         except KeyError:
@@ -271,9 +269,8 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
     countList = {}
     eCounts = {}
     
-    tmp = res
 # Replace +- with PM for splitting, extract information about window from file name
-    tmp = tmp.replace('(+)', ':P:')
+    tmp = res.replace('(+)', ':P:')
     tmp = tmp.replace('(-)', ':M:')
     tmp = tmp.replace('(R+)', ':RP:')
     tmp = tmp.replace('(R-)', ':RM:')
@@ -284,8 +281,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
     elif 'M' in STR:
         sSTR = STR.replace('M', '-')
     else:
-        print 'String direction now known for:', tmp
-
+        logging.warning('String direction now known for: {}'.format(tmp))
 
     filename = '{}/{}'.format(dirc, res)
     if os.path.isfile(filename): # Check is SHRiMP result
@@ -316,8 +312,6 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
             if lkey not in tRNAlu:
                 tRNAlist = windowBed_temp_file(dirc, line, TRNAfile, mirquant_output)
                 tRNAlu = set_tRNA_lookup_key(tRNAlist, lkey, tRNAlu, sSTR, STR)
-
-
 
 
             loc = int(cstart)
@@ -371,11 +365,11 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
             line = '{}\n'.format('\t'.join(map(str, [chrLC, pos, endPos, mir, 1, winStr])))
             bedline = '{}\n'.format('\t'.join(map(str, [chrLC, pos, endPos, 'Exact', EM[window][item], winStr])))
             bedFile.append([chrLC, pos, endPos, 'Exact', EM[window][item], winStr])
-# Ch    eck to see if window corresponds to a tRNA
+# Check to see if window corresponds to a tRNA
             tRNAlist = windowBed_temp_file(dirc, line, TRNAfile, mirquant_output)
             tName = 'NA'
 
-# Th    is checks to see if there was an output from windowBed above, will be it tRNA exists in window
+# This checks to see if there was an output from windowBed above, will be it tRNA exists in window
             if len(tRNAlist) > 0: # Check to see if the window overlaps with tRNA window
                 parts = tRNAlist.split('\t')
                 tlen = int(parts[8]) - int(parts[7])
@@ -388,7 +382,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                 tName = '_'.join(map(str, [parts[9], tst, ted, tlen, winStr]))
                 a = '{}:{}:{}'.format(a, b, winStr)
 
-# Ch    eck to see if read is a miRNA
+# Check to see if read is a miRNA
             for p in miRi['li'][CHR]:
                 if miRi['str'][CHR][p] == winStr:
                     d = abs(int(p) - int(pos))
@@ -409,8 +403,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                 counts[a] += EM[window][item]
                 countList[a] = ','.join(map(str, [countList[a], EM[window][item]]))
     except KeyError:
-        print 'NO WINDOW'
-        print window
+        pass
 # End part adding bowtie hits to list
 
 
@@ -485,13 +478,11 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                     offset = key_loc - int(mirL)
             mNameMir2 = mNameMir
             if offset != 0:
-                dist = abs(int(offset))
-                if offset < 0:
-                    direction = '-'
-                else:
-                    direction = '+'
-                if dist < 40:
-                    mNameMir2 = '{}_{}_{}'.format(mNameMir, direction, dist)
+                if abs(int(offset)) < 40:
+                    if offset < 0:
+                        mNameMir2 = '{}_-_{}'.format(mNameMir, abs(int(offset)))
+                    else:
+                        mNameMir2 = '{}_+_{}'.format(mNameMir, abs(int(offset)))
 
 
             mName = '{},{},{}'.format(mNameMir2, tRNAi[kkey], offset)
@@ -545,23 +536,25 @@ def write_summary_to_log(counters):
     '''
     Write how mand counts were included or discarded
     '''
-    print 'Total counts: {}'.format(counters['tot'])
-    print 'Total discard count: {}'.format(counters['tot_dis'])
-    print 'Counts over 10 threshold: {}'.format(counters['tot_over_thres'])
+    logging.info('Total counts: {}'.format(counters['tot']))
+    logging.info('Total discard count: {}'.format(counters['tot_dis']))
+    logging.info('Counts over 10 threshold: {}'.format(counters['tot_over_thres']))
     
 
 def main():
-    os.chdir('./bin')
+    os.chdir('./bin') 
     dirc = sys.argv[1]
     cfg = load_mirquant_config_file()
     name = os.path.basename(dirc.split('./IntermediateFiles/')[0])
     mirquant_output = sample_output_paths(cfg['paths']['output'], name)
     logName  = '{}_collectRes.log'.format(os.path.basename(dirc))
-    initiate_logging(mirquant_output['log'], logName)
+    initiate_logging('{}/collect_results_logs/'.format(mirquant_output['log']), logName)
     bt = '{}.results'.format(sys.argv[1])
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
     mir_file, TRNAfile = res_li[1], res_li[5]
+    print bt
     outDir = os.path.dirname(bt)
+    print outDir
     filesLib = glob.glob('{}/../*LIB.fa'.format(os.path.dirname(dirc)))[0] 
     print_run_info(dirc, bt, cfg['parameters']['species'], outDir, filesLib)
     btWins, EM = result_file_dict(bt, dirc)
@@ -570,6 +563,7 @@ def main():
 
     bedFile = [] 
     for res in sorted(btWins):
+        print res
         mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, mirs, outDir, mirquant_output)
 
     write_summary_to_log(counters)

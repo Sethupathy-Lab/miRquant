@@ -64,7 +64,6 @@ def mapping_stats(outPath, samples):
     Run mapping_stats.py on all the samples
     '''
     print "Calculating mapping statistics... "
-    print samples
     generate_mapping_info.main(outPath, samples)
     print "DONE!\n"
 

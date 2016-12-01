@@ -13,7 +13,6 @@ module unload python
 module load r/3.2.2
 module load bowtie/1.1.0
 module load bedtools/2.25.0
-module load bamtools/1.0.2
-module load perl/5.12.0
+#module load bamtools/1.0.2
+#module load perl/5.12.0
 module load python/2.7.6
-
