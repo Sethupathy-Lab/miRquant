@@ -4,11 +4,17 @@ import sys
 import glob
 import os
 import time
+import argparse
 from bin.utils import load_mirquant_config_file, \
                       load_sys_config_file, \
                       build_job, \
                       sample_output_paths, \
                       return_sample_results_directories
+
+usage = '''
+Collect the Bowtie and SHRiMP results, log internal edits and NTAs, and annotate
+'''
+
 
 def combine_result_files(sample, cfg, job, temp_fi):
     '''
@@ -20,18 +26,19 @@ def combine_result_files(sample, cfg, job, temp_fi):
     files = glob.glob('{}CHR*.results'.format(g1Res_path))
     log_loc = '{}collect_results_logs/'.format(out_di['log'])
     os.makedirs(log_loc)
-    for f in files:
+    for f in sorted(files):
+        print f
         chr_dir = f.replace('.results', '')
         temp_name = '{}_collectRes.temp'.format(os.path.basename(chr_dir))
         temp_path = '{}{}'.format(out_di['temp'], temp_name)
         with open(temp_path, 'w') as f:
             f.write('If not removed, error in shrimp_collectRes.py\n')
         temp_fi.append(temp_path)
-        os.system('{} python ./bin/shrimp_collectRes.py {} {}'.format(job, chr_dir, temp_name))
+        os.system('{} python ./bin/shrimp_collectRes.py {} {}'.format(job, chr_dir, temp_path))
     return temp_fi
 
 
-def combine_chromosome_result_files(sample_res, job):
+def combine_chromosome_results_files(sample_res, job):
     '''
     Combine the multiple, chromosomal result files for each of the summary
     files (seen in summary_li below) into a single result file.
@@ -41,6 +48,7 @@ def combine_chromosome_result_files(sample_res, job):
     for sample in sample_res:
         g1_dir = '{}/IntermediateFiles/g1Results/'.format(sample)
         os.makedirs('{}trash'.format(g1_dir))
+        os.system('{0} "cat {1}*_Shrimp_results.bed >> {1}Shrimp_results.bed"'.format(job, g1_dir))
         for summ in summary_li:
             summ_loc = '{}/{}'.format(g1_dir, summ)
             os.system('{0} "cat {1}/* >> {1}.txt; mv {1} {2}/trash"'.format(job, summ_loc, g1_dir))
@@ -52,6 +60,7 @@ def wait_for_collect_res(temp_fi, sample_res, job):
     the chromosomal results
     '''
     c = 0
+    print 'Waiting for results to be collected...'
     while True:
         if len(temp_fi) == 0:
             combine_chromosome_results_files(sample_res, job)
@@ -59,17 +68,31 @@ def wait_for_collect_res(temp_fi, sample_res, job):
         elif c >= (60 * 24):
             print 'Run failed, too long running'
         else:
-            temp_fi = [f for f in temp_fi if os.path.exists(f)]
             time.sleep(60) 
+            temp_fi = [f for f in temp_fi if os.path.exists(f)]
+            print temp_fi
         c += 1
 
 
-def main():
-    sample_res = return_sample_results_directories(sys.argv[1])
-    cfg = load_mirquant_config_file('./bin/configuration/')
-    scfg = load_sys_config_file('./bin/configuration/')
+def main(args):
+    sample_res = return_sample_results_directories(args.samples)
+    cfg = load_mirquant_config_file(args.conf)
+    scfg = load_sys_config_file(args.conf)
     job = build_job(scfg['job'])
     temp_fi = []
     for sample in sample_res:
         temp_fi = combine_result_files(sample, cfg, job, temp_fi)
     wait_for_collect_res(temp_fi, sample_res, job)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+            description=usage,
+            formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument('conf',
+                        action='store',
+                        help='Path to configuration directory')
+    parser.add_argument('samples',
+                        action='store',
+                        help='Path to project directory')
+    main(parser.parse_args())

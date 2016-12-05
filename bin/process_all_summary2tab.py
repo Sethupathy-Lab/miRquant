@@ -107,9 +107,9 @@ def write_summary_table(sample):
             print l.rstrip()
 
 
-def main(samples):
+def main(conf, samples):
     os.chdir('./bin')
-    cfg = load_mirquant_config_file() 
+    cfg = load_mirquant_config_file(conf) 
     check_input()
     for sample in samples:
         samp_name = os.path.basename(sample[:-1])
@@ -123,8 +123,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
              description=usage)
     parser.add_argument(
+            'conf',
+            action='store',
+            help='Path to configuration directory')
+    parser.add_argument(
              'samples', 
              action='store', 
              help='Path to where the sample output folder is located')
     arg = parser.parse_args()
-    main(arg.sample)
+    main(arg.conf, arg.samples)

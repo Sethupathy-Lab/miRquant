@@ -286,8 +286,8 @@ def reduce_shrimp_res(temp_dir, dr_i, job):
 
 def main(arg):
     os.chdir('./bin')
-    cfg = load_mirquant_config_file()
-    scfg = load_sys_config_file()
+    cfg = load_mirquant_config_file(arg.conf)
+    scfg = load_sys_config_file(arg.conf)
     job = build_job(scfg['job'])
     dr, dr_i, fi_base = set_up_output_folder(arg.sample, cfg['paths']['output'])
     out_di = sample_output_paths(cfg['paths']['output'], fi_base)
@@ -314,6 +314,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
             description='''Wrapper for cutadapt, bowtie, window generation, and SHRiMP''',
             formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument('conf',
+                        action='store',
+                        help='Path to configuration directory')
     parser.add_argument('sample',
                         action='store',
                         help='Path to sample fastq')

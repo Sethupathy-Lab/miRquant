@@ -28,7 +28,7 @@ def main(args):
     job = build_job(scfg['job'])
     for sample in args.samples:
         print 'Running for sample: {}'.format(sample)
-        os.system('{} python ./bin/chainSubmission.py {}'.format(job, sample))
+        os.system('{} python ./bin/chainSubmission.py {} {}'.format(job, args.conf, sample))
 
 
 if __name__ == '__main__':

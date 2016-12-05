@@ -123,6 +123,9 @@ def write_output_file(outDir, res, name, e_di, sum, exMat):
                 item = '{}:{}'.format(edit, ftoi(v[edit]))
                 f.write('\t{}'.format(item))
             f.write('\n')
+    with open(fname, 'r') as f:
+        logging.info(fname)
+        logging.info(f.read())
 
 
 def open_shrimp_file(filename, eCounts):
@@ -341,8 +344,6 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                 tRNAi[loc] = tName
     
 
-
-
 # Add bowtie hits to lists; EM dict contain exact matches from bowtie
     window = res.split('.')[0]
     try:
@@ -363,8 +364,8 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
 
             chrLC = CHR.replace('CHR', 'chr')
             line = '{}\n'.format('\t'.join(map(str, [chrLC, pos, endPos, mir, 1, winStr])))
-            bedline = '{}\n'.format('\t'.join(map(str, [chrLC, pos, endPos, 'Exact', EM[window][item], winStr])))
             bedFile.append([chrLC, pos, endPos, 'Exact', EM[window][item], winStr])
+
 # Check to see if window corresponds to a tRNA
             tRNAlist = windowBed_temp_file(dirc, line, TRNAfile, mirquant_output)
             tName = 'NA'
@@ -383,6 +384,8 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                 a = '{}:{}:{}'.format(a, b, winStr)
 
 # Check to see if read is a miRNA
+            if CHR not in miRi['li']:
+                miRi['li'] = {CHR : []}
             for p in miRi['li'][CHR]:
                 if miRi['str'][CHR][p] == winStr:
                     d = abs(int(p) - int(pos))
@@ -403,6 +406,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                 counts[a] += EM[window][item]
                 countList[a] = ','.join(map(str, [countList[a], EM[window][item]]))
     except KeyError:
+        print window
         pass
 # End part adding bowtie hits to list
 
@@ -412,7 +416,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
     keys = sorted(counts)
 # If there is a bowtie hit, there will be window, if there is window, get sequence of window
     if len(keys) > 0:
-        filesLib = glob.glob('{}/../../*LIB.fa'.format(dirc))[0]
+        filesLib = glob.glob('{}/../*LIB.fa'.format(os.path.dirname(dirc)))[0]
         searchName = res.split('.')[0]
         cmd = 'grep -A1 "{}" {}'.format(searchName, filesLib)
         grepResults = sp.Popen(cmd, stdout=sp.PIPE, shell = True).communicate()[0]
@@ -445,7 +449,8 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
             if tRNAi[kkey] != 'NA':
                 mNameMir = tRNAi[kkey]
 
-
+            if CHR not in miRi['li']:
+                miRi['li'] = {CHR : []}
             for p in sorted(miRi['li'][CHR]):
                 if STR == 'P':
                     winStr = '+'
@@ -561,7 +566,7 @@ def main():
 
     bedFile = [] 
     for res in sorted(btWins):
-        mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, mirs, outDir, mirquant_output)
+        bedFile, counters = mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, mirs, outDir, mirquant_output)
 
     write_summary_to_log(counters)
     write_shrimp_results_bed(sys.argv[1], bedFile)
