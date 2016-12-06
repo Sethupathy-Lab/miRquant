@@ -142,8 +142,8 @@ def shrimp_submission(pypath, shrimp_cfg, seedList, lib, shl_dir, reads):
         os.system(cmd)
     
 
-def main(size, lib, base, log_dir):
-    cfg = load_mirquant_config_file()
+def main(size, lib, base, conf, log_dir):
+    cfg = load_mirquant_config_file(conf)
     initiate_logging(log_dir, 'SHRiMP_{}.log'.format(size))
 
     reads = '{}{}.noHit'.format(base, size)
@@ -169,6 +169,9 @@ if __name__ == '__main__':
     parser.add_argument('base',
                         action='store',
                         help='Basename for outputs')
+    parser.add_argument('conf',
+                        action='store',
+                        help='Path to configuration directory')
     parser.add_argument('log_dir',
                         action='store',
                         help='Location of log outputs')

@@ -262,7 +262,7 @@ def counts_over_thresh(mName, out_di, edits, lens, pCountArray, REFString, key, 
 
 
 def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant_output):
-# Create all these dicts for each window
+    # Create all these dicts for each window
     maps = {}
     ExMat = {} 
     mirs = {}             
@@ -272,7 +272,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
     countList = {}
     eCounts = {}
     
-# Replace +- with PM for splitting, extract information about window from file name
+    # Replace +- with PM for splitting, extract information about window from file name
     tmp = res.replace('(+)', ':P:')
     tmp = tmp.replace('(-)', ':M:')
     tmp = tmp.replace('(R+)', ':RP:')
@@ -295,7 +295,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
             window, strand, cstart, cend, rstart, rend, rlen, score, estr, mir = readkey.split('\t')
             pcount = eCounts[readkey]
 
-# Combine results file name info and line info into bed line for bedfile output
+    # Combine results file name info and line info into bed line for bedfile output
             if 'M' in STR:
                 genSTART = int(STOP) - int(cend)
                 genEND = int(STOP) - int(cstart) + 1
@@ -308,10 +308,10 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
             chrLC = re.sub('CHR', 'chr', chrLC)
             bedFile.append([chrLC, genSTART, genEND, estr, pcount, strSYM])
             line = '\t'.join(map(str, [chrLC, genSTART, genEND, mir, pcount, strSYM]))
-# lkey = location key (start end strand) within window
+    # lkey = location key (start end strand) within window
             lkey = '{}-{}-{}'.format(cstart, cend, STR)
 
-# Check to see if result is a tRNA; put in look up table if so, else set as NA
+    # Check to see if result is a tRNA; put in look up table if so, else set as NA
             if lkey not in tRNAlu:
                 tRNAlist = windowBed_temp_file(dirc, line, TRNAfile, mirquant_output)
                 tRNAlu = set_tRNA_lookup_key(tRNAlist, lkey, tRNAlu, sSTR, STR)
@@ -344,7 +344,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                 tRNAi[loc] = tName
     
 
-# Add bowtie hits to lists; EM dict contain exact matches from bowtie
+    # Add bowtie hits to lists; EM dict contain exact matches from bowtie
     window = res.split('.')[0]
     try:
         for item in EM[window]:
@@ -366,11 +366,11 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
             line = '{}\n'.format('\t'.join(map(str, [chrLC, pos, endPos, mir, 1, winStr])))
             bedFile.append([chrLC, pos, endPos, 'Exact', EM[window][item], winStr])
 
-# Check to see if window corresponds to a tRNA
+    # Check to see if window corresponds to a tRNA
             tRNAlist = windowBed_temp_file(dirc, line, TRNAfile, mirquant_output)
             tName = 'NA'
 
-# This checks to see if there was an output from windowBed above, will be it tRNA exists in window
+    # This checks to see if there was an output from windowBed above, will be it tRNA exists in window
             if len(tRNAlist) > 0: # Check to see if the window overlaps with tRNA window
                 parts = tRNAlist.split('\t')
                 tlen = int(parts[8]) - int(parts[7])
@@ -383,7 +383,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                 tName = '_'.join(map(str, [parts[9], tst, ted, tlen, winStr]))
                 a = '{}:{}:{}'.format(a, b, winStr)
 
-# Check to see if read is a miRNA
+    # Check to see if read is a miRNA
             if CHR not in miRi['li']:
                 miRi['li'] = {CHR : []}
             for p in miRi['li'][CHR]:
@@ -408,13 +408,13 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
     except KeyError:
         print window
         pass
-# End part adding bowtie hits to list
+    # End part adding bowtie hits to list
 
 
-# Sort hit locations by count values... Process each potential hit from max
-# Cluster all hits around max and mark as visited
+    # Sort hit locations by count values... Process each potential hit from max
+    # Cluster all hits around max and mark as visited
     keys = sorted(counts)
-# If there is a bowtie hit, there will be window, if there is window, get sequence of window
+    # If there is a bowtie hit, there will be window, if there is window, get sequence of window
     if len(keys) > 0:
         filesLib = glob.glob('{}/../*LIB.fa'.format(os.path.dirname(dirc)))[0]
         searchName = res.split('.')[0]
@@ -434,7 +434,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
 
         counters['tot'] += counts[kkey]
 
-# kkey is the offset in the window
+    # kkey is the offset in the window
         if kkey not in visited:
             visited[kkey] = 1
             offset = 'NA'
@@ -458,7 +458,7 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                 else:
                     winStr = '-'
                     dS = int(p) - key_loc
-# Assign miRNA name
+    # Assign miRNA name
                 if miRi['str'][CHR][p] == winStr:
                     d = abs(int(p) - key_loc)
                     if minDistance == 'NA':
@@ -549,7 +549,7 @@ def write_summary_to_log(counters):
 def main():
     os.chdir('./bin') 
     dirc = sys.argv[1]
-    cfg = load_mirquant_config_file()
+    cfg = load_mirquant_config_file(sys.argv[3])
     name = os.path.basename(dirc.split('./IntermediateFiles/')[0])
     mirquant_output = sample_output_paths(cfg['paths']['output'], name)
     logName  = '{}_collectRes.log'.format(os.path.basename(dirc))

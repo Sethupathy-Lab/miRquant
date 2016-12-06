@@ -243,12 +243,11 @@ def remove_temp_file(readSize, tempDir):
     os.system('rm {}{}_SHRiMPwait.txt'.format(tempDir, readSize))
 
 
-def main(mirquant_dir, shrimp_dir):
+def main(conf, shrimp_dir):
     check_input()
-    cfg = load_mirquant_config_file('{}/configuration/'.format(mirquant_dir))
+    cfg = load_mirquant_config_file('{}/configuration/'.format(conf))
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
     sample = os.path.basename(shrimp_dir.split('./IntermediateFiles/')[0])
-    print sample
     out_di = sample_output_paths(cfg['paths']['output'], sample) 
     logging.info('\n\n### Processing SHRiMP results ###\n')
     mir_fi = res_li[1]
@@ -264,11 +263,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
             description=usage,
             formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('mirquant_dir',
+    parser.add_argument('conf',
                         action='store',
-                        help='Path to miRquant bin directory')
+                        help='Path to configuration directory')
     parser.add_argument('shrimp_dir',
                         action='store',
                         help='Path to readSize folder with SHRiMP results')
     arg =parser.parse_args()
-    main(arg.mirquant_dir, arg.shrimp_dir)
+    main(arg.conf, arg.shrimp_dir)

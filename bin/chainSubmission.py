@@ -241,7 +241,7 @@ def mapping_statistics(ARG, lib, dr, fi_base):
         f.write('EMmiss:{}\n'.format(unalign_reads))
 
 
-def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir, job):
+def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir, job, conf):
     '''
     Run shrimp and bowtie post-processing
     '''
@@ -254,8 +254,8 @@ def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir, job):
         shrimp_log_dir = '{}SHRiMP/{}/'.format(log_dir, length)
         if not os.path.isdir(shrimp_log_dir):
             os.makedirs(shrimp_log_dir)
-        cmd = '{} python shrimp_proc.py {} {}_LIB.fa {}_ {}'.format(
-                    job, length, lib, lib, shrimp_log_dir)
+        cmd = '{} python shrimp_proc.py {} {}_LIB.fa {}_ {} {}'.format(
+                    job, length, lib, lib, conf, shrimp_log_dir)
         logging.info('SHRiMP submission: {}'.format(cmd))
         os.system(cmd)
 
@@ -305,7 +305,7 @@ def main(arg):
         bowtie(fi, length, BI, cfg['bowtie'])
     window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA)
     mapping_statistics(arg.sample, lib, dr, fi_base)
-    run_shrimp_alignment(MINrna, MAXrna, lib, out_di['log'], out_di['temp'], job)
+    run_shrimp_alignment(MINrna, MAXrna, lib, out_di['log'], out_di['temp'], job, arg.conf)
     bt_postProcEM.main('{}_merge.bed'.format(lib), '{}_allGS.bed'.format(lib), out_di['temp'])
     reduce_shrimp_res(out_di['temp'], dr_i, job)
 

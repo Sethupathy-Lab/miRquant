@@ -16,7 +16,7 @@ Collect the Bowtie and SHRiMP results, log internal edits and NTAs, and annotate
 '''
 
 
-def combine_result_files(sample, cfg, job, temp_fi):
+def combine_result_files(sample, cfg, job, temp_fi, conf):
     '''
     Submits the shrimp_collectRes script, which collects the results from
     both bowtie and SHRiMP and annotates the various edits.
@@ -34,7 +34,7 @@ def combine_result_files(sample, cfg, job, temp_fi):
         with open(temp_path, 'w') as f:
             f.write('If not removed, error in shrimp_collectRes.py\n')
         temp_fi.append(temp_path)
-        os.system('{} python ./bin/shrimp_collectRes.py {} {}'.format(job, chr_dir, temp_path))
+        os.system('{} python ./bin/shrimp_collectRes.py {} {} {}'.format(job, chr_dir, temp_path, conf))
     return temp_fi
 
 
@@ -81,7 +81,7 @@ def main(args):
     job = build_job(scfg['job'])
     temp_fi = []
     for sample in sample_res:
-        temp_fi = combine_result_files(sample, cfg, job, temp_fi)
+        temp_fi = combine_result_files(sample, cfg, job, temp_fi, conf)
     wait_for_collect_res(temp_fi, sample_res, job)
 
 
