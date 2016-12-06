@@ -13,9 +13,9 @@ import sys
 import os
 import argparse
 import subprocess as sp
-from utils import check_input, \
-                  load_mirquant_config_file, \
-                  sample_output_paths
+from utils import load_mirquant_config_file, \
+                  sample_output_paths, \
+                  return_sample_results_directories
 
 
 def summary_to_tab(sum2tab, file, config_path):
@@ -50,7 +50,7 @@ def summary_3p_of_subtype(term, fi_term):
     return count
 
 
-def write_total_and_miR_mapped_to_stats(samp_path, samp_name, miRc, tRNAc):
+def write_total_and_miR_mapped_to_stats(samp_path, samp_name, miRc, tRNAc, yRNAc):
     '''
     Opens the miR TAB_3p_summary file and sums all of the counts to get
     total number of miRs mapped
@@ -63,6 +63,7 @@ def write_total_and_miR_mapped_to_stats(samp_path, samp_name, miRc, tRNAc):
         fo.write('Mapped: {}\n'.format(count))
         fo.write('miRMapped: {}\n'.format(miRc))
         fo.write('tRNAMapped: {}\n'.format(int(tRNAc)))
+        fo.write('yRNAMapped: {}\n'.format(int(yRNAc)))
         
 
 def run_summary2Tab_clust(cfg, spec, sample, conf):
@@ -84,8 +85,9 @@ def run_summary2Tab_clust(cfg, spec, sample, conf):
 
     miRc = summary_3p_of_subtype(spec, 'miR')
     tRNAc = summary_3p_of_subtype('tRNA', 'tRNA')
+    yRNAc = summary_3p_of_subtype('yRNA', 'yRNA')
 
-    write_total_and_miR_mapped_to_stats(sample, samp_name, miRc, tRNAc)
+    write_total_and_miR_mapped_to_stats(sample, samp_name, miRc, tRNAc, yRNAc)
 
         
 def move_files_to_out_dir(out_di, sample, samp_name):
@@ -106,10 +108,10 @@ def write_summary_table(sample):
             print l.rstrip()
 
 
-def main(conf, samples):
+def main(conf):
     os.chdir('./bin')
     cfg = load_mirquant_config_file(conf) 
-    check_input()
+    samples = return_sample_results_directories(cfg['paths']['project'])
     for sample in samples:
         samp_name = os.path.basename(sample[:-1])
         out_di = sample_output_paths(cfg['paths']['output'], samp_name)
@@ -125,9 +127,5 @@ if __name__ == '__main__':
             'conf',
             action='store',
             help='Path to configuration directory')
-    parser.add_argument(
-             'samples', 
-             action='store', 
-             help='Path to where the sample output folder is located')
     arg = parser.parse_args()
-    main(arg.conf, arg.samples)
+    main(arg.conf)

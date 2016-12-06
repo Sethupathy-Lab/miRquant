@@ -3,7 +3,9 @@
 import os
 import sys
 import argparse
-from bin.utils import load_sys_config_file, \
+import glob
+from bin.utils import load_mirquant_config_file, \
+                      load_sys_config_file, \
                       build_job
 
 
@@ -22,11 +24,23 @@ def check_config_path(conf_path):
         sys.exit()
 
 
+def get_fastqs(proj_dir):
+    '''
+    Get all files ending in .fastq or .fq and passes fastq to miRquant
+    '''
+    fqs = []
+    for type in ['*.fq', '*.fastq']:
+        fqs.extend(glob.glob('{}/{}'.format(proj_dir, type)))
+    return fqs
+
+
 def main(args):
     check_config_path(args.conf)
+    cfg = load_mirquant_config_file(args.conf)
     scfg = load_sys_config_file(args.conf)
     job = build_job(scfg['job'])
-    for sample in args.samples:
+    fastqs = get_fastqs(cfg['paths']['project'])
+    for sample in fastqs:
         print 'Running for sample: {}'.format(sample)
         os.system('{} python ./bin/chainSubmission.py {} {}'.format(job, args.conf, sample))
 
@@ -38,8 +52,4 @@ if __name__ == '__main__':
     parser.add_argument('conf',
                         action='store',
                         help='Path to configuration directory')
-    parser.add_argument('samples',
-                        nargs='*',
-                        action='store',
-                        help='Path to samples')
     main(parser.parse_args())

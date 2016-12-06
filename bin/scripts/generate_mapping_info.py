@@ -51,6 +51,7 @@ def calculate_additional_stats(out_di):
         map_r = float(out_di[name]["Mapped"])
         miRmap_r = float(out_di[name]["miRMapped"])
         tRNAmap_r = float(out_di[name]["tRNAMapped"])
+        yRNAmap_r = float(out_di[name]["yRNAMapped"])
         out_di[name]["TrimReadPer"] = "{0:.2f}".format(trim_r / tot_r * 100)
         out_di[name]["ShortReadPer"] = "{0:.2f}".format(short_r / tot_r * 100)
         out_di[name]["EMReadPer"] = "{0:.2f}".format(EM_r / trim_r * 100)
@@ -58,6 +59,7 @@ def calculate_additional_stats(out_di):
         out_di[name]["MapReadPer"] = "{0:.2f}".format(map_r / trim_r * 100)
         out_di[name]["miRMapPer"] = "{0:.2f}".format(miRmap_r / map_r * 100)
         out_di[name]["tRNAMapPer"] = "{0:.2f}".format(tRNAmap_r / map_r * 100)
+        out_di[name]["yRNAMapPer"] = "{0:.2f}".format(yRNAmap_r / map_r * 100)
     return out_di
 
 
@@ -80,7 +82,9 @@ def output_line_headers():
             ["miRMapped","miR Mapped Reads"],
             ["miRMapPer","Percent miR Mapped"],
             ["tRNAMapped","tRNA Mapped Reads"],
-            ["tRNAMapPer","Percent tRNA Mapped"]]
+            ["tRNAMapPer","Percent tRNA Mapped"],
+            ["yRNAMapped","yRNA Mapped Reads"],
+            ["yRNAMapPer","Percent yRNA Mapped"]]
         
         
 def write_mapping_file(out_di, out_dir, line_head_li):

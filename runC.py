@@ -75,10 +75,10 @@ def wait_for_collect_res(temp_fi, sample_res, job):
 
 
 def main(args):
-    sample_res = return_sample_results_directories(args.samples)
     cfg = load_mirquant_config_file(args.conf)
     scfg = load_sys_config_file(args.conf)
     job = build_job(scfg['job'])
+    sample_res = return_sample_results_directories(cfg['paths']['project'])
     temp_fi = []
     for sample in sample_res:
         temp_fi = combine_result_files(sample, cfg, job, temp_fi, args.conf)
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     parser.add_argument('conf',
                         action='store',
                         help='Path to configuration directory')
-    parser.add_argument('samples',
-                        action='store',
-                        help='Path to project directory')
+#    parser.add_argument('samples',
+#                        action='store',
+#                        help='Path to project directory')
     main(parser.parse_args())
