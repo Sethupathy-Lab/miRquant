@@ -65,23 +65,22 @@ def write_total_and_miR_mapped_to_stats(samp_path, samp_name, miRc, tRNAc):
         fo.write('tRNAMapped: {}\n'.format(int(tRNAc)))
         
 
-def run_summary2Tab_clust(cfg, spec, sample):
+def run_summary2Tab_clust(cfg, spec, sample, conf):
     '''
     Takes the sample output directory as the input further processes
     the compiled results output by collectRes.py.  Moves the output
     to the top level of the sample output directory
     '''
     sum2tab = '{}bin/summary2Tab_clust.py'.format(cfg['mirquant'])
-    cfg_path = '{}bin/configuration/'.format(cfg['mirquant'])
     sum_file_path = '/IntermediateFiles/g1Results/'
         
     samp_name = os.path.basename(sample)[:-1]
     sum_dir = '{}{}'.format(sample, sum_file_path)
     os.chdir(sum_dir)
 
-    summary_to_tab(sum2tab, 'lenDist_summary.txt', cfg_path)
-    summary_to_tab(sum2tab, '3p_summary.txt', cfg_path)
-    summary_to_tab(sum2tab, 'ed_summary.txt', cfg_path)
+    summary_to_tab(sum2tab, 'lenDist_summary.txt', conf)
+    summary_to_tab(sum2tab, '3p_summary.txt', conf)
+    summary_to_tab(sum2tab, 'ed_summary.txt', conf)
 
     miRc = summary_3p_of_subtype(spec, 'miR')
     tRNAc = summary_3p_of_subtype('tRNA', 'tRNA')
@@ -114,7 +113,7 @@ def main(conf, samples):
     for sample in samples:
         samp_name = os.path.basename(sample[:-1])
         out_di = sample_output_paths(cfg['paths']['output'], samp_name)
-        run_summary2Tab_clust(cfg['paths'], cfg['parameters']['species'], sample)
+        run_summary2Tab_clust(cfg['paths'], cfg['parameters']['species'], sample, conf)
         move_files_to_out_dir(out_di, sample, samp_name)
         write_summary_table(sample)
 

@@ -152,7 +152,7 @@ def main(size, lib, base, conf, log_dir):
     make_out_dir(lib, size)
     seedList = make_base_seed(size)
     group_Name = shrimp_submission('pypath', cfg['shrimp'], seedList, lib, log_dir, reads)
-    shrimp_postProcGS.main(working_dir, os.getcwd())
+    shrimp_postProcGS.main(conf, os.getcwd())
 
 
 if __name__ == '__main__':
@@ -176,4 +176,4 @@ if __name__ == '__main__':
                         action='store',
                         help='Location of log outputs')
     arg =parser.parse_args()
-    main(arg.size, arg.lib, arg.base, arg.log_dir)
+    main(arg.size, arg.lib, arg.base, arg.conf, arg.log_dir)

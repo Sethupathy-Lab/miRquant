@@ -81,7 +81,7 @@ def main(args):
     job = build_job(scfg['job'])
     temp_fi = []
     for sample in sample_res:
-        temp_fi = combine_result_files(sample, cfg, job, temp_fi, conf)
+        temp_fi = combine_result_files(sample, cfg, job, temp_fi, args.conf)
     wait_for_collect_res(temp_fi, sample_res, job)
 
 

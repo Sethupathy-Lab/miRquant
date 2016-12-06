@@ -245,7 +245,7 @@ def remove_temp_file(readSize, tempDir):
 
 def main(conf, shrimp_dir):
     check_input()
-    cfg = load_mirquant_config_file('{}/configuration/'.format(conf))
+    cfg = load_mirquant_config_file(conf)
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
     sample = os.path.basename(shrimp_dir.split('./IntermediateFiles/')[0])
     out_di = sample_output_paths(cfg['paths']['output'], sample) 

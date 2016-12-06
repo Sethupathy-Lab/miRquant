@@ -86,8 +86,8 @@ def RPMMandRPMMM(species, outPath, samples):
     print "DONE!\n"
        
 
-def main(basePath):
-    cfg = load_mirquant_config_file('./bin/configuration/')
+def main(conf, basePath):
+    cfg = load_mirquant_config_file(conf)
     outPath = create_output_folder(cfg['paths']['output'])
     samples = sample_input_location(basePath, cfg['paths']['output'])
     mapping_stats(outPath, samples)
@@ -100,8 +100,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
              description='Runs all the final summary scripts')
     parser.add_argument(
+            'conf',
+            action='store',
+            help='Path to configuration directory')
+    parser.add_argument(
              'basePath', 
              action='store', 
              help='Path to where the sample output folders are located')
     arg = parser.parse_args()
-    main(arg.basePath)
+    main(arg.conf, arg.basePath)

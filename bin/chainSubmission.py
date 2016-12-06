@@ -187,11 +187,12 @@ def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
     logging.info('slopBed...')
     os.system('slopBed -b 0 -i {} -g {}.chromSizes >> {}'.format(
         OUTgs, BI, OUTgse))
+
     os.system('awk -F"\\t" \'{{print $1"\\t"$2"\\t"$3"\\tNAME\\t1\\t"$6}}\' {} | uniq > {}'.format(
         OUTgse, OUTt))
-    cmd = '''awk -F"\\t" \'{{print $1"\\t"$2"\\t"$3"\\tNAME\\t1\\t"$6}}\' {} | uniq > {}'''.format(
-        OUTgse, OUTt)
+
     os.system('sort -k1,1 -k2,2n {} | uniq > {}'.format(OUTt, OUTgseu))
+
     logging.info('Add tRNA transcripts to windows with slopBed...')
     os.system('slopBed -b 40 -i {} -g {}.chromSizes >> {}'.format(tRNA, BI, OUTgseu))
     os.system('sort -k1,1 -k2,2n {} > {}'.format(OUTgseu, OUTt2))
@@ -241,15 +242,24 @@ def mapping_statistics(ARG, lib, dr, fi_base):
         f.write('EMmiss:{}\n'.format(unalign_reads))
 
 
+def create_SHRiMP_tempFiles(MINrna, MAXrna, tmpDir):
+    '''
+    Create temporary file that needs to be removed before the SHRiMP
+    result files are concatenated
+    '''
+    for length in range(MINrna, MAXrna + 1):
+        with open('{}{}_SHRiMPwait.txt'.format(tmpDir, length), 'w') as fo:
+            fo.write('Waiting for SHRiMP alignment to finish...')
+
+
 def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir, job, conf):
     '''
     Run shrimp and bowtie post-processing
     '''
     logging.info('\n### Align mismatched reads (SHRiMP alignment) ###')
     logging.info('SHRiMP job submissions:')
+    create_SHRiMP_tempFiles(MINrna, MAXrna, tmpDir)
     for length in range(MINrna, MAXrna + 1):
-        with open('{}{}_SHRiMPwait.txt'.format(tmpDir, length), 'w') as fo:
-            fo.write('Waiting for SHRiMP alignment to finish...')
         os.system('rm {}_{}.fq'.format(lib, length))
         shrimp_log_dir = '{}SHRiMP/{}/'.format(log_dir, length)
         if not os.path.isdir(shrimp_log_dir):
@@ -295,7 +305,7 @@ def main(arg):
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
     tRNA, tmRNA, BI = res_li[4], res_li[3], res_li[7]
     MINrna, GENOME = define_input_varibles(cfg['parameters'])
-    generate_adapter_files.main(arg.sample, out_di['log'])
+    generate_adapter_files.main(arg.sample, out_di['log'], arg.conf)
     MAXrna = get_maxRNA_length(arg.sample, cfg['cutadapt'])
     lib = set_lib(dr_i, fi_base)
     cutadapt_cmd(arg.sample, lib, cfg['cutadapt'])

@@ -114,9 +114,9 @@ def write_adapter_file(dirc, name, adapter):
         f.write('{}\n'.format(adapter))
                 
 
-def main(file = sys.argv[1], log_dir = './'):
+def main(file, log_dir, conf):
     check_input()
-    cfg = load_mirquant_config_file()
+    cfg = load_mirquant_config_file(conf)
     dirc, name, need_adapt = check_for_adapter_file(file)
     if need_adapt == True:
         check_for_barcode_file()
