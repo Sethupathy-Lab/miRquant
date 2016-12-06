@@ -1,39 +1,49 @@
 #miRquant               
-Last update to README: 11/20/16
+Last update to README: 12/6/16
 
 ## miRquant setup
 ####Check out a copy of the smRNA pipeline code:
 If you don’t already have a directory:
 
 ```
-$ mkdir /proj/seth_lab/users/ONYEN
-$ cd /proj/seth_lab/users/ONYEN
+$ mkdir /path/to/miRquant
+$ cd /path/to/miRquant
 $ module load git
-$ git clone https://github.com/Sethupathy-Lab/miRquant_py.git
+$ git clone https://github.com/Sethupathy-Lab/miRquant.git
 ```
 
-Due to size constraints, the resources folder couldn't be hosted on github.  These can be generated using the scripts and commands in the resources folder, or pre-generated resource files can be obtained by emailing Matt.Kanke@gmail.com
+Now you will have a miRquant directory containing all the miRquant scripts.
+All of the code is run from this directory!
 
-Now you will have a directory: `/proj/seth_lab/users/ONYEN/miRquant_py`
-Most code is run from this directory!
+####Install required programs
 
+cutadapt v1.0
+bedtools v2.25.0
+bowtie v1.1.0
+python v2.7.6
+SHRiMP v2.2.2
+R v3.2.2
 
-####Make a folder for your run in the smallRNA directory (/proj/seth_lab/projects/smallRNA/)
+####Download relevant genome fasta files and generate Bowtie indexes
 
-```
-$ mkdir /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME
-```
+miRquant is currently set up to work with human, mouse and rat, with fruitfly support coming.
 
-####Copy files from where ever they are to your smallRNA directory:
-```
-$ cp /path/to/sequencing_files/* /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME
-```
-####Change to project directory and uncompress files:
-```
-$ cd /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME
+The specific genome releases used in miRquant are:
 
-$ bsub gunzip *.gz
-```
+human - [hg19](ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/)
+mouse - [mm9](ftp://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/)
+rat - [rn4](ftp://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)
+
+Download the appropriate genomes, and the chromosome sizes (<release>.chrom.sizes) 
+
+Change the genome fasta name to <prefix>.fa and the chromosome sizes file to <prefix>.chromSizes.  The prefixes for each species is as follows:
+
+human - hg19
+mouse - mm9
+rat - rn4
+
+Generate genome indexes.
+
 
 ##Running miRQuant
 
@@ -43,13 +53,24 @@ $ cd /proj/seth_lab/users/ONYEN/miRquant
 $ source uncENV.sh
 ```
 
-####Enter run parameter information into the configuration file
+####Enter run parameters into the miRquant configuration file
 
+Copy the configuration directory to the directory containing the small RNA-seq fastqs.
+```
+cp -r /path/to/miRquant/configuration /path/to/fastq_containing_directory
+```
+The configuration directory contains two configuration files;
+1. conf_miRquant.yml
+ - Configuration that will be edited for each project to fit the parameters
+2. conf_system.yml
+ - Configuration file for the cluster you are working on, currently filled out for lsf job scheduler.
+
+The miRquant configuration file (conf_miRquant.yml) is as follows:
 ```
 # Directory locations
 paths:
     genome:
-        /proj/seth_lab/projects/genome/   <- Location of the genome fasta files
+        /proj/seth_lab/projects/genome/ 
     mirquant:
         /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/   <- location of miRquant
     output:
