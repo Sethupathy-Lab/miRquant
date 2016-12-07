@@ -34,9 +34,9 @@ human - [hg19](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/)
 mouse - [mm9](http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/)  
 rat - [rn4](http://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)  
 
-Download the appropriate genomes, and the chromosome sizes (<release>.chrom.sizes) 
+Download the appropriate genomes, and the chromosome sizes (\<release\>.chrom.sizes) 
 
-Change the genome fasta name to [prefix].fa and the chromosome sizes file to [prefix].chromSizes.  The prefixes for each species is as follows:
+Change the genome fasta name to \<prefix\>.fa and the chromosome sizes file to \<prefix\>.chromSizes.  The prefixes for each species is as follows:
 
 human - hg19  
 mouse - mm9  
@@ -81,7 +81,7 @@ paths:
     project:
         /path/to/fastqs/
 
-# Location of necessary files
+# miRquant parameters
 parameters:
     genome_release:
         mm9           <- prefix for genome release (eg, mouse release 9)
@@ -92,7 +92,7 @@ parameters:
 # Load in options for cutAdapt
 cutadapt:
     adapter:
-        'TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACXXXXXXATCTCGTATGCCGTCTTCTGCTTG'
+        'TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACXXXXXXATCTCGTATGCCGTCTTCTGCTTG'           <- TruSeq adapter (Xs denote barcode)
     overlap:
         10
     error:
@@ -113,6 +113,26 @@ shrimp:
     quality:
         33
 ```
+
+*How to fill out the miRquant configuration file:*
+* Directory locations
+  - genome - path to the genome and chromosome sizes directory
+  - mirquant - path to the miRquant program directory
+  - output - path to where outputs will be saved.  Directory will be created if it does not exist.
+  - resources - path to resources directory.  This should remain in the miRquant bin directory.
+  - project - location of the small RNA sequencing results.  All fastqs in location will be processed by miRquant.
+* miRquant parameters
+  - genome release - appropriate prefix for the species (see prefixes in setup)
+  - species - hsa, mmu, or rno for human, mouse, or rat, respectively.
+  - Minimum_Read_Length - minimum read length to be included in the analysis, should match cutadapt below
+* cutadapt options
+  - adapter - 3' adapter sequence; if barcode present, replace with Xs; if degenerate bases present at 5' end, add as Ns
+* Bowtie options
+  - quality - quality cutoff for Bowtie alignment
+* SHRiMP options
+  - path - path to SHRiMP executables
+  - quality - quality cutoff for SHRiMP
+  
 
 ####Run the chain submission script:
 From the miRquant directory:
