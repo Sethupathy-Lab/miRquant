@@ -59,11 +59,12 @@ Copy the configuration directory to the directory containing the small RNA-seq f
 ```
 cp -r /path/to/miRquant/configuration /path/to/fastq_containing_directory
 ```
-The configuration directory contains two configuration files;
+The configuration directory contains two configuration files.
+
 1. conf_miRquant.yml
- - Configuration that will be edited for each project to fit the parameters
+  * Configuration that will be edited on a project by project basis
 2. conf_system.yml
- - Configuration file for the cluster you are working on, currently filled out for lsf job scheduler.
+  * Configuration file for the cluster you are working on, currently filled out for lsf job scheduler.
 
 The miRquant configuration file (conf_miRquant.yml) is as follows:
 ```
@@ -114,20 +115,16 @@ shrimp:
 ####Run the chain submission script:
 From the miRquant directory:
 ```
-$ cd /proj/seth_lab/users/ONYEN/miRquant
+$ cd /path/to/miRquant
 
-$ python miRquant.py path/to/MY_PROJECT_NAME/*.fastq
+$ python miRquant.py path/to/configuration/
 
 ```
 
-Check that your jobs are running
-`$ bjobs`
-
-####Once all jobs have finished ( “No unfinished jobs” message):
-This might take awhile depending on the number of samples run.
+####Once all jobs have finished:
 Once the chain submission has finished, you can see if there were any errors in your log files.  The log files will be located in the output folder specified in the configuration file in a directory of the sample name, in a logs directory.
 
-In your MY_PROJECT_NAME directory, there will be a directory for each FILENAME.fastq (called FILENAME.)
+In your project directory, there will be a directory for each FILENAME.fastq (called FILENAME.)
 
 In that directory, there will be an IntermediateFiles subdirectory and a FILENAME.stats file.
 
