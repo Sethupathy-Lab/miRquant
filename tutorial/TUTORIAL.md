@@ -17,6 +17,8 @@ All of the code is run from this directory!
 
 ####Install required programs
 
+If running on a cluster, these may be present and only need to be loaded.
+
 cutadapt v1.0  
 bedtools v2.25.0  
 bowtie v1.1.0  
@@ -132,7 +134,8 @@ shrimp:
 * SHRiMP options
   - path - path to SHRiMP executables
   - quality - quality cutoff for SHRiMP
-  
+
+For the tutorial, only the paths will have to be altered.
 
 ####Run the chain submission script:
 From the miRquant directory:
