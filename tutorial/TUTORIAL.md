@@ -36,11 +36,11 @@ rat - [rn4](ftp://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)
 
 Download the appropriate genomes, and the chromosome sizes (<release>.chrom.sizes) 
 
-Change the genome fasta name to <prefix>.fa and the chromosome sizes file to <prefix>.chromSizes.  The prefixes for each species is as follows:
+Change the genome fasta name to [prefix].fa and the chromosome sizes file to [prefix].chromSizes.  The prefixes for each species is as follows:
 
-human - hg19
-mouse - mm9
-rat - rn4
+human - hg19  
+mouse - mm9  
+rat - rn4  
 
 Generate genome indexes.
 
@@ -71,45 +71,47 @@ The miRquant configuration file (conf_miRquant.yml) is as follows:
 # Directory locations
 paths:
     genome:
-        /proj/seth_lab/projects/genome/ 
+        /path/to/genome/
     mirquant:
-        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/   <- location of miRquant
+        /path/to/miRquant/
     output:
-        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/   <- location for the output files
+        /path/to/output/
     resources:
-        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/bin/resources/   <- location of the resource files
+        /path/to/miRquant/bin/resources/
+    project:
+        /path/to/fastqs/
 
 # Location of necessary files
 parameters:
     genome_release:
-        mm9  <- genome release, must match genome file name (eg: mm9.fa)
+        mm9           <- prefix for genome release (eg, mouse release 9)
     species:
-        mmu  <- species, currently set up for hsa, mmu, rno, cast
+        mmu           <- species, currently hsa, mmu, or rno
     Minimum Read Length:
-        14   <- minimum length of reads included in 
+        14
 # Load in options for cutAdapt
 cutadapt:
     adapter:
-        'TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACXXXXXXATCTCGTATGCCGTCTTCTGCTTG'  <- adapter sequence, XXX's will be replaced with sample specific barcode
+        'TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACXXXXXXATCTCGTATGCCGTCTTCTGCTTG'
     overlap:
-        10   <- Extent of overlap needed to trim
+        10
     error:
-        1    <- Number of errors allowed
+        1
     Minimum_Read_Length:
-        14   <- Minimum length of read following adapter trimming
+        14
 # Load in options for bowtie
 bowtie:
     quality:
-        33  <- quality requirement for bowtie alignment
+        33
 # Load in options for SHRiMP
 shrimp:
     path:
-        /proj/.test/roach/miRNA/SHRiMP_2_2_2/   <- location of SHRiMP
+        /proj/.test/roach/miRNA/SHRiMP_2_2_2/
     dependencies:
         python:
-            /proj/.test/roach/miRNA/lib/python/ <- location of python version necessary to run SHRiMP
+            /proj/.test/roach/miRNA/lib/python/
     quality:
-        33   <- quality requirement for SHRiMP alignment
+        33
 ```
 
 ####Run the chain submission script:
@@ -122,22 +124,30 @@ $ python miRquant.py path/to/configuration/
 ```
 
 ####Once all jobs have finished:
-Once the chain submission has finished, you can see if there were any errors in your log files.  The log files will be located in the output folder specified in the configuration file in a directory of the sample name, in a logs directory.
-
-In your project directory, there will be a directory for each FILENAME.fastq (called FILENAME.)
-
-In that directory, there will be an IntermediateFiles subdirectory and a FILENAME.stats file.
-
-To get an idea of how the trimming and aligning is looking, type:
+Once the chain submission has finished, check for any errors in the log file.  Each sample will have a multiple output directories setup in the output directory specified in the miRquant configuration file, in the following structure.
 ```
-$ cat /proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/*/*.stats
+SAMPLE_NAME
+  -logs
+  -output
+  -temp
+```
 
-file:/proj/seth_lab/projects/smallRNA/MY_PROJECT_NAME/FILENAME.fastq
-TotReads:21189608.00000000000000000000
-TrimmReads:17621310.00000000000000000000
-ShortReads:2500007.00000000000000000000
-EMhits:10710591
-EMmiss:6910719
+The logs from each step of miRquant will be in the logs directory.  
+
+In your project directory, there will be a directory for each \<SAMPLE\>.fastq (called \<SAMPLE\>.)
+
+In that directory, there will be an IntermediateFiles subdirectory and a \<SAMPLE\>.stats file.
+
+The \<SAMPLE\>.stats will have statistics to inform on the degree of trimming and aligning, type:
+```
+$ cat /path/to/fastqs/*/*.stats
+
+file:/path/to/fastqs/<SAMPLE>.fastq
+TotReads:100000
+TrimmReads:90000
+ShortReads:8500
+EMhits:40000
+EMmiss:45000
 
 TotReads = Total number of reads for this file
 TrimmReads = # of reads successfully trimmed of 3’ adapter
@@ -147,26 +157,21 @@ EMmiss = # of reads that fail to exactly align to genome
 ```
 
 ####Run the next stage to collect results:
-From your pipeline directory (/proj/seth_lab/users/ONYEN/miRquant):
+From your pipeline directory (/path/to/miRquant):
 ```
-$ python runC.py path/to/MY_PROJECT_NAME/
-```
-
-Once all of those jobs have finished running, run:
-```
-$ python post_runC.py path/to/MY_PROJECT_NAME/
+$ python runC.py path/to/configuration
 ```
 
 ####Run the next stage to generate TAB separated files:
 ```
-$ bsub python process_summary_to_tab.py path/to/MY_PROJECT_NAME/
+$ python process_summary_to_tab.py path/to/configuration
 ```
 After run finishes, you should see:
 ```
-$ cd path/to/MY_PROJECT_NAME/
+$ cd path/to/fastqs
 $ cat */*.stats
 
-file:path/to/MY_PROJECT_NAME/FILE.fastq
+file:path/to/fastqs/<SAMPLE>.fastq
 TotReads:6149484.00000000000000000000
 TrimmReads:3730081.00000000000000000000
 ShortReads:1938220.00000000000000000000
