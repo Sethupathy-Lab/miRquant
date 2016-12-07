@@ -194,7 +194,7 @@ For each Sample:
   Shrimp_results.bed       -   bed file containing all results
 
 ##Final processing
-Run the muliple final analyses.
+To produce the final summary files, run:
 ```
 $ python final_processing.py path/to/configuration
 ```
