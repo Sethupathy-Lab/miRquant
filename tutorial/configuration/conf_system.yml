@@ -1,0 +1,10 @@
+# System configuration for submitting jobs
+job:
+    bsub:
+        -q: week
+
+job_quick:
+    bsub:
+        -q: hour
+
+# This will be edited to fit your job scheduler (eg slurm, lsf, ect)

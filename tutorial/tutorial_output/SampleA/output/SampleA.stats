@@ -1,0 +1,10 @@
+file:/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/tutorial/SampleA.fastq
+TotReads:100000
+TrimmReads:93450
+ShortReads:5216
+EMhits:56072
+EMmiss:37378
+Mapped: 66988.6025507
+miRMapped: 49315.2750001
+tRNAMapped: 15235
+yRNAMapped: 0

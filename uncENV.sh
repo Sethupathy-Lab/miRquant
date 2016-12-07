@@ -1,6 +1,6 @@
 # set path
 
-export PATH=/proj/.test/roach/miRNA/bin:./:$PATH
+#export PATH=/proj/.test/roach/miRNA/bin:./:$PATH
 export PYTHONPATH=/proj/.test/roach/miRNA/lib/python/
 export PATH=$PATH:/proj/.test/roach/miRNA/SHRiMP_2_2_2/bin
 

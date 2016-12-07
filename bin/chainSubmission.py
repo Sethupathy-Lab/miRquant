@@ -106,11 +106,18 @@ def cutadapt_cmd(fi, lib, cutadapt):
     too_short = '{}_ST.fq'.format(lib)
     with open('{}adaptor'.format('/'.join(lib.split('/')[:-2])), 'r') as f:
         adapter = f.read().rstrip()
+    degen = adapter.count('N')
 
-    cut_adapt_cmd = 'cutadapt -a {} -e {} -O {} -m {} \
-            --untrimmed-output={} --too-short-output={} -o {} {}'.format(
-                    adapter, error_rate, overlap, min_read_length,
-                    untrimmed, too_short, output, fi)
+    if degen > 0:
+        cut_adapt_cmd = 'cutadapt -a {} -e {} -O {} -m {} -u {} \
+                --untrimmed-output={} --too-short-output={} -o {} {}'.format(
+                        adapter, error_rate, overlap, min_read_length,
+                        degen, untrimmed, too_short, output, fi)
+    else:
+        cut_adapt_cmd = 'cutadapt -a {} -e {} -O {} -m {} \
+                --untrimmed-output={} --too-short-output={} -o {} {}'.format(
+                        adapter, error_rate, overlap, min_read_length,
+                        untrimmed, too_short, output, fi)
     logging.info('\n### Trimming adapters ###')
     logging.debug('adapter = {}'.format(adapter))
     logging.debug('error rate = {}'.format(error_rate))
@@ -120,6 +127,7 @@ def cutadapt_cmd(fi, lib, cutadapt):
     logging.debug('too short = {}'.format(too_short))
     logging.debug('output = {}'.format(output))
     logging.debug('input = {}'.format(fi))
+    logging.debug('degenerate bases in adapter = {}'.format(degen))
     pipe_to_logger(cut_adapt_cmd)
 
 
