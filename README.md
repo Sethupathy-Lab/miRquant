@@ -1,9 +1,9 @@
 #miRquant 2.0  
-======
-1. Installation
+
+1. Introduction
+2. Installation
   1. Requirements
   2. Setup
-2. Introduction
 3. Steps
   1. Adapter trimming
   2. Alignment
@@ -12,11 +12,15 @@
     3. SHRiMP alignment
   3. Annotation
   4. Final analysis
+4. miRquant output
+
+##miRquant introduction  
+Brief overview of miRquant here.
 
 ##miRquant Installation  
 ###Requirements
 #####Software
-miRquant 2.0 can be downloaded as a zip or cloned from the [miRquant GitHub page](https://github.com/Sethupathy-Lab/miRquant).  
+miRquant 2.0 can be downloaded as a zip file or cloned from the [miRquant GitHub page](https://github.com/Sethupathy-Lab/miRquant).  
 
 In addition to these scripts, miRquant 2.0 requires the following software for various steps of the pipeline.
 
@@ -43,31 +47,17 @@ Download the appropriate genomes and the chromosome sizes for that genome releas
 
 ###Setup
 
-
-
-Change the genome fasta name to [prefix].fa and the chromosome sizes file to [prefix].chromSizes.  The prefixes for each species is as follows:
+Change the genome fasta name to \<prefix\>.fa and the chromosome sizes file to \<prefix\>.chromSizes.  The prefixes for each species is as follows:
 
 human - hg19  
 mouse - mm9  
 rat - rn4  
 
-Generate genome indexes.
+Store the genomes and the chromosome size files *in the same location*.
 
+Build Bowtie genome indexes for each genome.  Information on this can be found in the [Bowtie tutorial](http://bowtie-bio.sourceforge.net/tutorial.shtml).
 
-
-####Check out a copy of the smRNA pipeline code:
-If you don’t already have a directory:
-
-```
-$ mkdir /proj/seth_lab/users/ONYEN
-$ cd /proj/seth_lab/users/ONYEN
-$ module load git
-$ git clone https://github.com/Sethupathy-Lab/miRquant_py.git
-```
-
-Now you will have a directory: `/proj/seth_lab/users/ONYEN/miRquant_py`
-All of the code is run from this directory!
-
+To test that everything was installed correctly, follow the tutorial.
 
 ####Make a folder for your run in the smallRNA directory (/proj/seth_lab/projects/smallRNA/)
 
