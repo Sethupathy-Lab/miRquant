@@ -155,6 +155,8 @@ SAMPLE_NAME
 ```
 
 The logs from each step of miRquant will be in the logs directory.  
+The outputs will be saved in the output directory.
+Temporary files generated during a miRquant run will be stored in the temp directory.
 
 In your project directory, there will be a directory for each \<SAMPLE\>.fastq (called \<SAMPLE\>.)
 
