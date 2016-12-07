@@ -17,12 +17,12 @@ All of the code is run from this directory!
 
 ####Install required programs
 
-cutadapt v1.0
-bedtools v2.25.0
-bowtie v1.1.0
-python v2.7.6
-SHRiMP v2.2.2
-R v3.2.2
+cutadapt v1.0  
+bedtools v2.25.0  
+bowtie v1.1.0  
+python v2.7.6  
+SHRiMP v2.2.2  
+R v3.2.2  
 
 ####Download relevant genome fasta files and generate Bowtie indexes
 
