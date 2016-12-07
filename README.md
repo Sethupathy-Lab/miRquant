@@ -1,5 +1,16 @@
-#miRquant               
-Last update to README: 11/20/16
+#miRquant 2.0  
+1. Installation
+  1. Requirements
+  2. Setup
+2. Introduction
+3. Steps
+  1. Adapter trimming
+  2. Alignment
+    1. Bowtie alignment
+    2. Genomic window construction
+    3. SHRiMP alignment
+  3. Annotation
+  4. Final analysis
 
 ## miRquant setup
 ####Check out a copy of the smRNA pipeline code:
