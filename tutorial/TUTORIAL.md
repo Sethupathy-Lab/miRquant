@@ -30,9 +30,9 @@ miRquant is currently set up to work with human, mouse and rat, with fruitfly su
 
 The specific genome releases used in miRquant are:
 
-human - [hg19](ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/)
-mouse - [mm9](ftp://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/)
-rat - [rn4](ftp://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)
+human - [hg19](ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/)  
+mouse - [mm9](ftp://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/)  
+rat - [rn4](ftp://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)  
 
 Download the appropriate genomes, and the chromosome sizes (<release>.chrom.sizes) 
 
