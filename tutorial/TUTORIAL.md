@@ -135,7 +135,7 @@ shrimp:
   - path - path to SHRiMP executables
   - quality - quality cutoff for SHRiMP
 
-For the tutorial, only the paths will have to be altered.
+For the tutorial, only the paths section of conf_mirquant.yml will have to be altered.
 
 ####Run the chain submission script:
 From the miRquant directory:
@@ -143,7 +143,6 @@ From the miRquant directory:
 $ cd /path/to/miRquant
 
 $ python miRquant.py path/to/configuration/
-
 ```
 
 ####Once all jobs have finished:
