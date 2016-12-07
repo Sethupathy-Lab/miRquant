@@ -196,14 +196,8 @@ For each Sample:
 ##Final processing
 Run the muliple final analyses.
 ```
-$ module load python/2.7.6
-$ module load R
-$ python final_processing.py path/to/MY_PROJECT_NAME/
+$ python final_processing.py path/to/configuration
 ```
-This will produce the mapping statistics, read length distribution, reads per million mapped, reads per million miRs mapped, and the Eucledian distances between the samples.
+This will produce the mapping statistics, read length distribution, expression correlation heatmap, reads per million mapped (RPMM), and reads per million miRs mapped (RPMMM).
 
 These final outputs will be in the output folder specified in the configuration file, in a directory named year_month_day_miRquant_num, where the year, month, and day refer to the date and the num will correspond to how many times miRquant had been run on that day.
-
-The final processing scripts create single sheets to be assembled for the final excel report.
-
-The final tab is done manually in excel to get the fold-change and p-value between sample groups.
