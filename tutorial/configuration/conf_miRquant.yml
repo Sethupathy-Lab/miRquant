@@ -1,15 +1,15 @@
 # Directory locations
 paths:
     genome:
-        /proj/seth_lab/projects/genome/
+        /path/to/genome/
     mirquant:
-        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/
+        /path/to/mirquant/
     output:
-        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/lab_meeting_mirquant_output/
+        /path/to/output_directory/
     resources:
-        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/bin/resources/
+        /path/to/mirquant/bin/resources/
     project:
-        /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/pipeline/tutorial/
+        /path/to/fastqs/
 
 # Location of necessary files
 parameters:
