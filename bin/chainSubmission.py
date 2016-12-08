@@ -49,10 +49,10 @@ def pipe_to_logger(cmd):
         logging.info(line.strip())
 
 
-def define_input_varibles(para):
+def define_input_varibles(cfg):
     date = datetime.datetime.now().isoformat()
-    MINrna = para['Minimum Read Length']
-    GENOME = para['species']
+    MINrna = cfg['cutadapt']['Minimum_Read_Length']
+    GENOME = cfg['parameters']['species']
 
     logging.info('Date: {}\n\nRun inputs:'.format(date))
     logging.info('Minimum read length = {}'.format(MINrna))
@@ -107,6 +107,9 @@ def cutadapt_cmd(fi, lib, cutadapt):
     with open('{}adaptor'.format('/'.join(lib.split('/')[:-2])), 'r') as f:
         adapter = f.read().rstrip()
     degen = adapter.count('N')
+    print adapter
+    print degen
+    overlap -= degen
 
     if degen > 0:
         cut_adapt_cmd = 'cutadapt -a {} -e {} -O {} -m {} -u {} \
@@ -307,12 +310,13 @@ def main(arg):
     cfg = load_mirquant_config_file(arg.conf)
     scfg = load_sys_config_file(arg.conf)
     job = build_job(scfg['job'])
+
     dr, dr_i, fi_base = set_up_output_folder(arg.sample, cfg['paths']['output'])
     out_di = sample_output_paths(cfg['paths']['output'], fi_base)
     initiate_logging(out_di['log'], 'chainSubmission.log')
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
     tRNA, tmRNA, BI = res_li[4], res_li[3], res_li[7]
-    MINrna, GENOME = define_input_varibles(cfg['parameters'])
+    MINrna, GENOME = define_input_varibles(cfg)
     generate_adapter_files.main(arg.sample, out_di['log'], arg.conf)
     MAXrna = get_maxRNA_length(arg.sample, cfg['cutadapt'])
     lib = set_lib(dr_i, fi_base)

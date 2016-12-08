@@ -61,9 +61,6 @@ CODE = SPEC
 
 bedInfo = mirANDtrna_to_bed(mmuFile, tRNAFile)
 
-
-ALL = 1
-    
 expression = {}
 baseExp = {}
 baseKeys = {}
@@ -101,7 +98,7 @@ with open(res, 'r') as f, open(tfile_name, 'w') as fo:
                 bedLine[N] = '\t'.join(map(str, [c, e - off - 8, e - off - 1, N, 1, r]))
 
 # if tRNA
-        elif 'tRNA' in N:
+        elif 'tRNA' in N or 'yRNA' in N:
             parts = N.split('_')
             tNbase = parts[0]
             o1 = parts[1]
@@ -229,7 +226,7 @@ with open(fOUT, 'w') as fo:
                 else:
                     if e in gAS:
                         et = 'AS:{}'.format(gAS[e])
-            if ALL == 1 or 'CHR' not in en:
+            if 'CHR' not in en:
                 if e not in seed:
                     seed[e] = ''
                 fo.write('\t'.join(map(str, [en, et, off, seed[e], frac])))

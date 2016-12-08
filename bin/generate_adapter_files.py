@@ -96,8 +96,9 @@ def create_adapter(barcode, adapter):
     '''
     Inserts the barcode into the adapter in correct location
     '''
-    adapter = adapter.replace('N', '').split('X')
-    adapter = '{}{}{}'.format(adapter[0], barcode, adapter[-1])
+    if 'X' in adapter:
+        adapter = adapter.split('X')
+        adapter = '{}{}{}'.format(adapter[0], barcode, adapter[-1])
     validate_adapter(adapter)
     return adapter
     
