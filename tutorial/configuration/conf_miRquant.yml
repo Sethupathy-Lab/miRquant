@@ -17,8 +17,6 @@ parameters:
         mm9
     species:
         mmu
-    Minimum Read Length:
-        14
 # Load in options for cutAdapt
 cutadapt:
     adapter:
