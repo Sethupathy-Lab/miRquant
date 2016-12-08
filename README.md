@@ -105,5 +105,10 @@ SampleA/
 |-- length_distribution.csv                <- Read length distribution for samples as table
 |-- length_distribution.png                <- Read length distribution for samples as bar graph
 |-- sample_correlation_heatmap.png         <- Sample pair-wise Pearson correlation values as heatmap with hierarchical clustering
-`-- sample_correlation_values.csv          <- Sample pair-wise Pearson correlation values as table
+`-- sample_correlation_values.csv          <- Sample pair-wise Pearson correlation table
 ```
+
+######Mapping statistics
+![MapStats](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/mapping_statistics.png "Mapping Statistics")
+
+From the mapping statistics, users can determine the number of total reads generated, as well as the number and percentage of total reads that were successfully trimmed, trimmed reads that were mapped by Bowtie and SHRiMP, mapped reads that pertain to miRNAs, tRNAs, or Y-RNAs.  These data inform the user of potential quality issues with the sample (RNA degradation, adapter dimerization during library prep, poor sequencing) as well as the relative abundance of different types of small RNAs represented in the data.
