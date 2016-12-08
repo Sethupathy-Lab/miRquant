@@ -60,6 +60,7 @@ Build Bowtie genome indexes for each genome.  Information on this can be found i
 To test that everything was installed correctly, follow the tutorial.
 
 ##miRquant steps
+![mirquant](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/miRquant_scheme.png "miRquant")
 ###Adapter trimming
 
 ###Alignment
