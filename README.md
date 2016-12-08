@@ -108,9 +108,18 @@ SampleA/
 `-- sample_correlation_values.csv          <- Sample pair-wise Pearson correlation table
 ```
 
-######Mapping statistics
+####Mapping statistics
 ![MapStats](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/mapping_statistics.png "Mapping Statistics")
-
-<p align="center"><img src=https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/mapping_statistics.png width="350" height="300" /></p>
-
 From the mapping statistics, users can determine the number of total reads generated, as well as the number and percentage of total reads that were successfully trimmed, trimmed reads that were mapped by Bowtie and SHRiMP, mapped reads that pertain to miRNAs, tRNAs, or Y-RNAs.  These data inform the user of potential quality issues with the sample (RNA degradation, adapter dimerization during library prep, poor sequencing) as well as the relative abundance of different types of small RNAs represented in the data.
+
+####Length distribution
+![LenDist](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/length_histogram.png "Length distribution")
+For each sample, miRquant reports the length distributions of all trimmed reads.  A peak at ~18-24 nucleotides likely represents mature miRNAs, a subclass of tDRs known as tRNA fragments (tRFs), and possibly yDRs.  A peak at ~30-33 nucleotides likely represents a subclass of tDRs referred to as tRNA halves (tRHs), and possibly yDRs.  Elevated signal at other read sizes could indicate other known or novel small RNAs, but could also be suggestive of degradation.
+
+####Cross-sample comparisons
+![ExpHM](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/expression_heatmap.png "Expression correlation heatmap")
+miRquant computes pair-wise Pearson correlations of miRNA expression profiles across all samples and carries out hierarchical clustering to plot the expression correlation heatmap.  Only miRNAs above a specified expression threshold are included in the correlation analysis.  An example is provided, in which miRNA profiles are being compared across two different conditions, with three replicates each.  The color in each of the squares in the heatmap corresponds to the extent of miRNA expression correlation between two particular samples.  In this example, the heatmap and dendogram show that the replicates are grouped appropriately by condition, and that the two conditions cluster separately.
+
+####Normalized expression
+![RPMM](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/normalized_reads_table.png "Normalized reads")
+Read count normalization is performed in two ways.  For a given miRNA/isomiR/tDR/yDR in a sample, the number of corresponding reads is divided by the total number of mapped reads and multiplied by 1 million.  This is referred to as the reads per million mapped (RPMM).  For miRNAs/isomiRs, an alternative method of normalization is employed.  Specifically, the number of corresponding reads is divided by the total number of reads mapped to all miRNA/isomiR loci and multiplied by 1 million.  This is referred to as reads per million mapped to miRNAs (RPMMM).  The latter approach is generally favored for miRNAs.  Notably, the types, locations, and frequency of potential post-transcriptional editing events are reported for every annotated miRNA/isomiR/tDR/yDR in the sample.  Edits are separated into two groups: internal edits and 3’ non-templated additions.
