@@ -29,8 +29,7 @@ miRquant 2.0 can be downloaded as a zip file or cloned from the [miRquant GitHub
 In addition to these scripts, miRquant 2.0 requires the following software for various steps of the pipeline.
 
 * python v2.7.6
-* pip
-* cutadapt v1.0  
+* pip 
 * bedtools v2.25.0  
 * bowtie v1.1.0  
 * SHRiMP v2.2.2  
@@ -51,6 +50,12 @@ rat - [rn4](http://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)
 Download the appropriate genomes and the chromosome sizes for that genome release (\<release\>.chrom.sizes) 
 
 ###Setup
+
+Once python/2.7.6 and pip are installed, change to the miRquant directory and type:
+
+```
+pip install -r requirements.txt
+```
 
 Change the genome fasta name to \<prefix\>.fa and the chromosome sizes file to \<prefix\>.chromSizes.  The prefixes for each species is as follows:
 
