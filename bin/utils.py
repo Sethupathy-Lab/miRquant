@@ -84,9 +84,11 @@ def load_sys_config_file(config_path = './configuration/'):
     paths, and executable parameters supplied by the user.  File is in yaml
     format.
     '''
-    with open('{}/conf_system.yml'.format(config_path), 'r') as config_f:
-        cfg = yaml.load(config_f)
-    return cfg
+    try:
+        with open('{}/conf_system.yml'.format(config_path), 'r') as config_f:
+            return yaml.load(config_f)
+    except IOError:
+        return {'job' : {}}
 
 
 def build_job(di):
