@@ -47,6 +47,12 @@ Download the appropriate genomes and the chromosome sizes for that genome releas
 
 ###Setup
 
+Once python/2.7.6 and pip are installed, change to the miRquant directory and type:
+
+```
+pip install -r requirements.txt
+```
+
 Change the genome fasta name to \<prefix\>.fa and the chromosome sizes file to \<prefix\>.chromSizes.  The prefixes for each species is as follows:
 
 human - hg19  
