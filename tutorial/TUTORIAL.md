@@ -18,8 +18,7 @@ Last update to README: 12/6/16
 4. Output
 
 ##Tutorial info
-This tutorial is for two mouse samples.  The mouse samples are were prepared by TruSeq.  We will
-Brief overview of miRquant here.
+This tutorial is for two mouse samples.  The mouse samples are were prepared by TruSeq.
 
 ##miRquant Installation  
 ###Requirements
