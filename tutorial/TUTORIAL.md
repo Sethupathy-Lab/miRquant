@@ -105,8 +105,6 @@ parameters:
         mm9           <- prefix for genome release (eg, mouse release 9)
     species:
         mmu           <- species, currently hsa, mmu, or rno
-    Minimum Read Length:
-        14
 # Load in options for cutAdapt
 cutadapt:
     adapter:
@@ -145,6 +143,9 @@ shrimp:
   - Minimum_Read_Length - minimum read length to be included in the analysis, should match cutadapt below
 * cutadapt options
   - adapter - 3' adapter sequence; if barcode present, replace with Xs; if degenerate bases present at 5' end, add as Ns
+  - overlap - number of overlapping nucleotides for trimming to occur
+  - error - error tolerance (1 = 0.1 or 10%)
+  - minimum read length - minumum length of trimmed read to be included
 * Bowtie options
   - quality - quality cutoff for Bowtie alignment
 * SHRiMP options
