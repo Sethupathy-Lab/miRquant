@@ -140,7 +140,6 @@ shrimp:
 * miRquant parameters
   - genome release - appropriate prefix for the species (see prefixes in setup)
   - species - hsa, mmu, or rno for human, mouse, or rat, respectively.
-  - Minimum_Read_Length - minimum read length to be included in the analysis, should match cutadapt below
 * cutadapt options
   - adapter - 3' adapter sequence; if barcode present, replace with Xs; if degenerate bases present at 5' end, add as Ns
   - overlap - number of overlapping nucleotides for trimming to occur
