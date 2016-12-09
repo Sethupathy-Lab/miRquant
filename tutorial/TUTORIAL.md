@@ -70,12 +70,6 @@ Build Bowtie genome indexes for each genome.  Information on this can be found i
 
 ##Running miRQuant
 
-####Load proper modules and environmental variables:
-```
-$ cd /proj/seth_lab/users/ONYEN/miRquant
-$ source uncENV.sh
-```
-
 ####Enter run parameters into the miRquant configuration file
 
 Copy the configuration directory to the directory containing the small RNA-seq fastqs.
@@ -84,10 +78,12 @@ cp -r /path/to/miRquant/configuration /path/to/fastq_containing_directory
 ```
 The configuration directory contains two configuration files.
 
-1. conf_miRquant.yml
-  * Configuration that will be edited on a project by project basis
-2. conf_system.yml
+1. conf_system.yml
   * Configuration file for the cluster you are working on, currently filled out for lsf job scheduler.
+2. conf_miRquant.yml
+  * Configuration that will be edited on a project by project basis
+
+The system configuration file is setup for a lsf job scheduler.  The queue names should be changed to match the queues on the cluster you are working.  If you are not working with a job scheduler, **delete the conf_system.yml file.**
 
 The miRquant configuration file (conf_miRquant.yml) is as follows:
 ```
