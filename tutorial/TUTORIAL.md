@@ -82,7 +82,21 @@ The configuration directory contains two configuration files.
 2. conf_miRquant.yml
   * Configuration that will be edited on a project by project basis
 
-The system configuration file is setup for a lsf job scheduler.  The queue names should be changed to match the queues on the cluster you are working.  If you are not working with a job scheduler, **delete the conf_system.yml file.**
+The system configuration (conf_system.yml) is as follows:
+```
+# System configuration for submitting jobs
+job:
+    bsub:
+        -q: week
+
+job_quick:
+    bsub:
+        -q: hour
+
+# This will be edited to fit your job scheduler (eg slurm, lsf, ect)
+```
+
+The system configuration file is setup for a lsf job scheduler.  The queue names should be changed to match the queues on the cluster you are working.  Additional options for can be added as single lines in the form \<option flag\>: value.  For example, if we wanted to add to output the log to a file named Log.txt instead of recieveing an email (the -o bsub option), we would add `-o: Log.txt` under the -q option *at the same indentation*.  If you are not working with a job scheduler, **delete the conf_system.yml file.**
 
 The miRquant configuration file (conf_miRquant.yml) is as follows:
 ```
