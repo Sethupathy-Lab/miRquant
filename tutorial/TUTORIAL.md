@@ -7,13 +7,10 @@ Last update to README: 12/6/16
 2. Installation
   1. Requirements
   2. Setup
-3. Steps
-  1. Adapter trimming
+3. Running miRquant
+  1. Configuration file input
   2. Alignment
-    1. Bowtie alignment
-    2. Genomic window construction
-    3. SHRiMP alignment
-  3. Annotation
+  3. Sorting results
   4. Final analysis
 4. Output
 
@@ -167,7 +164,7 @@ shrimp:
 
 For the tutorial, only the paths section of conf_mirquant.yml will have to be altered.
 
-####Run the chain submission script:
+####Run the miRquant script:
 From the miRquant directory:
 ```
 $ cd /path/to/miRquant
@@ -247,7 +244,7 @@ For each Sample:
   TAB_lenDist_summary.txt  -   length differences
   Shrimp_results.bed       -   bed file containing all results
 
-##Final processing
+####Final processing
 To produce the final summary files, run:
 ```
 $ python final_processing.py path/to/configuration
