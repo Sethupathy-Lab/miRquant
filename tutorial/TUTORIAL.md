@@ -12,7 +12,6 @@ Last update to README: 12/6/16
   2. Alignment
   3. Sorting results
   4. Final analysis
-4. Output
 
 ##Tutorial info
 This tutorial is for two mouse samples.  The mouse samples are were prepared by TruSeq.
