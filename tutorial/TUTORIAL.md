@@ -104,8 +104,6 @@ paths:
         /path/to/miRquant/
     output:
         /path/to/output/
-    resources:
-        /path/to/miRquant/bin/resources/
     project:
         /path/to/fastqs/
 
