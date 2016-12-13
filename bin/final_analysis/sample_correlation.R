@@ -21,7 +21,6 @@ write.table(data_corr, file = "sample_correlation_values.csv", sep = ",", quote 
 
 # make heat map using the correlation values
 library(RColorBrewer)
-#library(gplots)
 library(pheatmap)
 
 colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
@@ -31,4 +30,4 @@ png("sample_correlation_heatmap.png")
 pheatmap(data_corr,
          col=colors,
          main="Sample to Sample Distance")
-dev.off()
+invisible(dev.off())

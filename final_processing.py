@@ -29,7 +29,7 @@ import glob
 import argparse
 import datetime
 from bin.utils import load_mirquant_config_file
-from bin.scripts import f_utils, \
+from bin.final_analysis import f_utils, \
                         generate_mapping_info, \
                         lenDist, \
                         generate_normalized_counts

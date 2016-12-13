@@ -34,14 +34,12 @@ def get_data_from_file(samples, spec):
     for file in samples:
         with open(file, 'r') as f:
             file = file.split('/')[-3]
-            header = f.readline().split('\t')
-            count_i = header.index('Count')
+            count_i = f.readline().split('\t').index('Count')
             f.next()
-            f.next()
-            total_c[file] = 0
-            mir_c[file] = 0
-            datout[file] = {}
-            mirs_dat = {}
+
+            datout[file], mirs_dat[file] = {}, {}
+            total_c[file], mir_c[file] = 0, 0
+
             for l in f:
                 l = l.split('\t')
                 total_c[file] += float(l[count_i])
@@ -87,7 +85,10 @@ def mirs_over_thresh(data, thresh, keys, spec):
         li = [f for f in data if data[f][k] > thresh]
         if li and spec in k:
             for fi in data:
-                mirs_over_thresh[fi] = {k : data[f][k]}
+                try:
+                    mirs_over_thresh[fi][k] = data[fi][k]
+                except KeyError:
+                    mirs_over_thresh[fi] = {k : data[fi][k]}
     return mirs_over_thresh
 
 
@@ -111,16 +112,18 @@ def write_output(sample_dict, output_name, outPath):
 
 def main(species, outPath, samples):
     samples = f_utils.set_path_to_files_glob(samples, 'TAB_lenDist_summary.txt')
-    print samples
-    datout, window, total_c, mirs_dat, mirs, mirs_c = get_data_from_file(samples, species)
+    datout, window, tot_c, mirs_dat, mirs, mirs_c = get_data_from_file(samples, species)
+
     all_wind = windows_to_norm_counts(datout, window, tot_c)
-    mir_wind = windows_to_norm_counts(mirs_dat, mirs, mirs_c)
     RPMM_mir_100 = mirs_over_thresh(all_wind, 100, window, species)
-    RPMMM_mir_50 = mirs_over_thresh(mir_wind, 50, mirs, species)
     out_name = write_output(all_wind, 'RPMM_all.csv', outPath)
-    out_name = write_output(mir_wind, 'RPMMM_all.csv', outPath)
     out_name = write_output(RPMM_mir_100, 'RPMM_mirs_over_100.csv', outPath)
+
+    mir_wind = windows_to_norm_counts(mirs_dat, mirs, mirs_c)
+    RPMMM_mir_50 = mirs_over_thresh(mir_wind, 50, mirs, species)
+    out_name = write_output(mir_wind, 'RPMMM_all.csv', outPath)
     out_name = write_output(RPMMM_mir_50, 'RPMMM_mirs_over_50.csv', outPath)
+
     cmd = 'Rscript {}/sample_correlation.R {}'.format(os.path.dirname(__file__), out_name)
     os.system(cmd)
 

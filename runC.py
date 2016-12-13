@@ -47,7 +47,7 @@ def combine_chromosome_results_files(sample_res, job):
 
     for sample in sample_res:
         g1_dir = '{}/IntermediateFiles/g1Results/'.format(sample)
-#        os.makedirs('{}trash'.format(g1_dir))
+        os.makedirs('{}trash'.format(g1_dir))
         if len(job) > 0:
             os.system('{0} "cat {1}*_Shrimp_results.bed >> {1}Shrimp_results.bed"'.format(job, g1_dir))
         else:
@@ -76,7 +76,7 @@ def wait_for_collect_res(temp_fi, sample_res, job):
         else:
             time.sleep(60) 
             temp_fi = [f for f in temp_fi if os.path.exists(f)]
-            print temp_fi
+            print "Results remaining: {}".format(len(temp_fi))
         c += 1
 
 
@@ -86,8 +86,8 @@ def main(args):
     job = build_job(scfg['job'])
     sample_res = return_sample_results_directories(cfg['paths']['project'])
     temp_fi = []
-#    for sample in sample_res:
-#        temp_fi = combine_result_files(sample, cfg, job, temp_fi, args.conf)
+    for sample in sample_res:
+        temp_fi = combine_result_files(sample, cfg, job, temp_fi, args.conf)
     wait_for_collect_res(temp_fi, sample_res, job)
 
 

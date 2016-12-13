@@ -35,4 +35,4 @@ ggplot(bit, aes(x = X, y = value, fill = variable)) +
   facet_wrap(~variable, ncol = wrap) +
   scale_fill_discrete(guide=FALSE) +
   labs(list(title="Length Distribution", x="Read length", y="Ratio of total reads")) 
-dev.off()
+invisible(dev.off())
