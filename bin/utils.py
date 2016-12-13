@@ -75,6 +75,7 @@ def load_mirquant_config_file(config_path = './configuration/'):
     '''
     with open('{}/conf_miRquant.yml'.format(config_path), 'r') as config_f:
         cfg = yaml.load(config_f)
+    cfg['paths']['resources'] = '{}bin/resources/'.format(cfg['paths']['mirquant'])
     return cfg
 
 

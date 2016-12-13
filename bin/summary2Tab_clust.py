@@ -204,7 +204,7 @@ expBaseKeys = sorted(baseExp, key=baseExp.get, reverse = True)
 
 fOUT = 'TAB_{}'.format(res)
 with open(fOUT, 'w') as fo:
-    fo.write('Name\ttRNA\tmiRbaseOffset\tSeed\tPercent')
+    fo.write('Name\tAnnotation\tmiRbaseOffset\tSeed\tPercent')
     for k in keys:
         fo.write('\t{}'.format(k))
     fo.write('\n')
