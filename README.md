@@ -102,22 +102,22 @@ SampleA/
 ```
 Example of TAB_3p_summary.txt:
 
-| Name               | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |   C    |
-| ------------------ |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|:------:|
-| Total              |             |              |         |           | 75000   | 65000 |  7000   |  3000  |        |        |
-| mmu-mir-2a         | Ank1        |        0     | CCTGTAC |           |         | 11990 |  6707   |   3032 |        |        |
-| mmu-mir-2a\_ +\_ 2 | Ank1        |        2     | TGTACTG |           |         |       |         |        |        |        |
+| Name                   | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |   C    |
+| ---------------------- |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|:------:|
+| Total                  |             |              |         |           | 75000   | 65000 |  7000   |  3000  |        |        |
+| mmu-mir-2a             | Ank1        |        0     | CCTGTAC |           |         | 11990 |  6707   |   3032 |        |        |
+| mmu-mir-2a\_ +\_ 2     | Ank1        |        2     | TGTACTG |           |         |       |         |        |        |        |
 
 where:
-  * Name: Name of genomic loci
-  * Annotation: Annotation of loci
-  * miRbase Offset: Nucleotide offset from canonical miRNA start site (doesn't matter for non-miRNA loci)
-  * Seed: miRNA seed sequence
-  * Percent: Percent of total counts
-  * Count: Total counts for loci
-  * EM: Exact matches at loci
-  * E: Errors other than 3p additions
-  * AT, TAA, C: Different 3p additions occuring and the corresponding counts
+  * __Name__: Name of genomic loci
+  * __Annotation__: Annotation of loci
+  * __miRbase Offset__: Nucleotide offset from canonical miRNA start site (doesn't matter for non-miRNA loci)
+  * __Seed__: miRNA seed sequence
+  * __Percent__: Percent of total counts
+  * __Count__: Total counts for loci
+  * __EM__: Exact matches at loci
+  * __E__: Errors other than 3p additions
+  * __AT, TAA, C__: Different 3p additions occuring and the corresponding counts
 
 #####miRquant output for all project samples include:
 ```
