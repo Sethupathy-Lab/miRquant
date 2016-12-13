@@ -102,11 +102,11 @@ SampleA/
 ```
 Example of TAB_3p_summary.txt:
 
-| Name            | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |   C    |
-| --------------- |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|:------:|
-| Total           |             |              |         |           | 75000   | 65000 |  7000   |  3000  |        |        |
-| mmu-mir-2a      | Ank1        |        0     | CCTGTAC |           |         | 11990 |  6707   |   3032 |        |        |
-| mmu-mir-2a + 2  | Ank1        |        2     | TGTACTG |           |         |       |         |        |        |        |
+| Name               | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |   C    |
+| ------------------ |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|:------:|
+| Total              |             |              |         |           | 75000   | 65000 |  7000   |  3000  |        |        |
+| mmu-mir-2a         | Ank1        |        0     | CCTGTAC |           |         | 11990 |  6707   |   3032 |        |        |
+| mmu-mir-2a\_ +\_ 2 | Ank1        |        2     | TGTACTG |           |         |       |         |        |        |        |
 
 where:
   * Name: Name of genomic loci
