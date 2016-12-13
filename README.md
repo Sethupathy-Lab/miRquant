@@ -102,8 +102,9 @@ SampleA/
 ```
 Example of TAB_3p_summary.txt:
 
-| Name          | Annotation    | miRbaseOffset  | Seed       |
-| ------------- |:-------------:| --------------:|------------|
+| Name          | Annotation    | miRbase        |    Seed    |
+|               |               |Offset          |            |
+| ------------- |:-------------:|:--------------:|------------|
 | Total         |               |                |            |
 | col 2 is      | Ank1          |        0       | CCTGTAC    |
 | zebra stripes | Ank1          |        2       | TGTACTG    |
