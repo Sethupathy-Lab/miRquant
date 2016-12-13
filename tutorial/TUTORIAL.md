@@ -143,7 +143,6 @@ shrimp:
   - genome - path to the genome and chromosome sizes directory
   - mirquant - path to the miRquant program directory
   - output - path to where outputs will be saved.  Directory will be created if it does not exist.
-  - resources - path to resources directory.  This should remain in the miRquant bin directory.
   - project - location of the small RNA sequencing results.  All fastqs in location will be processed by miRquant.
 * miRquant parameters
   - genome release - appropriate prefix for the species (see prefixes in setup)
