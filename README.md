@@ -102,11 +102,11 @@ SampleA/
 ```
 Example of TAB_3p_summary.txt:
 
-| Name                   | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |   C    |
-| ---------------------- |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|:------:|
-| Total                  |             |              |         |           | 75000   | 65000 |  7000   |  3000  |        |        |
-| mmu-mir-2a             | Ank1        |        0     | CCTGTAC |           |         | 11990 |  6707   |   3032 |        |        |
-| mmu-mir-2a\_ +\_ 2     | Ank1        |        2     | TGTACTG |           |         |       |         |        |        |        |
+| Name                   | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |
+| ---------------------- |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|
+| Total                  |             |              |         |           | 75000   | 45000 |  11000  |  8000  |  2000  |
+| mmu-mir-2a             | Ank1        |        0     | CCTGTAC |    33     | 25000   | 11990 |  6707   |  3032  |   384  |
+| mmu-mir-2a\_ +\_ 2     | Ank1        |        2     | TGTACTG |    20     | 15000   | 6000  |   765   |   88   |   24   |
 
 where:
   * __Name__: Name of genomic loci
@@ -117,7 +117,7 @@ where:
   * __Count__: Total counts for loci
   * __EM__: Exact matches at loci
   * __E__: Errors other than 3p additions
-  * __AT, TAA, C__: Different 3p additions occuring and the corresponding counts
+  * __AT, TAA__: Different 3p additions occuring and the corresponding counts
 
 #####miRquant output for all project samples include:
 ```
