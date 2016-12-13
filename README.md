@@ -102,20 +102,22 @@ SampleA/
 ```
 Example of TAB_3p_summary.txt:
 
-| Name          | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |   C    |
-| ------------- |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|:------:|
-| Total         |             |              |         |           | 75000   | 65000 |  7000   |  3000  |        |        |
-| mmu-mir-2a    | Ank1        |        0     | CCTGTAC |           |         | 11990 |  6707   |   3032 |        |        |
-| mmu-mir-2a + 2| Ank1        |        2     | TGTACTG |           |         |       |         |        |        |        |
-```
-Name	tRNA	miRbaseOffset	Seed	Percent	Count	EM	T	A	E	AT	AA	C	TT	AG	G	AAT	TAT	TA	CT	AC	TAA	GC	CA	AGT	AGA	GA	ATT	CTT	AAA	AAAT	TC	TTT	GT	ACT	AATT	TGT	TG	TAAT	TAAG	TAAA	TCATCT	GGT
-Total					66988.6025507	51050.9430268	7366.33333333	4275.16666666	3246.12619048	255.833333333	158.0	104.5	102
-mmu-mir-486-5p	Ank1	0	CCTGTAC	0.988499271758	11990.1666667	6707.5	3032	1668.33333333	332.833333333	47.5	49	24	27	4.50.5	10.5	19.5	12	11.5	3	8.5	0	4	2.5	3	0.5	1	0	2.5
-mmu-mir-486-5p_+_2	Ank1	2	TGTACTG	0.011500728242	139.5	79	26	18	8.5	3	0.5	0	3	0	0	0	00	0	0	0	0	0	0	0	0	0	0	0	0	0
-```
+| Name            | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |   C    |
+| --------------- |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|:------:|
+| Total           |             |              |         |           | 75000   | 65000 |  7000   |  3000  |        |        |
+| mmu-mir-2a      | Ank1        |        0     | CCTGTAC |           |         | 11990 |  6707   |   3032 |        |        |
+| mmu-mir-2a + 2  | Ank1        |        2     | TGTACTG |           |         |       |         |        |        |        |
+
 where:
   * Name: Name of genomic loci
-  * tRNA: Annotation of loci
+  * Annotation: Annotation of loci
+  * miRbase Offset: Nucleotide offset from canonical miRNA start site (doesn't matter for non-miRNA loci)
+  * Seed: miRNA seed sequence
+  * Percent: Percent of total counts
+  * Count: Total counts for loci
+  * EM: Exact matches at loci
+  * E: Errors other than 3p additions
+  * AT, TAA, C: Different 3p additions occuring and the corresponding counts
 
 #####miRquant output for all project samples include:
 ```
