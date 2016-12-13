@@ -101,6 +101,12 @@ SampleA/
     `-- read_length_histo_SampleA.txt      <- Summary of read length distribution for all loci combined
 ```
 Example of TAB_3p_summary.txt:
+
+| Name          | Annotation    | miRbaseOffset  | Seed       |
+| ------------- |:-------------:| --------------:|------------|
+| Total         |               |                |            |
+| col 2 is      | Ank1          |        0       | CCTGTAC    |
+| zebra stripes | Ank1          |        2       | TGTACTG    |
 ```
 Name	tRNA	miRbaseOffset	Seed	Percent	Count	EM	T	A	E	AT	AA	C	TT	AG	G	AAT	TAT	TA	CT	AC	TAA	GC	CA	AGT	AGA	GA	ATT	CTT	AAA	AAAT	TC	TTT	GT	ACT	AATT	TGT	TG	TAAT	TAAG	TAAA	TCATCT	GGT
 Total					66988.6025507	51050.9430268	7366.33333333	4275.16666666	3246.12619048	255.833333333	158.0	104.5	102
