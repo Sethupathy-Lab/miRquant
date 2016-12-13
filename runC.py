@@ -98,7 +98,4 @@ if __name__ == '__main__':
     parser.add_argument('conf',
                         action='store',
                         help='Path to configuration directory')
-#    parser.add_argument('samples',
-#                        action='store',
-#                        help='Path to project directory')
     main(parser.parse_args())
