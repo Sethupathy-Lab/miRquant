@@ -19,7 +19,7 @@ This tutorial is for two mouse samples.  The mouse samples are were prepared by 
 ##miRquant Installation  
 ###Requirements
 #####Software
-miRquant 2.0 can be downloaded as a zip file or cloned from the [miRquant GitHub page](https://github.com/Sethupathy-Lab/miRquant).  
+miRquant 2.0 can be downloaded as a zip file ([click here](https://github.com/Sethupathy-Lab/miRquant/archive/master.zip)) or cloned from the [miRquant GitHub page](https://github.com/Sethupathy-Lab/miRquant).  
 
 In addition to these scripts, miRquant 2.0 requires the following software for various steps of the pipeline.
 
