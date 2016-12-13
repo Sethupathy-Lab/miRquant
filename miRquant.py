@@ -31,7 +31,12 @@ def get_fastqs(proj_dir):
     fqs = []
     for type in ['*.fq', '*.fastq']:
         fqs.extend(glob.glob('{}/{}'.format(proj_dir, type)))
-    return fqs
+    if len(fqs) == 0:
+        print "No fastqs in project directory"
+        print "If fastqs exist, must end with extension .fq or .fastq"
+        sys.exit()
+    else:
+        return fqs
 
 
 def main(args):
