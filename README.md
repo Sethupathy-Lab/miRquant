@@ -13,6 +13,7 @@
   3. Annotation
   4. Final analysis
 4. Output
+5. Contact
 
 ##miRquant introduction  
 miRquant 2.0 is a bioinformatic strategy for accurate detection of miRNAs from smRNA-seq data, with an emphasis on separately annotating and quantifying functionally-distinct isoforms of canonical miRNAs, termed isomiRs. In addition to the quantification of miRNA and isomiR expression level, we now provide additional detailed information on the quality of the sequencing data, genome mapping statistics, abundance of other types of small RNAs such as tDRs and yDRs, prevalence of post-transcriptional modifications such as A-to-I edits and 3’ non-templated nucleotide additions, and correlation in miRNA profiles across multiple samples.  Furthermore, miRquant 2.0 is now equipped to handle smRNA-seq data from human, mouse, and rat, and is currently being expanded to fruitfly.  We make publicly available both the tool and a detailed tutorial for users to learn how to run the program and interpret the results.  Below we provide an overview of the miRquant algorithm and the diverse capabilities of the tool.
@@ -100,17 +101,23 @@ SampleA/
     `-- read_length_histo_SampleA.txt      <- Summary of read length distribution for all loci combined
 ```
 Example of TAB_3p_summary.txt:
-```
-Name	tRNA	miRbaseOffset	Seed	Percent	Count	EM	T	A	E	AT	AA	C	TT	AG	G	AAT	TAT	TA	CT	AC	TAA	GC	CA	AGT	AGA	GA	ATT	CTT	AAA	AAAT	TC	TTT	GT	ACT	AATT	TGT	TG	TAAT
-	GCT	AAGA	AGAT	TTAT	TATT	ATC	ACCA	AAAA	AAGT	AAAG	TGA	GAG	TTA	AGC	TAC	TTTT	TAAG	TAAA	TCATCT	GGT
-Total					66988.6025507	51050.9430268	7366.33333333	4275.16666666	3246.12619048	255.833333333	158.0	104.5	102.
-5	60.5	44.5	41.0	39.0	33.5	33.5	18.2	17.0	14.0	12.0	10.0	8.0	7.5	7.0	6.0	6.0	6.0	6.0	5.55.5	5.0	5.0	4.0	4.0	4.0	3.0	2.0	2.0	2.0	2.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.01.0	1.0	1.0	1.0	1.0	1.0	0.5
-mmu-mir-486-5p	Ank1	0	CCTGTAC	0.988499271758	11990.1666667	6707.5	3032	1668.33333333	332.833333333	47.5	49	24	27	4.50.5	10.5	19.5	12	11.5	3	8.5	0	4	2.5	3	0.5	1	0	2.5	3	2	0.5	0	0	1.5	1.5	0	2	0	0	1	1	1	0	0	0.5	0	0.5	0.5	0.5	0.5	0	0.5	0	0.5	0	0.5	0.5	0.5
-mmu-mir-486-5p_+_2	Ank1	2	TGTACTG	0.011500728242	139.5	79	26	18	8.5	3	0.5	0	3	0	0	0	00	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.5	0	0	00	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0
-```
+
+| Name               | Annotation  |miRbase Offset|  Seed   |  Percent  |  Count  | EM    |    E    |   AT   |  TAA   |   C    |
+| ------------------ |:-----------:|:------------:|:-------:|:---------:|:-------:|:-----:|:-------:|:------:|:------:|:------:|
+| Total              |             |              |         |           | 75000   | 65000 |  7000   |  3000  |        |        |
+| mmu-mir-2a         | Ank1        |        0     | CCTGTAC |           |         | 11990 |  6707   |   3032 |        |        |
+| mmu-mir-2a\_ +\_ 2 | Ank1        |        2     | TGTACTG |           |         |       |         |        |        |        |
+
 where:
   * Name: Name of genomic loci
-  * tRNA: Annotation of loci
+  * Annotation: Annotation of loci
+  * miRbase Offset: Nucleotide offset from canonical miRNA start site (doesn't matter for non-miRNA loci)
+  * Seed: miRNA seed sequence
+  * Percent: Percent of total counts
+  * Count: Total counts for loci
+  * EM: Exact matches at loci
+  * E: Errors other than 3p additions
+  * AT, TAA, C: Different 3p additions occuring and the corresponding counts
 
 #####miRquant output for all project samples include:
 ```
@@ -141,3 +148,7 @@ miRquant computes pair-wise Pearson correlations of miRNA expression profiles ac
 ####Normalized expression
 ![RPMM](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/normalized_reads_table.png "Normalized reads")  
 Read count normalization is performed in two ways.  For a given miRNA/isomiR/tDR/yDR in a sample, the number of corresponding reads is divided by the total number of mapped reads and multiplied by 1 million.  This is referred to as the reads per million mapped (RPMM).  For miRNAs/isomiRs, an alternative method of normalization is employed.  Specifically, the number of corresponding reads is divided by the total number of reads mapped to all miRNA/isomiR loci and multiplied by 1 million.  This is referred to as reads per million mapped to miRNAs (RPMMM).  The latter approach is generally favored for miRNAs.  Notably, the types, locations, and frequency of potential post-transcriptional editing events are reported for every annotated miRNA/isomiR/tDR/yDR in the sample.  Edits are separated into two groups: internal edits and 3’ non-templated additions.
+
+## Contact
+
+Please contact Matt.Kanke [at] gmail.com with any errors, bugs or questions.
