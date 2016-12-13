@@ -102,11 +102,11 @@ SampleA/
 ```
 Example of TAB_3p_summary.txt:
 
-| Name          | Annotation    | miRbase Offset |    Seed    |  Percent  |  Count  | EM    |     E     |   AT   |  TAA   |   C    |
-| ------------- |:-------------:|:--------------:|:----------:|:---------:|:-------:|:-----:|:---------:|:------:|:------:|:------:|
-| Total         |               |                |            |           | 75000   | 65000 |  7000     |  3000  |        |        |
-| col 2 is      | Ank1          |        0       | CCTGTAC    |           |         | 11990 |  6707     |   3032 |        |        |
-| zebra stripes | Ank1          |        2       | TGTACTG    |           |         |       |           |        |        |        |
+| Name          | Annotation  |miRbase Offset|    Seed    |  Percent  |  Count  | EM    |     E     |   AT   |  TAA   |   C    |
+| ------------- |:-----------:|:------------:|:----------:|:---------:|:-------:|:-----:|:---------:|:------:|:------:|:------:|
+| Total         |             |              |            |           | 75000   | 65000 |  7000     |  3000  |        |        |
+| mmu-mir-2a    | Ank1        |        0     | CCTGTAC    |           |         | 11990 |  6707     |   3032 |        |        |
+| mmu-mir-2a + 2| Ank1        |        2     | TGTACTG    |           |         |       |           |        |        |        |
 ```
 Name	tRNA	miRbaseOffset	Seed	Percent	Count	EM	T	A	E	AT	AA	C	TT	AG	G	AAT	TAT	TA	CT	AC	TAA	GC	CA	AGT	AGA	GA	ATT	CTT	AAA	AAAT	TC	TTT	GT	ACT	AATT	TGT	TG	TAAT	TAAG	TAAA	TCATCT	GGT
 Total					66988.6025507	51050.9430268	7366.33333333	4275.16666666	3246.12619048	255.833333333	158.0	104.5	102
