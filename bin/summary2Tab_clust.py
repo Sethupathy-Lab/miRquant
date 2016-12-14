@@ -226,14 +226,13 @@ with open(fOUT, 'w') as fo:
                 else:
                     if e in gAS:
                         et = 'AS:{}'.format(gAS[e])
-            if 'CHR' not in en:
-                if e not in seed:
-                    seed[e] = ''
-                fo.write('\t'.join(map(str, [en, et, off, seed[e], frac])))
-                for k in keys:
-                    if k not in features[e]:
-                        features[e][k] = 0
-                    fo.write('\t{}'.format(features[e][k]))
-                fo.write('\n')
+            if e not in seed:
+                seed[e] = ''
+            fo.write('\t'.join(map(str, [en, et, off, seed[e], frac])))
+            for k in keys:
+                if k not in features[e]:
+                    features[e][k] = 0
+                fo.write('\t{}'.format(features[e][k]))
+            fo.write('\n')
 
 print '{}: {}\t{}: {}\n'.format(keys[0], tot[keys[0]], keys[1], tot[keys[1]])
