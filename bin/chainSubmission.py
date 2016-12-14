@@ -15,19 +15,19 @@ usage = '''
 
 '''
 
-import sys
 import argparse
-import logging
 import datetime
-import subprocess
+import glob
+import logging
 import os
 from os.path import dirname, basename, splitext
-import glob
-import generate_adapter_files
-import size_separate_reads
-import bt_postProcEM
-import reduce_shrimp
+import subprocess
+import sys
 import time
+import bt_postProcEM
+import generate_adapter_files
+import reduce_shrimp
+import size_separate_reads
 from utils import load_mirquant_config_file, \
                   load_sys_config_file, \
                   build_job, \
@@ -57,7 +57,6 @@ def define_input_varibles(cfg):
     logging.info('Date: {}\n\nRun inputs:'.format(date))
     logging.info('Minimum read length = {}'.format(MINrna))
     logging.info('Genome = {}'.format(GENOME))
-    return MINrna, GENOME
 
 
 def set_up_output_folder(fi, out_path):
@@ -132,6 +131,7 @@ def cutadapt_cmd(fi, lib, cutadapt):
     logging.debug('input = {}'.format(fi))
     logging.debug('degenerate bases in adapter = {}'.format(degen))
     pipe_to_logger(cut_adapt_cmd)
+    return min_read_length
 
 
 def separate_by_read_length(MINrna, MAXrna, lib, output_loc):
@@ -316,11 +316,12 @@ def main(arg):
     initiate_logging(out_di['log'], 'chainSubmission.log')
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
     tRNA, tmRNA, BI = res_li[4], res_li[3], res_li[7]
-    MINrna, GENOME = define_input_varibles(cfg)
+    define_input_varibles(cfg)
+
     generate_adapter_files.main(arg.sample, out_di['log'], arg.conf)
     MAXrna = get_maxRNA_length(arg.sample, cfg['cutadapt'])
     lib = set_lib(dr_i, fi_base)
-    cutadapt_cmd(arg.sample, lib, cfg['cutadapt'])
+    MINrna = cutadapt_cmd(arg.sample, lib, cfg['cutadapt'])
     separate_by_read_length(MINrna, MAXrna, lib, out_di['output'])
     for length in range(MINrna, MAXrna + 1):
         fi = '{}_{}.fq'.format(lib, length)
