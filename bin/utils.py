@@ -119,8 +119,8 @@ def resource_paths(species, paths, para):
 
     for file in [genome, table, tableL, tRNAlib, tRNAbed, tRNAbed12, refAnn]:
         if not os.path.isfile(file):
-            log.ERROR('ERROR: {} does not exist!'.format(file))
-            log.ERROR('Generate this resource file before running miRquant')
+            print 'ERROR: {} does not exist!'.format(file)
+            print 'Check to make sure resource file exists in bin/resources'
             sys.exit()
     return [genome, table, tableL, tRNAlib, tRNAbed, tRNAbed12, refAnn, genBase]
     

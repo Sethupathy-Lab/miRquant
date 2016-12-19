@@ -36,27 +36,27 @@ def check_for_adapter_file(file):
     return dir, name, True
 
 
-def validate_adapter(adapter):
-    '''
-    Checks to make sure adapter is only made of nucleotides
-    '''
-    nucs = ['A', 'T', 'G', 'C', 'N']
-    for n in adapter:
-        if n not in nucs:
-            print 'ERROR: Adapter contains non-nucleotides'
-            print 'Adapter = {}'.format(adapter)
-            sys.exit()
-
-
-def check_for_barcode_file():
+def check_for_barcode_file(dirc, name, cfg):
     '''
     Checks for optional file containing barcodes
     '''
-# This needs to be implemented still
-    if os.path.isfile('barcodes.txt'):
-        pass
+    if os.path.isfile('{}/barcodes.txt'.format(dirc)):
+        barcode_di = {}
+        with open('{}/barcodes.txt'.format(dirc), 'r') as f:
+            for l in f:
+                file, barcode = l.rstrip().split()
+                barcode_di[file] = barcode
+        try:
+            barcode = barcode_di[os.path.basename(file)]
+        except KeyError:
+            logging.error('ERROR: No file/barcode in barcodes.txt for {}'.format(file))
+        adapter = create_adapter(barcode, cfg['cutadapt']['adapter'])
+        write_adapter_file(dirc, name, adapter)
+        return True
+    else:
+        return False
 
-
+        
 def write_barcode_distribution(barcode_di, keys, output):
     '''
     Writes the statistics on the distribution of identified barcodes.
@@ -92,6 +92,18 @@ def scan_fastq_for_barcode(file, name, log_dir):
     return keys[0]
 
 
+def validate_adapter(adapter):
+    '''
+    Checks to make sure adapter is only made of nucleotides
+    '''
+    nucs = ['A', 'T', 'G', 'C', 'N']
+    for n in adapter:
+        if n not in nucs:
+            print 'ERROR: Adapter contains non-nucleotides'
+            print 'Adapter = {}'.format(adapter)
+            sys.exit()
+
+
 def create_adapter(barcode, adapter):
     '''
     Inserts the barcode into the adapter in correct location
@@ -120,7 +132,7 @@ def main(file, log_dir, conf):
     cfg = load_mirquant_config_file(conf)
     dirc, name, need_adapt = check_for_adapter_file(file)
     if need_adapt == True:
-        check_for_barcode_file()
-        barcode = scan_fastq_for_barcode(file, name, log_dir)
-        adapter = create_adapter(barcode, cfg['cutadapt']['adapter'])
-        write_adapter_file(dirc, name, adapter)
+        if not check_for_barcode_file(dirc, name, cfg):
+            barcode = scan_fastq_for_barcode(file, name, log_dir)
+            adapter = create_adapter(barcode, cfg['cutadapt']['adapter'])
+            write_adapter_file(dirc, name, adapter)

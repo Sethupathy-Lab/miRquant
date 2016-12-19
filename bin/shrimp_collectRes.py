@@ -483,11 +483,14 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
                     offset = key_loc - int(mirL)
             mNameMir2 = mNameMir
             if offset != 0:
-                if abs(int(offset)) < 40:
-                    if offset < 0:
-                        mNameMir2 = '{}_-_{}'.format(mNameMir, abs(int(offset)))
-                    else:
-                        mNameMir2 = '{}_+_{}'.format(mNameMir, abs(int(offset)))
+                try:
+                    if abs(int(offset)) < 40:
+                        if offset < 0:
+                            mNameMir2 = '{}_-_{}'.format(mNameMir, abs(int(offset)))
+                        else:
+                            mNameMir2 = '{}_+_{}'.format(mNameMir, abs(int(offset)))
+                except:
+                    print mNameMir2
 
 
             mName = '{},{},{}'.format(mNameMir2, tRNAi[kkey], offset)

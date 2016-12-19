@@ -275,10 +275,12 @@ def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir, job, conf):
         shrimp_log_dir = '{}SHRiMP/{}/'.format(log_dir, length)
         if not os.path.isdir(shrimp_log_dir):
             os.makedirs(shrimp_log_dir)
+#        print 'here1'
         cmd = '{} python shrimp_proc.py {} {}_LIB.fa {}_ {} {}'.format(
                     job, length, lib, lib, conf, shrimp_log_dir)
         logging.info('SHRiMP submission: {}'.format(cmd))
         os.system(cmd)
+#        print 'here2'
 
 
 def reduce_shrimp_res(temp_dir, dr_i, job):

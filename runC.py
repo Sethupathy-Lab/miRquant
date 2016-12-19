@@ -74,7 +74,7 @@ def wait_for_collect_res(temp_fi, sample_res, job):
         elif c >= (60 * 24):
             print 'Run failed, too long running'
         else:
-            time.sleep(60) 
+            time.sleep(30) 
             temp_fi = [f for f in temp_fi if os.path.exists(f)]
             print "Results remaining: {}".format(len(temp_fi))
         c += 1

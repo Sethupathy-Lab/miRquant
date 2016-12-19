@@ -34,7 +34,7 @@ def load_bowtie_hits(hitName):
         for l in f:
             bowtie_aln_c += 1
             chrB, locB, endB, readTag1, gs, strB = l.rstrip().split('\t')
-            readTag, seq, qual, null = readTag1.split(' ') 
+            readTag = readTag1.split(' ')[0] 
     
     # tags (bowtie alignment name) dict has the tag name as the key and the number of times it appears in the results as the value
             try:
@@ -50,7 +50,7 @@ def load_bowtie_hits(hitName):
         c = 0
         for l in f:
             chrB1, locB, endB, readTag1, gs, strB = l.rstrip().split('\t')
-            readTag, seq, qual, null = readTag1.split(' ') 
+            readTag = readTag1.split(' ')[0] 
     
             denom = tags[readTag]
             posInfo = '-'.join([locB, endB])
