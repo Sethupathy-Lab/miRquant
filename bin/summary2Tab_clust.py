@@ -47,17 +47,12 @@ def load_features_into_di(res_line):
     return features, tot
 
 
-cfg = load_mirquant_config_file(sys.argv[2])
 
 res = sys.argv[1]
-SPEC = cfg['parameters']['species']
-
-
-res_li = resource_paths(SPEC, cfg['paths'], cfg['parameters'])
+cfg = load_mirquant_config_file(sys.argv[2])
+species = cfg['parameters']['species']
+res_li = resource_paths(species, cfg['paths'], cfg['parameters'])
 genome, mmuFile, tRNAFile, refAnn = res_li[0], res_li[2], res_li[4], res_li[6]
-
-CODE = SPEC
-
 
 bedInfo = mirANDtrna_to_bed(mmuFile, tRNAFile)
 
@@ -80,7 +75,7 @@ with open(res, 'r') as f, open(tfile_name, 'w') as fo:
         expression[N] = float(nC)  # holds total counts for that line
 
 # if microRNA
-        if CODE in N:
+        if species in N:
             try:
                 baseExp[Nbase] += float(nC)
             except KeyError:
@@ -124,6 +119,8 @@ with open(res, 'r') as f, open(tfile_name, 'w') as fo:
             c = re.sub('UN', 'Un', c)
             c = re.sub('RANDOM', 'random', c)
             c = re.sub('.chr', 'chr', c)
+            c = re.sub('HET', 'Het', c)
+            c = re.sub('EXTRA', 'extra', c)
             R = r[0]
             if R == 'P':
                 bedLine[N] = '\t'.join(map(str, [c, s + 1, s + 8, N, 1, '+']))
@@ -195,7 +192,6 @@ for A in ann:
     gAnn[parts[3]] = parts[9]
     gAS[parts[3]] = parts[9]
 
-#COMBINED THINGS HERE< SHOULD BE FINE >
     
 keys = sorted(tot, key=tot.get, reverse = True)
 
@@ -235,4 +231,4 @@ with open(fOUT, 'w') as fo:
                 fo.write('\t{}'.format(features[e][k]))
             fo.write('\n')
 
-print '{}: {}\t{}: {}\n'.format(keys[0], tot[keys[0]], keys[1], tot[keys[1]])
+#print '{}: {}\t{}: {}\n'.format(keys[0], tot[keys[0]], keys[1], tot[keys[1]])

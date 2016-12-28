@@ -1,0 +1,614 @@
+Date: 2016-12-23T14:44:12.407224
+
+Run inputs:
+Minimum read length = 14
+Genome = mmu
+
+### Generating adapter file ###
+Existing adapter file to be used for SampleB
+
+### Trimming adapters ###
+adapter = TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACTTAGGCATCTCGTATGCCGTCTTCTGCTTG
+error rate = 0.1
+overlap = 10
+minRNA = 14
+untrimmed = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_UT.fq
+too short = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ST.fq
+output = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB.fq
+input = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB.fastq
+degenerate bases in adapter = 0
+This is cutadapt 1.12 with Python 2.7.6
+Command line parameters: -a TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACTTAGGCATCTCGTATGCCGTCTTCTGCTTG -e 0.1 -O 10 -m 14 --untrimmed-output=/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_UT.fq --too-short-output=/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ST.fq -o /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB.fastq
+Trimming 1 adapter with at most 10.0% errors in single-end mode ...
+Finished in 3.34 s (33 us/read; 1.80 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                 100,000
+Reads with adapters:                    98,485 (98.5%)
+Reads that were too short:               9,562 (9.6%)
+Reads written (passing filters):        90,438 (90.4%)
+
+Total basepairs processed:     5,100,000 bp
+Total written (filtered):      2,230,301 bp (43.7%)
+
+=== Adapter 1 ===
+
+Sequence: TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACTTAGGCATCTCGTATGCCGTCTTCTGCTTG; Type: regular 3'; Length: 63; Trimmed: 98485 times.
+
+No. of allowed errors:
+0-9 bp: 0; 10-19 bp: 1; 20-29 bp: 2; 30-39 bp: 3; 40-49 bp: 4; 50-59 bp: 5; 60-63 bp: 6
+
+Bases preceding removed adapters:
+A: 21.7%
+C: 14.5%
+G: 23.0%
+T: 40.8%
+none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+9	41	0.4	0	0 41
+10	80	0.1	1	80
+11	213	0.0	1	210 3
+12	696	0.0	1	688 8
+13	311	0.0	1	302 9
+14	331	0.0	1	323 8
+15	571	0.0	1	559 12
+16	868	0.0	1	832 36
+17	780	0.0	1	737 43
+18	1076	0.0	1	1007 68 1
+19	2128	0.0	1	2039 85 4
+20	5780	0.0	2	5616 147 17
+21	5778	0.0	2	5605 163 10
+22	3314	0.0	2	2960 340 14
+23	1568	0.0	2	1385 173 10
+24	857	0.0	2	821 34 2
+25	856	0.0	2	827 28 1
+26	1117	0.0	2	1074 37 6
+27	3216	0.0	2	3035 160 18 3
+28	18962	0.0	2	18104 727 104 27
+29	20121	0.0	2	19217 765 117 22
+30	9206	0.0	3	8785 348 47 26
+31	1883	0.0	3	1647 210 22 4
+32	1878	0.0	3	1591 278 6 3
+33	2175	0.0	3	2052 111 10 2
+34	1508	0.0	3	1450 47 9 2
+35	1182	0.0	3	1101 71 6 4
+36	1079	0.0	3	907 152 17 3
+37	1348	0.0	3	1179 159 9 1
+38	1099	0.0	3	1047 47 3 2
+39	1273	0.0	3	1164 98 9 2
+40	1535	0.0	4	1340 180 11 3 1
+41	1789	0.0	4	1466 286 33 4
+42	1878	0.0	4	1730 139 7 0 2
+43	1128	0.0	4	1037 79 9 3
+44	592	0.0	4	549 36 5 1 1
+45	206	0.0	4	167 35 3 1
+46	33	0.0	4	20 11 2
+47	9	0.0	4	9
+48	5	0.0	4	5
+49	11	0.0	4	4 6 1
+50	2	0.0	5	2
+51	2	0.0	5	2
+
+cutadapt = 5.49046111107
+
+### Separating reads by length ###
+script = ./bin/chainSubmission.py
+Minimum read length = 14
+Maximum read length = 42
+Base name for file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB
+
+### Aligning perfectly to genome ###
+
+Read length = 14
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_14.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_14.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_14.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 14 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_14.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_14.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_14.hits
+# reads processed: 1348
+# reads with at least one reported alignment: 850 (63.06%)
+# reads that failed to align: 126 (9.35%)
+# reads with alignments suppressed due to -m: 372 (27.60%)
+Reported 3849 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 15
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_15.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_15.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_15.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 15 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_15.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_15.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_15.hits
+# reads processed: 1079
+# reads with at least one reported alignment: 512 (47.45%)
+# reads that failed to align: 286 (26.51%)
+# reads with alignments suppressed due to -m: 281 (26.04%)
+Reported 2987 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 16
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_16.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_16.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_16.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 16 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_16.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_16.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_16.hits
+# reads processed: 1182
+# reads with at least one reported alignment: 594 (50.25%)
+# reads that failed to align: 357 (30.20%)
+# reads with alignments suppressed due to -m: 231 (19.54%)
+Reported 2457 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 17
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_17.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_17.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_17.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 17 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_17.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_17.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_17.hits
+# reads processed: 1508
+# reads with at least one reported alignment: 365 (24.20%)
+# reads that failed to align: 971 (64.39%)
+# reads with alignments suppressed due to -m: 172 (11.41%)
+Reported 1245 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 18
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_18.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_18.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_18.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 18 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_18.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_18.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_18.hits
+# reads processed: 2175
+# reads with at least one reported alignment: 595 (27.36%)
+# reads that failed to align: 1450 (66.67%)
+# reads with alignments suppressed due to -m: 130 (5.98%)
+Reported 1501 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 19
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_19.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_19.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_19.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 19 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_19.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_19.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_19.hits
+# reads processed: 1878
+# reads with at least one reported alignment: 458 (24.39%)
+# reads that failed to align: 1300 (69.22%)
+# reads with alignments suppressed due to -m: 120 (6.39%)
+Reported 1598 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 20
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_20.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_20.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_20.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 20 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_20.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_20.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_20.hits
+# reads processed: 1883
+# reads with at least one reported alignment: 1080 (57.36%)
+# reads that failed to align: 692 (36.75%)
+# reads with alignments suppressed due to -m: 111 (5.89%)
+Reported 2400 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 21
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_21.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_21.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_21.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 21 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_21.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_21.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_21.hits
+# reads processed: 9206
+# reads with at least one reported alignment: 7991 (86.80%)
+# reads that failed to align: 1080 (11.73%)
+# reads with alignments suppressed due to -m: 135 (1.47%)
+Reported 15119 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 22
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_22.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_22.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_22.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 22 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_22.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_22.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_22.hits
+# reads processed: 20121
+# reads with at least one reported alignment: 17879 (88.86%)
+# reads that failed to align: 2161 (10.74%)
+# reads with alignments suppressed due to -m: 81 (0.40%)
+Reported 31015 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 23
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_23.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_23.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_23.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 23 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_23.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_23.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_23.hits
+# reads processed: 18962
+# reads with at least one reported alignment: 2674 (14.10%)
+# reads that failed to align: 16187 (85.37%)
+# reads with alignments suppressed due to -m: 101 (0.53%)
+Reported 3392 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 24
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_24.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_24.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_24.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 24 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_24.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_24.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_24.hits
+# reads processed: 3216
+# reads with at least one reported alignment: 1433 (44.56%)
+# reads that failed to align: 1727 (53.70%)
+# reads with alignments suppressed due to -m: 56 (1.74%)
+Reported 2085 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 25
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_25.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_25.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_25.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 25 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_25.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_25.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_25.hits
+# reads processed: 1117
+# reads with at least one reported alignment: 202 (18.08%)
+# reads that failed to align: 875 (78.33%)
+# reads with alignments suppressed due to -m: 40 (3.58%)
+Reported 667 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 26
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_26.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_26.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_26.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 26 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_26.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_26.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_26.hits
+# reads processed: 856
+# reads with at least one reported alignment: 115 (13.43%)
+# reads that failed to align: 698 (81.54%)
+# reads with alignments suppressed due to -m: 43 (5.02%)
+Reported 384 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 27
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_27.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_27.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_27.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 27 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_27.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_27.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_27.hits
+# reads processed: 857
+# reads with at least one reported alignment: 93 (10.85%)
+# reads that failed to align: 720 (84.01%)
+# reads with alignments suppressed due to -m: 44 (5.13%)
+Reported 352 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 28
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_28.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_28.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_28.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 28 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_28.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_28.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_28.hits
+# reads processed: 1568
+# reads with at least one reported alignment: 173 (11.03%)
+# reads that failed to align: 1358 (86.61%)
+# reads with alignments suppressed due to -m: 37 (2.36%)
+Reported 978 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 29
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_29.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_29.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_29.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 29 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_29.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_29.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_29.hits
+# reads processed: 3314
+# reads with at least one reported alignment: 344 (10.38%)
+# reads that failed to align: 2963 (89.41%)
+# reads with alignments suppressed due to -m: 7 (0.21%)
+Reported 2815 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 30
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_30.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_30.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_30.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 30 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_30.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_30.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_30.hits
+# reads processed: 5778
+# reads with at least one reported alignment: 1953 (33.80%)
+# reads that failed to align: 3814 (66.01%)
+# reads with alignments suppressed due to -m: 11 (0.19%)
+Reported 18383 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 31
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_31.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_31.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_31.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 31 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_31.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_31.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_31.hits
+# reads processed: 5780
+# reads with at least one reported alignment: 804 (13.91%)
+# reads that failed to align: 4941 (85.48%)
+# reads with alignments suppressed due to -m: 35 (0.61%)
+Reported 7171 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 32
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_32.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_32.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_32.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 32 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_32.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_32.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_32.hits
+# reads processed: 2128
+# reads with at least one reported alignment: 217 (10.20%)
+# reads that failed to align: 1890 (88.82%)
+# reads with alignments suppressed due to -m: 21 (0.99%)
+Reported 1224 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 33
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_33.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_33.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_33.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 33 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_33.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_33.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_33.hits
+# reads processed: 1076
+# reads with at least one reported alignment: 149 (13.85%)
+# reads that failed to align: 910 (84.57%)
+# reads with alignments suppressed due to -m: 17 (1.58%)
+Reported 890 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 34
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_34.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_34.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_34.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 34 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_34.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_34.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_34.hits
+# reads processed: 780
+# reads with at least one reported alignment: 162 (20.77%)
+# reads that failed to align: 603 (77.31%)
+# reads with alignments suppressed due to -m: 15 (1.92%)
+Reported 1084 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 35
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_35.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_35.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_35.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 35 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_35.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_35.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_35.hits
+# reads processed: 868
+# reads with at least one reported alignment: 99 (11.41%)
+# reads that failed to align: 740 (85.25%)
+# reads with alignments suppressed due to -m: 29 (3.34%)
+Reported 664 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 36
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_36.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_36.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_36.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 36 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_36.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_36.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_36.hits
+# reads processed: 571
+# reads with at least one reported alignment: 32 (5.60%)
+# reads that failed to align: 512 (89.67%)
+# reads with alignments suppressed due to -m: 27 (4.73%)
+Reported 106 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 37
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_37.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_37.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_37.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 37 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_37.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_37.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_37.hits
+# reads processed: 331
+# reads with at least one reported alignment: 47 (14.20%)
+# reads that failed to align: 237 (71.60%)
+# reads with alignments suppressed due to -m: 47 (14.20%)
+Reported 186 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 38
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_38.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_38.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_38.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 38 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_38.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_38.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_38.hits
+# reads processed: 311
+# reads with at least one reported alignment: 15 (4.82%)
+# reads that failed to align: 254 (81.67%)
+# reads with alignments suppressed due to -m: 42 (13.50%)
+Reported 54 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 39
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_39.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_39.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_39.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 39 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_39.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_39.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_39.hits
+# reads processed: 696
+# reads with at least one reported alignment: 14 (2.01%)
+# reads that failed to align: 628 (90.23%)
+# reads with alignments suppressed due to -m: 54 (7.76%)
+Reported 32 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 40
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_40.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_40.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_40.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 40 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_40.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_40.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_40.hits
+# reads processed: 213
+# reads with at least one reported alignment: 14 (6.57%)
+# reads that failed to align: 146 (68.54%)
+# reads with alignments suppressed due to -m: 53 (24.88%)
+Reported 40 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 41
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_41.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_41.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_41.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 41 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_41.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_41.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_41.hits
+# reads processed: 80
+# reads with at least one reported alignment: 9 (11.25%)
+# reads that failed to align: 62 (77.50%)
+# reads with alignments suppressed due to -m: 9 (11.25%)
+Reported 35 alignments to 1 output stream(s)
+
+### Aligning perfectly to genome ###
+
+Read length = 42
+Input file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_42.fq
+Bowtie indexes location = /proj/seth_lab/projects/genome/mm9
+Aligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_42.hits
+Unaligned reads file = /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_42.noHit
+Bowtie command = bowtie -q -nomaqround -a -m 20 --phred33-quals                 -n 0 -e 70 -l 42 -p 8 --seed=197 --un /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_42.noHit /proj/seth_lab/projects/genome/mm9 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_42.fq /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_42.hits
+# reads processed: 41
+# reads with at least one reported alignment: 4 (9.76%)
+# reads that failed to align: 34 (82.93%)
+# reads with alignments suppressed due to -m: 3 (7.32%)
+Reported 7 alignments to 1 output stream(s)
+bowtie = 50.8314130306
+
+### Creating genomic windows ###
+Combining all bowtie hits...
+slopBed...
+rearrange...
+sorting...
+Add tRNA transcripts to windows with slopBed...
+Merging into windows bed...
+Make fasta from bed file...
+window generation = 65.9849219322
+
+### Align mismatched reads (SHRiMP alignment) ###
+SHRiMP job submissions:
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 14 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/14/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 15 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/15/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 16 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/16/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 17 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/17/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 18 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/18/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 19 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/19/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 20 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/20/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 21 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/21/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 22 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/22/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 23 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/23/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 24 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/24/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 25 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/25/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 26 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/26/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 27 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/27/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 28 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/28/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 29 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/29/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 30 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/30/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 31 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/31/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 32 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/32/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 33 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/33/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 34 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/34/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 35 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/35/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 36 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/36/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 37 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/37/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 38 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/38/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 39 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/39/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 40 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/40/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 41 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/41/
+SHRiMP submission: bsub -o tutorial.log -q hour  python shrimp_proc.py 42 /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_LIB.fa /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/configuration/ /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB/log/SHRiMP/42/
+
+### Running bowtie post-processing ###
+Unique bowtie alignments: 38877
+Total number of bowtie alignments: 102720
+
+Total proportional assignment count = 38877
+
+Total counts = 207.72, after adding counts from chr10:+
+Total counts = 591.54, after adding counts from chr10:-
+Total counts = 1434.98, after adding counts from chr11:+
+Total counts = 2519.97, after adding counts from chr11:-
+Total counts = 2586.57, after adding counts from chr12:+
+Total counts = 2671.07, after adding counts from chr12:-
+Total counts = 3283.13, after adding counts from chr13:+
+Total counts = 3801.29, after adding counts from chr13:-
+Total counts = 5686.43, after adding counts from chr14:+
+Total counts = 5767.06, after adding counts from chr14:-
+Total counts = 5977.16, after adding counts from chr15:+
+Total counts = 6212.81, after adding counts from chr15:-
+Total counts = 6327.70, after adding counts from chr16:+
+Total counts = 6501.07, after adding counts from chr16:-
+Total counts = 7180.59, after adding counts from chr17:+
+Total counts = 7245.47, after adding counts from chr17:-
+Total counts = 7246.37, after adding counts from chr17_random:+
+Total counts = 7246.44, after adding counts from chr17_random:-
+Total counts = 7300.21, after adding counts from chr18:+
+Total counts = 7557.85, after adding counts from chr18:-
+Total counts = 7655.86, after adding counts from chr19:+
+Total counts = 7704.50, after adding counts from chr19:-
+Total counts = 8888.40, after adding counts from chr1:+
+Total counts = 9442.93, after adding counts from chr1:-
+Total counts = 9769.86, after adding counts from chr2:+
+Total counts = 10069.73, after adding counts from chr2:-
+Total counts = 11041.97, after adding counts from chr3:+
+Total counts = 11382.60, after adding counts from chr3:-
+Total counts = 11434.60, after adding counts from chr4:+
+Total counts = 11649.44, after adding counts from chr4:-
+Total counts = 11732.14, after adding counts from chr5:+
+Total counts = 13007.34, after adding counts from chr5:-
+Total counts = 13446.27, after adding counts from chr6:+
+Total counts = 14227.08, after adding counts from chr6:-
+Total counts = 14316.06, after adding counts from chr7:+
+Total counts = 14426.13, after adding counts from chr7:-
+Total counts = 25673.27, after adding counts from chr8:+
+Total counts = 35844.86, after adding counts from chr8:-
+Total counts = 38377.16, after adding counts from chr9:+
+Total counts = 38610.45, after adding counts from chr9:-
+Total counts = 38610.69, after adding counts from chr9_random:+
+Total counts = 38620.57, after adding counts from chrM:+
+Total counts = 38620.63, after adding counts from chrUn_random:+
+Total counts = 38621.06, after adding counts from chrUn_random:-
+Total counts = 38752.89, after adding counts from chrX:+
+Total counts = 38874.24, after adding counts from chrX:-
+Total counts = 38874.74, after adding counts from chrX_random:+
+Total counts = 38875.44, after adding counts from chrX_random:-
+Total counts = 38876.12, after adding counts from chrY:+
+Total counts = 38876.59, after adding counts from chrY:-
+Total counts = 38876.64, after adding counts from chrY_random:+
+Total counts = 38877.00, after adding counts from chrY_random:-
+Waiting for SHRiMP to finish...
+0 minutes elapsed
+
+Reducing SHRiMP size files to single file
+finish = 195.215498924

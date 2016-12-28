@@ -1,0 +1,45 @@
+Run Info:
+Chromosome # and path: /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/CHR8_RANDOM
+Bowtie results file: /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/CHR8_RANDOM.results
+Species genome: mmu
+Output directory: /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results
+Window fasta: /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/../SampleA_LIB.fa
+
+Mature not in hairpin
+mmu-mir-297a-2-3p
+Hairpin: CTGTGTGTATATGTATGTGTGCATGTGCATGTGTGTATATGAGTATACATATACATACGCACATACCCATACAAGCATGCACACAAACCC
+Mature seq TATACATACACACATACCCATA
+
+Mature not in hairpin
+mmu-mir-297a-1-3p
+Hairpin: ATATGTATGTATGTATGTATGTGTGCATGTGCATGTGCATGTATGCATATTGCATGTATATATTATGCATACATGT
+Mature seq TATACATACACACATACCCATA
+
+Mature not in hairpin
+mmu-mir-466f-4-3p
+Hairpin: CATCTGCATCTGTGTGTCTACGTGTGTGTGCATGTGCATGTGTGTGTATCTGTATGTGAGTGTGTGCATGCATGTGTGTGCATCTATATCTGTGTGTCTACTTGTGTGTGAATGTGCATAT
+Mature seq CATACACACACACATACACAC
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/5p_summary/CHR8_RANDOM:359389-359414(-).results_5p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/3p_summary/CHR8_RANDOM:359389-359414(-).results_3p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/ed_summary/CHR8_RANDOM:359389-359414(-).results_ed_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/shift_summary/CHR8_RANDOM:359389-359414(-).results_shift_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/lenDist_summary/CHR8_RANDOM:359389-359414(-).results_lenDist_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/5p_summary/CHR8_RANDOM:476818-476842(-).results_5p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/3p_summary/CHR8_RANDOM:476818-476842(-).results_3p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/ed_summary/CHR8_RANDOM:476818-476842(-).results_ed_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/shift_summary/CHR8_RANDOM:476818-476842(-).results_shift_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleA./IntermediateFiles/g1Results/lenDist_summary/CHR8_RANDOM:476818-476842(-).results_lenDist_summary.txt
+
+Total counts: 0.311111111111
+Total discard count: 0.311111111111
+Counts over 10 threshold: 0

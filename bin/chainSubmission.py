@@ -20,10 +20,10 @@ import datetime
 import glob
 import logging
 import os
-from os.path import dirname, basename, splitext
 import subprocess
 import sys
 import time
+
 import bt_postProcEM
 import generate_adapter_files
 import reduce_shrimp
@@ -65,7 +65,7 @@ def set_up_output_folder(fi, out_path):
     output directories
     '''
     dr, fi_name = os.path.dirname(fi), os.path.basename(fi)
-    fi_base, fi_ext = splitext(fi_name)
+    fi_base, fi_ext = os.path.splitext(fi_name)
     dr_i = '{}/{}./IntermediateFiles'.format(dr, fi_base)
     if not os.path.isdir(dr_i):
         os.makedirs(dr_i)
@@ -89,7 +89,7 @@ def set_lib(dir_i, fi_base):
     '''
     Set basename for most outputs in IntermediateFiles folder
     '''
-    return '{}/{}'.format(dir_i, fi_base)
+    return os.path.join(dir_i, fi_base)
 
 
 def cutadapt_cmd(fi, lib, cutadapt):
@@ -105,7 +105,7 @@ def cutadapt_cmd(fi, lib, cutadapt):
     too_short = '{}_ST.fq'.format(lib)
     with open('{}adaptor'.format('/'.join(lib.split('/')[:-2])), 'r') as f:
         adapter = f.read().rstrip()
-    degen = adapter.count('N')
+    degen = get_degenerate_base_count(adapter)
     print adapter
     print degen
     overlap -= degen
@@ -134,6 +134,16 @@ def cutadapt_cmd(fi, lib, cutadapt):
     return min_read_length
 
 
+def get_degenerate_base_count(adapter):
+    '''
+    Counts the number of N's at the 5' end of the adapter
+    '''
+    for i, n in enumerate(adapter):
+        if n != 'N':
+            break
+    return i
+
+
 def separate_by_read_length(MINrna, MAXrna, lib, output_loc):
     '''
     Separates read lengths by size into individual fastqs
@@ -147,7 +157,7 @@ def bowtie(fi, length, BI, bowtie):
     Use bowtie to get reads that perfectly align to genome
     '''
     logging.info('\n### Aligning perfectly to genome ###')
-    base = splitext(fi)[0]
+    base = os.path.splitext(fi)[0]
     unaligned = '{}.noHit'.format(base)
     aligned = '{}.hits'.format(base)
     logging.info('\nRead length = {}'.format(length))
@@ -194,22 +204,35 @@ def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
     OUTgse = '{}_allGSE.bed'.format(lib)
     OUTgseu = '{}_allGSEu.bed'.format(lib)
     OUTl = '{}_LIB.fa'.format(lib)
-
+    
+    start2 = time.time()
+    print 'test window speed steps'
     logging.info('slopBed...')
     os.system('slopBed -b 0 -i {} -g {}.chromSizes >> {}'.format(
         OUTgs, BI, OUTgse))
+    print 'slopbed1 -> {}'.format(time.time() - start2)
 
+    start2 = time.time()
+    logging.info('rearrange...')
     os.system('awk -F"\\t" \'{{print $1"\\t"$2"\\t"$3"\\tNAME\\t1\\t"$6}}\' {} | uniq > {}'.format(
         OUTgse, OUTt))
+    print 'rearrange -> {}'.format(time.time() - start2)
 
+    start2 = time.time()
+    logging.info('sorting...')
     os.system('sort -k1,1 -k2,2n {} | uniq > {}'.format(OUTt, OUTgseu))
+    print 'sort -> {}'.format(time.time() - start2)
 
+    start2 = time.time()
     logging.info('Add tRNA transcripts to windows with slopBed...')
     os.system('slopBed -b 40 -i {} -g {}.chromSizes >> {}'.format(tRNA, BI, OUTgseu))
     os.system('sort -k1,1 -k2,2n {} > {}'.format(OUTgseu, OUTt2))
+    print 'add tRNA -> {}'.format(time.time() - start2)
 
+    start2 = time.time()
     logging.info('Merging into windows bed...')
     os.system('mergeBed -d 65 -s -c 1 -o count -i {} > {}'.format(OUTt2, OUTt))
+    print 'mergeBed -> {}'.format(time.time() - start2)
     os.system('''awk '{{print $1"\\t"$2"\\t"$3"\\tNAME\\t"$5"\\t"$4}}' {} > {}'''.format(
         OUTt, OUTm))
     os.system('slopBed -b 5  -i {} -g {}.chromSizes > {}'.format(OUTm, BI, OUTt))                             # add 5nt to each side of merged bed file (this is the windows to align to)
@@ -275,12 +298,10 @@ def run_shrimp_alignment(MINrna, MAXrna, lib, log_dir, tmpDir, job, conf):
         shrimp_log_dir = '{}SHRiMP/{}/'.format(log_dir, length)
         if not os.path.isdir(shrimp_log_dir):
             os.makedirs(shrimp_log_dir)
-#        print 'here1'
         cmd = '{} python shrimp_proc.py {} {}_LIB.fa {}_ {} {}'.format(
                     job, length, lib, lib, conf, shrimp_log_dir)
         logging.info('SHRiMP submission: {}'.format(cmd))
         os.system(cmd)
-#        print 'here2'
 
 
 def reduce_shrimp_res(temp_dir, dr_i, job):
@@ -308,6 +329,7 @@ def reduce_shrimp_res(temp_dir, dr_i, job):
 
 
 def main(arg):
+    start = time.time()
     os.chdir('./bin')
     cfg = load_mirquant_config_file(arg.conf)
     scfg = load_sys_config_file(arg.conf)
@@ -324,15 +346,19 @@ def main(arg):
     MAXrna = get_maxRNA_length(arg.sample, cfg['cutadapt'])
     lib = set_lib(dr_i, fi_base)
     MINrna = cutadapt_cmd(arg.sample, lib, cfg['cutadapt'])
+    logging.info('cutadapt = {}'.format(time.time() - start))
     separate_by_read_length(MINrna, MAXrna, lib, out_di['output'])
     for length in range(MINrna, MAXrna + 1):
         fi = '{}_{}.fq'.format(lib, length)
         bowtie(fi, length, BI, cfg['bowtie'])
+    logging.info('bowtie = {}'.format(time.time() - start))
     window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA)
+    logging.info('window generation = {}'.format(time.time() - start))
     mapping_statistics(arg.sample, lib, dr, fi_base)
     run_shrimp_alignment(MINrna, MAXrna, lib, out_di['log'], out_di['temp'], job, arg.conf)
     bt_postProcEM.main('{}_merge.bed'.format(lib), '{}_allGS.bed'.format(lib), out_di['temp'])
     reduce_shrimp_res(out_di['temp'], dr_i, job)
+    logging.info('finish = {}'.format(time.time() - start))
 
 
 if __name__ == '__main__':

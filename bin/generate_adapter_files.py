@@ -17,6 +17,8 @@ import sys
 import os
 import re
 import logging
+from os.path import isfile, \
+                    join
 from itertools import islice
 from utils import check_input, \
                   load_mirquant_config_file
@@ -40,9 +42,9 @@ def check_for_barcode_file(dirc, name, cfg):
     '''
     Checks for optional file containing barcodes
     '''
-    if os.path.isfile('{}/barcodes.txt'.format(dirc)):
+    if isfile(join(dirc, 'barcodes.txt')):
         barcode_di = {}
-        with open('{}/barcodes.txt'.format(dirc), 'r') as f:
+        with open(join(dirc, 'barcodes.txt'), 'r') as f:
             for l in f:
                 file, barcode = l.rstrip().split()
                 barcode_di[file] = barcode
@@ -63,7 +65,7 @@ def write_barcode_distribution(barcode_di, keys, output):
     The top barcode is the true barcode and will have much more than
     others.
     '''
-    out_name = '{}barcode_distribution.log'.format(output)
+    out_name = join(output, 'barcode_distribution.log')
     with open(out_name, 'w') as f:
         f.write('barcode\tcount\n')
         for k in keys:
@@ -72,7 +74,7 @@ def write_barcode_distribution(barcode_di, keys, output):
 
 def scan_fastq_for_barcode(file, name, log_dir):
     '''
-    Scans first 100,000 reads and takes the barcode from the 
+    Scans first 50,000 reads and takes the barcode from the 
     readname line.  Determines the barcode with the highest
     frequency to be the true barcode.
     '''

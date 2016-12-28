@@ -1,0 +1,341 @@
+### Running SHRiMP for read size 20 ###
+Number of seeds: 18
+Number of groups: 2
+
+Seeds in group0:
+11111111111111111000,
+11111111111111110100,
+11111111111111101100,
+11111111111111011100,
+11111111111110111100,
+11111111111101111100,
+11111111111011111100,
+11111111110111111100,
+11111111101111111100,
+11111111011111111100,
+11111110111111111100,
+11111101111111111100,
+11111011111111111100,
+11110111111111111100,
+11101111111111111100,
+11011111111111111100
+
+Seeds in group1:
+10111111111111111100,
+01111111111111111100
+
+
+
+### Processing SHRiMP results ###
+
+Loading miRNA resource file...
+mmu-mir-297a-2-3p: miR seq not in hairpin sequence
+miR seq: TATACATACACACATACCCATA
+hairpin seq: CTGTGTGTATATGTATGTGTGCATGTGCATGTGTGTATATGAGTATACATATACATACGCACATACCCATACAAGCATGCACACAAACCC
+
+mmu-mir-297a-1-3p: miR seq not in hairpin sequence
+miR seq: TATACATACACACATACCCATA
+hairpin seq: ATATGTATGTATGTATGTATGTGTGCATGTGCATGTGCATGTATGCATATTGCATGTATATATTATGCATACATGT
+
+mmu-mir-466f-4-3p: miR seq not in hairpin sequence
+miR seq: CATACACACACACATACACAC
+hairpin seq: CATCTGCATCTGTGTGTCTACGTGTGTGTGCATGTGCATGTGTGTGTATCTGTATGTGAGTGTGTGCATGCATGTGTGTGCATCTATATCTGTGTGTCTACTTGTGTGTGAATGTGCATAT
+
+Number of unique reads after loading SHRiMP results: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+NumTags 3: 294
+Chromosome CHR17_RANDOM has no recorded miRs
+Chromosome CHRM has no recorded miRs
+Total SHRiMP alignments = 955; proportional count = 294.0

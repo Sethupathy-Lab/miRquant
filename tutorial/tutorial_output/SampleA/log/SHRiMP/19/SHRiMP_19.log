@@ -1,0 +1,213 @@
+### Running SHRiMP for read size 19 ###
+Number of seeds: 18
+Number of groups: 2
+
+Seeds in group0:
+1111111111111111100,
+1111111111111111010,
+1111111111111110110,
+1111111111111101110,
+1111111111111011110,
+1111111111110111110,
+1111111111101111110,
+1111111111011111110,
+1111111110111111110,
+1111111101111111110,
+1111111011111111110,
+1111110111111111110,
+1111101111111111110,
+1111011111111111110,
+1110111111111111110,
+1101111111111111110
+
+Seeds in group1:
+1011111111111111110,
+0111111111111111110
+
+
+
+### Processing SHRiMP results ###
+
+Loading miRNA resource file...
+mmu-mir-297a-2-3p: miR seq not in hairpin sequence
+miR seq: TATACATACACACATACCCATA
+hairpin seq: CTGTGTGTATATGTATGTGTGCATGTGCATGTGTGTATATGAGTATACATATACATACGCACATACCCATACAAGCATGCACACAAACCC
+
+mmu-mir-297a-1-3p: miR seq not in hairpin sequence
+miR seq: TATACATACACACATACCCATA
+hairpin seq: ATATGTATGTATGTATGTATGTGTGCATGTGCATGTGCATGTATGCATATTGCATGTATATATTATGCATACATGT
+
+mmu-mir-466f-4-3p: miR seq not in hairpin sequence
+miR seq: CATACACACACACATACACAC
+hairpin seq: CATCTGCATCTGTGTGTCTACGTGTGTGTGCATGTGCATGTGTGTGTATCTGTATGTGAGTGTGTGCATGCATGTGTGTGCATCTATATCTGTGTGTCTACTTGTGTGTGAATGTGCATAT
+
+Number of unique reads after loading SHRiMP results: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+NumTags 3: 168
+Total SHRiMP alignments = 832; proportional count = 168.0

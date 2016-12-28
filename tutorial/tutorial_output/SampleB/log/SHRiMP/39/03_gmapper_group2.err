@@ -1,0 +1,115 @@
+--------------------------------------------------------------------------------
+gmapper: LETTER SPACE (454,Illumina/Solexa,etc.).
+SHRiMP 2.2.2
+[GCC 4.1.2 20080704 (Red Hat 4.1.2-50); CXXFLAGS="-O3 -DNDEBUG -mmmx -msse -msse2 -fopenmp -Wall -Wno-deprecated -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DGIT_VERSION=ad69ce1"]
+--------------------------------------------------------------------------------
+Loading genome from group2-46gb-12_12_12_12seeds-1of1-ls.genome
+Loading seed from group2-46gb-12_12_12_12seeds-1of1-ls.seed.0
+Loading seed from group2-46gb-12_12_12_12seeds-1of1-ls.seed.1
+Loading seed from group2-46gb-12_12_12_12seeds-1of1-ls.seed.2
+Loading seed from group2-46gb-12_12_12_12seeds-1of1-ls.seed.3
+Settings:
+    Spaced Seeds (weight/span)              011111111111111111111111111111111111000 (35/39)
+                                            101111111111111111111111111111111111000 (35/39)
+                                            110111111111111111111111111111111111000 (35/39)
+                                            111011111111111111111111111111111111000 (35/39)
+
+    Number of threads:                      16
+    Thread chunk size:                      1000
+    Window length:                          140.00%
+    Hash filter calls:                      yes
+    Anchor width:                           8
+    Indel taboo Len:                        0 (disabled)
+    Index list cutoff length:               1000
+    Gapless mode:                           no
+    Global alignment:                       yes
+    Region filter:                          yes
+    Region size:                            2048
+    Region overlap:                         50
+    Ignore QVs:                             no
+    Minimum average qv:                     10
+    Compute mapping qualities:              yes
+    All contigs:                            no
+    Single best mapping:                    no
+
+    SW Match Score:                         10        
+    SW Mismatch Score [Prob]:               -15       	[1.0e-02]
+    SW Del Open Score [Prob]:               -100      	[1.3e-10]
+    SW Ins Open Score [Prob]:               -100      	[1.3e-10]
+    SW Del Extend Score [Prob]:             -10       	[1.0e-01]
+    SW Ins Extend Score [Prob]:             -10       	[4.2e-02]
+
+Unpaired mapping options, set [0]
+[
+  regions:
+    recompute:false
+  anchor_list:
+    recompute:true
+    collapse:true
+    use_region_counts:false
+    use_mp_region_counts:0
+  hit_list:
+    recompute:true
+    gapless:false
+    match_mode:1
+    threshold:55.00%
+  pass1:
+    recompute:true
+    threshold:50.00%
+    window_overlap:90.00%
+    min_matches:1
+    gapless:false
+    num_outputs:30
+  pass2:
+    threshold:50.00%
+    strata:false
+    save_outputs:false
+    num_outputs:10
+  stop:
+    stop_count:0
+]
+
+note: detected fastq format in input file [/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_39.noHit]
+- Processing read file [/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial/SampleB./IntermediateFiles/SampleB_39.noHit]
+note: quality value format set to PHRED+33
+done r/hr r/core-hr
+
+
+Statistics:
+    Overall:
+        Load Genome Time:       1.03 seconds
+        Read Mapping Time:      0.01 seconds
+        Reads per hour:         316,188,023
+        Reads per core-hour:    19,761,751
+
+    Spaced Seed Scan:
+        Run-time:               0.00 seconds
+
+    Vector Smith-Waterman:
+        Run-time:               0.00 seconds
+        Invocations:            313
+        Bypassed Calls:         0
+        Cells Computed:         0.60 million
+        Cells per Second:       764.16 million
+
+    Scalar Smith-Waterman:
+        Run-time:               0.00 seconds
+        Invocations:            156
+        Cells Computed:         0.10 million
+        Cells per Second:       52.62 million
+
+    Miscellaneous Totals:
+        Fasta Lib Time:         0.01 seconds
+        Read Load Time:         0.11 seconds
+        Wait Time:              0.01 seconds
+
+    General:
+        Reads Matched:          58    (8.5044%)
+        ... with QV >= 10:      15    (2.1994%)
+        Reads Dropped:          0    (0.0000%)
+        Total Matches:          156
+        Avg Hits/Matched Read:  2.69
+        Duplicate Hits Pruned:  0
+
+    Memory usage:
+        Genomemap:              0

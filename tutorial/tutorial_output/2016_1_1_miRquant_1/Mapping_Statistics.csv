@@ -1,0 +1,19 @@
+Sample_name,SampleA,SampleB
+File,/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleA,/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant_output/SampleB
+Total Reads,100000,100000
+Trimmed Reads,93450,88923
+Percent Trimmed Reads,93.45,88.92
+Too Short Reads,5216,9562
+Percent Too Short,5.22,9.56
+Exact Match Reads,56072,38877
+Percent Exact Matches,60.00,43.72
+Mismatch Reads,37378,50046
+Percent Mismatched,40.00,56.28
+Mapped Reads, 66988, 68144
+Percent Mapped,71.68,76.63
+miR Mapped Reads, 49315, 49457
+Percent miR Mapped,73.62,72.58
+tRNA Mapped Reads, 15235, 2949
+Percent tRNA Mapped,22.74,4.33
+yRNA Mapped Reads, 0, 0
+Percent yRNA Mapped,0.00,0.00

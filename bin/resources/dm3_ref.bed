@@ -1,4 +1,3 @@
-chrom	txStart	txEnd	name2	exonCount	strand
 chrX	22318940	22319334	CR41352	1	+
 chrX	22363004	22364196	CG40485	2	-
 chrXHet	1715	13174	zyd	8	+

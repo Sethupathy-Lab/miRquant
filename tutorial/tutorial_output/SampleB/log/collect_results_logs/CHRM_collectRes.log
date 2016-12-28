@@ -1,0 +1,85 @@
+Run Info:
+Chromosome # and path: /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/CHRM
+Bowtie results file: /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/CHRM.results
+Species genome: mmu
+Output directory: /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results
+Window fasta: /proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/../SampleB_LIB.fa
+
+Mature not in hairpin
+mmu-mir-297a-2-3p
+Hairpin: CTGTGTGTATATGTATGTGTGCATGTGCATGTGTGTATATGAGTATACATATACATACGCACATACCCATACAAGCATGCACACAAACCC
+Mature seq TATACATACACACATACCCATA
+
+Mature not in hairpin
+mmu-mir-297a-1-3p
+Hairpin: ATATGTATGTATGTATGTATGTGTGCATGTGCATGTGCATGTATGCATATTGCATGTATATATTATGCATACATGT
+Mature seq TATACATACACACATACCCATA
+
+Mature not in hairpin
+mmu-mir-466f-4-3p
+Hairpin: CATCTGCATCTGTGTGTCTACGTGTGTGTGCATGTGCATGTGTGTGTATCTGTATGTGAGTGTGTGCATGCATGTGTGTGCATCTATATCTGTGTGTCTACTTGTGTGTGAATGTGCATAT
+Mature seq CATACACACACACATACACAC
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/5p_summary/CHRM:1396-1421(+).results_5p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/3p_summary/CHRM:1396-1421(+).results_3p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/ed_summary/CHRM:1396-1421(+).results_ed_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/shift_summary/CHRM:1396-1421(+).results_shift_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/lenDist_summary/CHRM:1396-1421(+).results_lenDist_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/5p_summary/CHRM:2237-2267(+).results_5p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/3p_summary/CHRM:2237-2267(+).results_3p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/ed_summary/CHRM:2237-2267(+).results_ed_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/shift_summary/CHRM:2237-2267(+).results_shift_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/lenDist_summary/CHRM:2237-2267(+).results_lenDist_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/5p_summary/CHRM:2347-2386(+).results_5p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/3p_summary/CHRM:2347-2386(+).results_3p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/ed_summary/CHRM:2347-2386(+).results_ed_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/shift_summary/CHRM:2347-2386(+).results_shift_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/lenDist_summary/CHRM:2347-2386(+).results_lenDist_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/5p_summary/CHRM:2670-2697(+).results_5p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/3p_summary/CHRM:2670-2697(+).results_3p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/ed_summary/CHRM:2670-2697(+).results_ed_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/shift_summary/CHRM:2670-2697(+).results_shift_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/lenDist_summary/CHRM:2670-2697(+).results_lenDist_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/5p_summary/CHRM:64-95(+).results_5p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/3p_summary/CHRM:64-95(+).results_3p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/ed_summary/CHRM:64-95(+).results_ed_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/shift_summary/CHRM:64-95(+).results_shift_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/lenDist_summary/CHRM:64-95(+).results_lenDist_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/5p_summary/CHRM:971-1071(+).results_5p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/3p_summary/CHRM:971-1071(+).results_3p_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/ed_summary/CHRM:971-1071(+).results_ed_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/shift_summary/CHRM:971-1071(+).results_shift_summary.txt
+
+/proj/seth_lab/users/Matt/sm_RNA_pipeline_code/dev/mirquant2.0/tutorial//SampleB./IntermediateFiles/g1Results/lenDist_summary/CHRM:971-1071(+).results_lenDist_summary.txt
+
+Total counts: 11.3888888889
+Total discard count: 11.3888888889
+Counts over 10 threshold: 0
