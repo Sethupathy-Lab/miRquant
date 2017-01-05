@@ -1,7 +1,7 @@
 # set path
 
-#export PATH=/proj/seth_lab/projects/.mirquant_prog/bin:$PATH
-#export PYTHONPATH=/proj/seth_lab/projects/.mirquant_prog/bin:$PYTHONPATH
+export PATH=~/.local/bin:$PATH
+export PYTHONPATH=~/.local/lib:$PYTHONPATH
 #export PATH=$PATH:/proj/.test/roach/miRNA/SHRiMP_2_2_2/bin
 
 module unload python
