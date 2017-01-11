@@ -2,17 +2,10 @@
 
 usage='''
 This determines the adaptor sequence for a sample based on the sample's file
-name, either automatically or by user input.  If by user input, parts are
-separated by '_'
-
-Usage: python generateTSadaptor.py [location_in_name] path_to_files/*.fastq
-
-  Required: path_to_files     this is the path to the fastq samples
- 
-  Optional: location_in_name  if user wants to state where adapter is in name.
-                              -better to try without stating first
+name, either automatically or by user input.
 '''
 
+import argparse
 import sys
 import os
 import re
@@ -49,9 +42,10 @@ def check_for_barcode_file(dirc, name, cfg):
                 file, barcode = l.rstrip().split()
                 barcode_di[file] = barcode
         try:
-            barcode = barcode_di[os.path.basename(file)]
+            barcode = barcode_di['{}.fastq'.format(name)]
         except KeyError:
             logging.error('ERROR: No file/barcode in barcodes.txt for {}'.format(file))
+            sys.exit()
         adapter = create_adapter(barcode, cfg['cutadapt']['adapter'])
         write_adapter_file(dirc, name, adapter)
         return True
@@ -129,7 +123,7 @@ def write_adapter_file(dirc, name, adapter):
         f.write('{}\n'.format(adapter))
                 
 
-def main(file, log_dir, conf):
+def main(file, log_dir,  conf):
     check_input()
     cfg = load_mirquant_config_file(conf)
     dirc, name, need_adapt = check_for_adapter_file(file)
@@ -138,3 +132,25 @@ def main(file, log_dir, conf):
             barcode = scan_fastq_for_barcode(file, name, log_dir)
             adapter = create_adapter(barcode, cfg['cutadapt']['adapter'])
             write_adapter_file(dirc, name, adapter)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+             description=usage
+             )
+    parser.add_argument(
+            'file',
+            action='store',
+            help='Path to fastq file')
+    parser.add_argument(
+            '-l',
+            action='store',
+            dest='log_dir',
+            default='.',
+            help='Path to log directory')
+    parser.add_argument(
+            'conf',
+            action='store',
+            help='Path to configuration file')
+    arg = parser.parse_args()
+    main(arg.file, arg.log_dir, arg.conf)

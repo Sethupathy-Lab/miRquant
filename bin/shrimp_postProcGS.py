@@ -244,6 +244,7 @@ def remove_temp_file(readSize, tempDir):
 
 
 def main(conf, shrimp_dir):
+    print 'Shrimp post-processing'
     check_input()
     cfg = load_mirquant_config_file(conf)
     res_li = resource_paths(cfg['parameters']['species'], cfg['paths'], cfg['parameters'])
