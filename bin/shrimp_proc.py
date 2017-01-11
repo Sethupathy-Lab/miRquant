@@ -79,9 +79,7 @@ def split_db(pypath, shrimpFolder, prefix, seedGroup, lib, shl_dir):
     log = '{}01_splitdb_{}.log'.format(shl_dir, prefix)
     cmd = '{} {} --ram-size 46 --prefix {} --h-flag --seed {} {} &> {}'.format(
                 pypath, script, prefix, seedGroup, lib, log)
-    print cmd
     os.system(cmd)
-    sys.exit()
     
 
 def project_db(pypath, shrimpFolder, seedGroup, groupName, shl_dir, prefix):
@@ -92,7 +90,6 @@ def project_db(pypath, shrimpFolder, seedGroup, groupName, shl_dir, prefix):
     log = '{}02_proj_{}.log'.format(shl_dir, prefix)
     cmd = '{} {} --shrimp-mode ls --h-flag --seed {} {} &> {}'.format(
         pypath, script, seedGroup, groupName, log)
-    print cmd
     os.system(cmd)
 
 
