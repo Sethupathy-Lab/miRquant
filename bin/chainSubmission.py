@@ -334,6 +334,7 @@ def main(arg):
     cfg = load_mirquant_config_file(arg.conf)
     scfg = load_sys_config_file(arg.conf)
     job = build_job(scfg['job'])
+    t_job = build_job(scfg['job_threaded'])
 
     dr, dr_i, fi_base = set_up_output_folder(arg.sample, cfg['paths']['output'])
     out_di = sample_output_paths(cfg['paths']['output'], fi_base)
@@ -355,7 +356,7 @@ def main(arg):
     window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA)
     logging.info('window generation = {}'.format(time.time() - start))
     mapping_statistics(arg.sample, lib, dr, fi_base)
-    run_shrimp_alignment(MINrna, MAXrna, lib, out_di['log'], out_di['temp'], job, arg.conf)
+    run_shrimp_alignment(MINrna, MAXrna, lib, out_di['log'], out_di['temp'], t_job, arg.conf)
     bt_postProcEM.main('{}_merge.bed'.format(lib), '{}_allGS.bed'.format(lib), out_di['temp'])
     reduce_shrimp_res(out_di['temp'], dr_i, job)
     logging.info('finish = {}'.format(time.time() - start))

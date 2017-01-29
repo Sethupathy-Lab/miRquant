@@ -99,7 +99,7 @@ def gmapper_ls(shrimpFolder, seedName, reads, qual, prefix, shl_dir):
     '''
     script = '{}bin/gmapper-ls'.format(shrimpFolder)
     gmpr_log = '{}03_gmapper_{}.err'.format(shl_dir, prefix)
-    cmd = '{} -L {} {} -Q -N 16 -F -q -100 -g -100 -e -10 -f -10 -n 1 --qv-offset {} --shrimp-format > {}.out 2> {}'.format(
+    cmd = '{} -L {} {} -Q -N 6 -F -q -100 -g -100 -e -10 -f -10 -n 1 --qv-offset {} --shrimp-format > {}.out 2> {}'.format(
                 script, seedName, reads, qual, prefix, gmpr_log)
     os.system(cmd)
 

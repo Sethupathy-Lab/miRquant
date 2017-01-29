@@ -251,12 +251,19 @@ def main(conf, shrimp_dir):
     sample = os.path.basename(shrimp_dir.split('./IntermediateFiles/')[0])
     out_di = sample_output_paths(cfg['paths']['output'], sample) 
     logging.info('\n\n### Processing SHRiMP results ###\n')
+    print 'a'
     mir_fi = res_li[1]
+    print 'b'
     mirList, mirStrand = load_mir_info(mir_fi)
+    print 'c'
     tagCount, hits, maps = load_SHRiMP_res(shrimp_dir)    
+    print 'd'
     hits, tags, pCount = get_best_alignments(hits, maps)
+    print 'e'
     write_processed_shrimp_output(hits, tags, mirList, mirStrand, shrimp_dir)
+    print 'f'
     remove_temp_file(os.path.basename(shrimp_dir).split('_')[1], out_di['temp'])
+    print 'g'
     logging.info('Total SHRiMP alignments = {}; proportional count = {}'.format(tagCount, pCount))
 
 

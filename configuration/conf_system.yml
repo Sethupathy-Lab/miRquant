@@ -3,8 +3,10 @@ job:
     bsub:
         -q: week
 
-job_quick:
+job_threaded:
     bsub:
         -q: hour
+        -n: 6
+        -R: "\"span[hosts=1]\""
 
 # This will be edited to fit your job scheduler (eg slurm, lsf, ect)

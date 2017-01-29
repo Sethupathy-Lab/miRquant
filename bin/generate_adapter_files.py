@@ -44,7 +44,7 @@ def check_for_barcode_file(dirc, name, cfg):
         try:
             barcode = barcode_di['{}.fastq'.format(name)]
         except KeyError:
-            logging.error('ERROR: No file/barcode in barcodes.txt for {}'.format(file))
+            logging.error('ERROR: No file/barcode in barcodes.txt for {}'.format(name))
             sys.exit()
         adapter = create_adapter(barcode, cfg['cutadapt']['adapter'])
         write_adapter_file(dirc, name, adapter)
