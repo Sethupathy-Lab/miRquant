@@ -108,13 +108,13 @@ def resource_paths(species, paths, para):
     r_dir = paths['resources']
     g_ver = para['genome_release']
         
-    genome = '{}{}.fa'.format(g_dir, g_ver)
-    table = '{}{}_table.txt'.format(r_dir, species)
-    tableL = '{}{}_tableL.bed'.format(r_dir, species)
-    tRNAlib = '{}{}_mature_tRNA_LIB.fa'.format(r_dir, g_ver)
-    tRNAbed = '{}{}_tRNA.bed'.format(r_dir, g_ver)
-    tRNAbed12 = '{}{}_tRNA12.bed'.format(r_dir, g_ver)
-    refAnn = '{}{}_ref.bed'.format(r_dir, g_ver)
+    genome = '{}/{}.fa'.format(g_dir, g_ver)
+    table = '{0}/{1}/{1}_table.txt'.format(r_dir, g_ver)
+    tableL = '{0}/{1}/{1}_tableL.bed'.format(r_dir, g_ver)
+    tRNAlib = '{0}/{1}/{1}_mature_tRNA_LIB.fa'.format(r_dir, g_ver)
+    tRNAbed = '{0}/{1}/{1}_tRNA.bed'.format(r_dir, g_ver)
+    tRNAbed12 = '{0}/{1}/{1}_tRNA12.bed'.format(r_dir, g_ver)
+    refAnn = '{0}/{1}/{1}_ref.bed'.format(r_dir, g_ver)
     genBase = '{}{}'.format(g_dir, g_ver)
 
     for file in [genome, table, tableL, tRNAlib, tRNAbed, tRNAbed12, refAnn]:
