@@ -2,12 +2,12 @@
 job:
     bsub:
         -q: week
-        -oo: miRquant.log
+        -o: miRquant.log
 
 job_threaded:
     bsub:
         -q: week
-        -oo: miRquant.log
+        -o: miRquant.log
         -n: 6
         -R: "\"span[hosts=1]\""
 
