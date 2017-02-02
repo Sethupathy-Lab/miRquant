@@ -29,5 +29,5 @@ colnames(data_corr) <- NULL
 png("sample_correlation_heatmap.png")
 pheatmap(data_corr,
          col=colors,
-         main="Sample to Sample Distance")
+         main="Sample to Sample Correlations")
 invisible(dev.off())
