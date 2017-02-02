@@ -72,10 +72,17 @@ def load_mirquant_config_file(config_path = './configuration/'):
     paths, and executable parameters supplied by the user.  File is in yaml
     format.
     '''
-    with open('{}/conf_miRquant.yml'.format(config_path), 'r') as config_f:
-        cfg = yaml.load(config_f)
-    cfg['paths']['resources'] = '{}bin/resources/'.format(cfg['paths']['mirquant'])
-    return cfg
+    try:
+        with open('{}/conf_miRquant.yml'.format(config_path), 'r') as config_f:
+            cfg = yaml.load(config_f)
+        cfg['paths']['resources'] = '{}bin/resources/'.format(cfg['paths']['mirquant'])
+        return cfg
+    except IOError:
+        print '''
+        ERROR: miRquant configuration file not found
+        Check that path to configuration directory is correct, and directory contains conf_miRquant.yml
+        '''
+        sys.exit()
 
 
 def load_sys_config_file(config_path = './configuration/'):
