@@ -40,6 +40,7 @@ The specific genome releases used in miRquant are:
 
 human - [hg19](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/)  
 mouse - [mm9](http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/)  
+      - [mm10](http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/)  
 rat - [rn4](http://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)  
 
 Download the appropriate genomes and the chromosome sizes for that genome release (\<release\>.chrom.sizes) 
@@ -55,7 +56,8 @@ pip install --user -r requirements.txt
 Change the genome fasta name to \<prefix\>.fa and the chromosome sizes file to \<prefix\>.chromSizes.  The prefixes for each species is as follows:
 
 human - hg19  
-mouse - mm9  
+mouse - mm9 
+      - mm10
 rat - rn4  
 
 Store the genomes and the chromosome size files *in the same location*.
@@ -67,10 +69,7 @@ Build Bowtie genome indexes for each genome.  Information on this can be found i
 
 ####Enter run parameters into the miRquant configuration file
 
-Copy the configuration directory to the directory containing the small RNA-seq fastqs.
-```
-cp -r /path/to/miRquant/configuration /path/to/fastq_containing_directory
-```
+
 The configuration directory contains two configuration files.
 
 1. conf_system.yml
@@ -157,8 +156,28 @@ shrimp:
 * SHRiMP options
   - path - path to SHRiMP executables
   - quality - quality cutoff for SHRiMP
-
+    
 For the tutorial, only the paths section of conf_mirquant.yml will have to be altered.
+  
+Copy the configuration directory to the directory containing the small RNA-seq fastqs.
+```
+cp -r /path/to/miRquant/configuration /path/to/fastq_containing_directory
+```
+
+##### Notes on adaptors
+
+miRquant2.0 is able to extract the barcode index sequence from fastq file in the Cassava 1.8 or later.  Here is an example, where the six nucleotide index sequence can be seen at the end of the sequence ID line.
+```
+@EAS139:136:FC706VJ:2:2104:15343:197393 1:Y:18:ATCACG
+```
+
+If your fastqs are not in this format, the index sequences can be supplied in a tab-separated file called _barcodes.txt_ of the following format:
+```
+SampleA.fastq    ATGTCA
+SampleB.fastq    CGTCCG
+```
+where the first column is the name of the fastq file and the second column is the index sequence.  The _barcodes.txt_ file should be placed in the same directory as the fastq files.
+
 
 ####Run the miRquant script:
 From the miRquant directory:
