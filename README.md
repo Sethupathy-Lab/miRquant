@@ -18,6 +18,8 @@
 ##miRquant introduction  
 miRquant 2.0 is a bioinformatic strategy for accurate detection of miRNAs from smRNA-seq data, with an emphasis on separately annotating and quantifying functionally-distinct isoforms of canonical miRNAs, termed isomiRs. In addition to the quantification of miRNA and isomiR expression level, we now provide additional detailed information on the quality of the sequencing data, genome mapping statistics, abundance of other types of small RNAs such as tDRs and yDRs, prevalence of post-transcriptional modifications such as A-to-I edits and 3’ non-templated nucleotide additions, and correlation in miRNA profiles across multiple samples.  Furthermore, miRquant 2.0 is now equipped to handle smRNA-seq data from human, mouse, rat, and fruitfly.  We make publicly available both the tool and a detailed tutorial for users to learn how to run the program and interpret the results.  Below we provide an overview of the miRquant algorithm and the diverse capabilities of the tool.
 
+For an in-depth walkthrough, follow the [miRquant2.0 tutorial](https://github.com/Sethupathy-Lab/miRquant/blob/master/tutorial/TUTORIAL.md).
+
 ##miRquant Installation  
 ###Requirements
 #####Software
