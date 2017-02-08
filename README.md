@@ -36,13 +36,14 @@ Install these programs and add their locations to the system path.
 
 #####Resources
 
-miRquant is currently set up to work with human, mouse and rat, with fruitfly support coming.
+miRquant is currently set up to work with human, mouse, rat, and fruitfly.
 
 The specific genome releases used in miRquant are:
 
 human - [hg19](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/)  
 mouse - [mm9](http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/), [mm10](http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/)  
 rat - [rn4](http://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)  
+fruitfly - [dm3](http://hgdownload.cse.ucsc.edu/goldenPath/dm3/bigZips/)  
 
 Download the appropriate genomes and the chromosome sizes for that genome release (\<release\>.chrom.sizes) 
 
@@ -59,6 +60,7 @@ Change the genome fasta name to \<prefix\>.fa and the chromosome sizes file to \
 human - hg19  
 mouse - mm9, mm10  
 rat - rn4  
+fruitfly - dm3  
 
 Store the genomes and the chromosome size files *in the same location*.
 
