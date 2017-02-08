@@ -164,12 +164,12 @@ cp -r /path/to/miRquant/configuration /path/to/fastq_containing_directory
 
 ##### Notes on adaptors
 
-miRquant2.0 is able to extract the barcode index sequence from fastq file in the Cassava 1.8 or later.  Here is an example, where the six nucleotide index sequence can be seen at the end of the sequence ID line.
+miRquant2.0 is able to extract the barcode index sequence from fastq files in the Cassava 1.8 or later format. An example of the Cassava 1.8 format, where the six nucleotide index sequence can be seen at the end of the sequence ID line.
 ```
 @EAS139:136:FC706VJ:2:2104:15343:197393 1:Y:18:ATCACG
 ```
 
-If your fastqs are not in this format, the index sequences can be supplied in a tab-separated file called _barcodes.txt_ of the following format:
+If your fastqs are not in this format, the index sequences can be supplied in a tab-separated file called _barcodes.txt_, formated like this:
 ```
 SampleA.fastq    ATGTCA
 SampleB.fastq    CGTCCG
