@@ -75,6 +75,11 @@ def load_mirquant_config_file(config_path = './configuration/'):
     try:
         with open('{}/conf_miRquant.yml'.format(config_path), 'r') as config_f:
             cfg = yaml.load(config_f)
+        # Verify path ends with /
+        for k, v in cfg['paths'].iteritems():
+            if not v.endswith('/'):
+                cfg['paths'][k] = v + '/'
+        # Add path to resources
         cfg['paths']['resources'] = '{}bin/resources/'.format(cfg['paths']['mirquant'])
         return cfg
     except IOError:
