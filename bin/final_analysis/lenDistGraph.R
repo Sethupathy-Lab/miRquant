@@ -14,8 +14,8 @@ lenData <- read.csv(args[1], header = T, sep = ",")
 # Change names to first 10 characters
 new_names = c()
 for (name in names(lenData)) {
-  if (nchar(name) > 10) {
-    new_names <- append(new_names, substr(name, 1, 10))
+  if (nchar(name) > 20) {
+    new_names <- append(new_names, substr(name, 1, 20))
   } else {
     new_names <- append(new_names, name)
   }

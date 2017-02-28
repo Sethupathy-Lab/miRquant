@@ -68,15 +68,21 @@ def wait_for_collect_res(temp_fi, sample_res, job):
     c = 0
     print 'Waiting for results to be collected...'
     while True:
+        time.sleep(60) 
+        temp_fi = [f for f in temp_fi if os.path.exists(f)]
         if len(temp_fi) == 0:
             combine_chromosome_results_files(sample_res, job)
             break
         elif c >= (60 * 24):
             print 'Run failed, too long running'
-        else:
-            time.sleep(30) 
-            temp_fi = [f for f in temp_fi if os.path.exists(f)]
+            sys.exit()
+        elif c % 30 == 0:
+            print "Remaining files:\n{}\n".format('\n'.join(temp_fi))
+            print "Elapsed time: {} hours {} minutes".format(c / 60, c % 60)
+        elif c % 5 == 0:
             print "Results remaining: {}".format(len(temp_fi))
+        else:
+            pass
         c += 1
 
 

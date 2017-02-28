@@ -191,6 +191,40 @@ def combine_all_bowtie_results(minRNA, maxRNA, lib):
     return OUTgs
 
 
+def number_of_windows_restriction(merge_bed, bowtie_res_bed):
+    '''
+    Checks the number of genomic windows to pass to SHRiMP step.
+    If over 1,000,000 windows / contigs, set a higher threshold for # of reads 
+    aligning to be a window.
+
+    This is due the next alignment step.  If there is over 1,000,000 contigs,
+    SHRiMP will fail.
+
+    If the windows folder is reduced, remove Bowtie hits that no longer match
+    a window (from allGS.bed).
+    '''
+    temp_fi = '{}.temp'.format(merge_bed)
+    c, i = 0, 1000000
+    while True:
+        i = file_line_count(merge_bed)
+        logging.info('Number of windows = {}'.format(i))
+        if i > 999000:
+            logging.info('Too many windows! Reducing # of windows...')
+            c += 1
+            with open(merge_bed) as f, open(temp_fi, 'w') as fo:
+                for l in f:
+                    if int(l.split('\t')[4]) > c:
+                        fo.write(l)
+            os.system('mv {} {}'.format(temp_fi, merge_bed))
+        else:
+            break
+
+    # If windows removed, remove bowtie res that no longer map to a window
+    if c > 0:
+        os.system('bedtools intersect -wa -s -a {} -b {} > {}'.format(bowtie_res_bed, merge_bed, temp_fi))
+        os.system('mv {} {}'.format(temp_fi, bowtie_res_bed))
+        
+
 def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
     '''
     create genomic window for alignment of unaligned reads using SHRiMP
@@ -235,6 +269,7 @@ def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
     print 'mergeBed -> {}'.format(time.time() - start2)
     os.system('''awk '{{print $1"\\t"$2"\\t"$3"\\tNAME\\t"$5"\\t"$4}}' {} > {}'''.format(
         OUTt, OUTm))
+    number_of_windows_restriction(OUTm, OUTgse)
     os.system('slopBed -b 5  -i {} -g {}.chromSizes > {}'.format(OUTm, BI, OUTt))                             # add 5nt to each side of merged bed file (this is the windows to align to)
     os.system('mv {} {}'.format(OUTt, OUTm))
 
