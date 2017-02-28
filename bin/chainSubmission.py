@@ -221,8 +221,11 @@ def number_of_windows_restriction(merge_bed, bowtie_res_bed):
 
     # If windows removed, remove bowtie res that no longer map to a window
     if c > 0:
+        print file_line_count(bowtie_res_bed)
+        mapping_count =  file_line_count(bowtie_res_bed)
         os.system('bedtools intersect -wa -s -a {} -b {} > {}'.format(bowtie_res_bed, merge_bed, temp_fi))
         os.system('mv {} {}'.format(temp_fi, bowtie_res_bed))
+        print file_line_count(bowtie_res_bed)
         
 
 def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
@@ -269,7 +272,7 @@ def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
     print 'mergeBed -> {}'.format(time.time() - start2)
     os.system('''awk '{{print $1"\\t"$2"\\t"$3"\\tNAME\\t"$5"\\t"$4}}' {} > {}'''.format(
         OUTt, OUTm))
-    number_of_windows_restriction(OUTm, OUTgse)
+    number_of_windows_restriction(OUTm, OUTgs)
     os.system('slopBed -b 5  -i {} -g {}.chromSizes > {}'.format(OUTm, BI, OUTt))                             # add 5nt to each side of merged bed file (this is the windows to align to)
     os.system('mv {} {}'.format(OUTt, OUTm))
 
@@ -297,7 +300,7 @@ def mapping_statistics(ARG, lib, dr, fi_base):
     lines = file_line_count(ARG) / 4
     tr_lines = file_line_count('{}.fq'.format(lib)) / 4
     untr_lines = file_line_count('{}_UT.fq'.format(lib)) /4
-    cmd = "awk '{{print $4}}' {}_allGS.bed | sort | uniq | wc -l".format(lib)
+    cmd = "awk '{{print $4}}' {}_allGSE.bed | sort | uniq | wc -l".format(lib)
     align_reads = subprocess.check_output(cmd, shell=True).rstrip()
     cmd = "awk '{{if (NR%4==1) print $0}}' {}*noHit | sort | uniq | wc -l".format(lib)
     unalign_reads = subprocess.check_output(cmd, shell=True).rstrip()
