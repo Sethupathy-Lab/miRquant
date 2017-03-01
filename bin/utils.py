@@ -100,7 +100,7 @@ def load_sys_config_file(config_path = './configuration/'):
         with open('{}/conf_system.yml'.format(config_path), 'r') as config_f:
             return yaml.load(config_f)
     except IOError:
-        return {'job' : {}}
+        return {'job' : {}, 'job_threaded' : {}}
 
 
 def remove_if_exists(path_):
