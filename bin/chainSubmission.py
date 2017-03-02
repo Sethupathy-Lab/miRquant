@@ -167,11 +167,11 @@ def bowtie(fi, length, BI, bowtie):
     logging.debug('Unaligned reads file = {}'.format(unaligned))
     if bowtie['quality'] == 33:
         bt_cmd = 'bowtie -q -nomaqround -a -m 20 --phred33-quals \
-                -n 0 -e 70 -l {} -p 8 --seed=197 --un {} {} {} {}'.format(
+                -n 0 -e 70 -l {} --seed=197 --un {} {} {} {}'.format(
                         length, unaligned, BI, fi, aligned)
     else:
         bt_cmd = 'bowtie -q -nomaqround -m 20 --solexa1.3-quals \
-            -n 0 -e 70 -l {} -p 8 --seed=197 --un {} {} {} {}'.format(
+            -n 0 -e 70 -l {} --seed=197 --un {} {} {} {}'.format(
                 length, unaligned, BI, fi, aligned)
     logging.info('Bowtie command = {}'.format(bt_cmd))
     pipe_to_logger(bt_cmd)
