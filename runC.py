@@ -67,6 +67,7 @@ def wait_for_collect_res(temp_fi, sample_res, job):
     c = 0
     print 'Waiting for results to be collected...'
     while True:
+        c += 1
         time.sleep(60) 
         temp_fi = [f for f in temp_fi if os.path.exists(f)]
         if len(temp_fi) == 0:
@@ -82,7 +83,6 @@ def wait_for_collect_res(temp_fi, sample_res, job):
             print "Results remaining: {}".format(len(temp_fi))
         else:
             pass
-        c += 1
 
 
 def main(args):
