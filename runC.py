@@ -71,6 +71,7 @@ def wait_for_collect_res(temp_fi, sample_res, job):
         time.sleep(60) 
         temp_fi = [f for f in temp_fi if os.path.exists(f)]
         if len(temp_fi) == 0:
+            print "Results remaining: 0"
             combine_chromosome_results_files(sample_res, job)
             break
         elif c >= (60 * 24):
