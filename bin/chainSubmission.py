@@ -236,8 +236,10 @@ def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
     OUTgs = combine_all_bowtie_results(MINrna, MAXrna, lib)
 
     OUTm = '{}_merge.bed'.format(lib)
-    OUTt = '{}_tmpMK.bed'.format(lib)
-    OUTt2 = '{}_tmpMK2.bed'.format(lib)
+    OUTt = '{}_tmp1.bed'.format(lib)
+    OUTt2 = '{}_tmp2.bed'.format(lib)
+    OUTt3 = '{}_tmp3.bed'.format(lib)
+    OUTt4 = '{}_tmp4.bed'.format(lib)
     OUTgse = '{}_allGSE.bed'.format(lib)
     OUTgseu = '{}_allGSEu.bed'.format(lib)
     OUTl = '{}_LIB.fa'.format(lib)
@@ -268,19 +270,19 @@ def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
 
     start2 = time.time()
     logging.info('Merging into windows bed...')
-    os.system('mergeBed -d 65 -s -c 1 -o count -i {} > {}'.format(OUTt2, OUTt))
+    os.system('mergeBed -d 65 -s -c 1 -o count -i {} > {}'.format(OUTt2, OUTt3))
     print 'mergeBed -> {}'.format(time.time() - start2)
     os.system('''awk '{{print $1"\\t"$2"\\t"$3"\\tNAME\\t"$5"\\t"$4}}' {} > {}'''.format(
-        OUTt, OUTm))
+        OUTt3, OUTm))
     number_of_windows_restriction(OUTm, OUTgs)
-    os.system('slopBed -b 5  -i {} -g {}.chromSizes > {}'.format(OUTm, BI, OUTt))                             # add 5nt to each side of merged bed file (this is the windows to align to)
-    os.system('mv {} {}'.format(OUTt, OUTm))
+    os.system('slopBed -b 5  -i {} -g {}.chromSizes > {}'.format(OUTm, BI, OUTt4))                             # add 5nt to each side of merged bed file (this is the windows to align to)
+    os.system('mv {} {}'.format(OUTt4, OUTm))
 
     logging.info('Make fasta from bed file...')
-    os.system('fastaFromBed -s -fi {}.fa -bed {} -fo {}'.format(BI, OUTm, OUTt))
-    os.system("tr '[:lower:]' '[:upper:]' < {} > {}".format(OUTt, OUTl))
+    os.system('fastaFromBed -s -fi {}.fa -bed {} -fo {}'.format(BI, OUTm, OUTt4))
+    os.system("tr '[:lower:]' '[:upper:]' < {} > {}".format(OUTt4, OUTl))
     os.system('cat {} >> {}'.format(tmRNA, OUTl))
-    os.system('rm {} {}'.format(OUTt, OUTt2))
+#    os.system('rm {} {}'.format(OUTt, OUTt2, OUTt3, OUTt4))
 
 
 def file_line_count(fi):
