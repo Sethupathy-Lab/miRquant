@@ -36,8 +36,5 @@ bowtie:
 shrimp:
     path:
         /proj/.test/roach/miRNA/SHRiMP_2_2_2/
-    dependencies:
-        python:
-            /proj/.test/roach/miRNA/lib/python/
     quality:
         33
