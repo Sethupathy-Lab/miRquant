@@ -75,7 +75,7 @@ def split_db(pypath, shrimpFolder, prefix, seedGroup, lib, shl_dir):
     '''
     Split-db command from SHRiMP.
     '''
-    script = '{}utils/split-db.py'.format(shrimpFolder)
+    script = '{}/utils/split-db.py'.format(shrimpFolder)
     log = '{}01_splitdb_{}.log'.format(shl_dir, prefix)
     cmd = '{} {} --ram-size 46 --prefix {} --h-flag --seed {} {} &> {}'.format(
                 pypath, script, prefix, seedGroup, lib, log)
@@ -86,7 +86,7 @@ def project_db(pypath, shrimpFolder, seedGroup, groupName, shl_dir, prefix):
     '''
     Project-db command from SHRiMP
     '''
-    script = '{}utils/project-db.py'.format(shrimpFolder)
+    script = '{}/utils/project-db.py'.format(shrimpFolder)
     log = '{}02_proj_{}.log'.format(shl_dir, prefix)
     cmd = '{} {} --shrimp-mode ls --h-flag --seed {} {} &> {}'.format(
         pypath, script, seedGroup, groupName, log)
@@ -97,7 +97,7 @@ def gmapper_ls(shrimpFolder, seedName, reads, qual, prefix, shl_dir):
     '''
     Gmapper-ls command from SHRiMP
     '''
-    script = '{}bin/gmapper-ls'.format(shrimpFolder)
+    script = '{}/bin/gmapper-ls'.format(shrimpFolder)
     gmpr_log = '{}03_gmapper_{}.err'.format(shl_dir, prefix)
     cmd = '{} -L {} {} -Q -N 6 -F -q -100 -g -100 -e -10 -f -10 -n 1 --qv-offset {} --shrimp-format > {}.out 2> {}'.format(
                 script, seedName, reads, qual, prefix, gmpr_log)
