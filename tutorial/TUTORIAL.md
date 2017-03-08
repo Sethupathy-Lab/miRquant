@@ -25,7 +25,7 @@ In addition to these scripts, miRquant 2.0 requires the following software for v
 
 * python v2.7.6
 * pip 
-* bedtools v2.25.0  
+* bedtools v2.26.0  
 * bowtie v1.1.0  
 * SHRiMP v2.2.2  
 * R v3.2.2 
