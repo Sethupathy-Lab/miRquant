@@ -7,6 +7,30 @@ import matplotlib.pyplot as plt
 from scipy.stats import ttest_ind as ttest
 
 
+usage = '''
+Calculates the statistics for the final report.
+These include: Average RPMMM across replicates
+               Fold changes between conditions
+               p-values between conditions
+
+The main output is statistics.csv, which has the fold changes and pvalues for
+the comparisons, the RPMMMs for the individual samples, and the average RPMMM
+across conditions.  Additionally, there will be an output for each comparison
+that contains the miRs, fold change, p-value, and average RPMMMs for each
+condition.  These files are sorted by p-value.
+'''
+
+
+def open_RPMMM(fi):
+    '''
+    Read RPMMM file in as dataframe
+    '''
+    return pd.read_csv(fi, 
+                       sep=',', 
+                       header=0,
+                       index_col=0)
+
+
 def open_condition(fi):
     '''
     Open conditions file containing file name and which group it falls into.
@@ -24,14 +48,25 @@ def open_condition(fi):
     return cond_di      
 
 
-def open_RPMMM(fi):
+def check_input(samples, conditions, comparisons):
     '''
-    Read RPMMM file in as dataframe
+    holder
     '''
-    return pd.read_csv(fi, 
-                       sep=',', 
-                       header=0,
-                       index_col=0)
+    with open(comparisons) as f:
+        comp = list(set([c for l in f.read().split('\t') for c in l.split() if l]))
+    samp_li = [s for k in conditions for s in conditions[k]]
+    samp_issue = [s for s in samp_li if s not in samples]
+    comp_issue = [c for c in comp if c not in conditions]
+    if len(samp_issue) > 0:
+        print '\nSample name in conditions file, but not in RPMMM file:'
+        print '{}\n'.format('\n'.join(samp_issue))
+        print 'Please check discrepency and execute again.\n'
+        sys.exit()
+    if len(comp_issue) > 0:
+        print '\nCondition name in comparisons file, but not in conditions file:'
+        print '{}\n'.format('\n'.join(comp_issue))
+        print 'Please check discrepency and execute again.\n'
+        sys.exit()
 
 
 def reorder_by_condition(df, cond_di):
@@ -41,7 +76,6 @@ def reorder_by_condition(df, cond_di):
     '''
     order = []
     for k, v in cond_di.iteritems():
-        print k
         df['AVG_{}'.format(k)] = df[v].mean(axis=1)
         order += sorted(v)
         order.append('AVG_{}'.format(k))
@@ -76,28 +110,34 @@ def make_comparisons(df, fi, cond_di):
         cdf['AVG_{}'.format(n)] = df['AVG_{}'.format(n)]
         cdf['AVG_{}'.format(d)] = df['AVG_{}'.format(d)]
         cdf = cdf.sort_index(by=['{}_pVal'.format(name)], ascending=[True])
-        cdf.to_csv(path_or_buf='{}.csv'.format(name),
+        cdf.to_csv(path_or_buf='{}/{}.csv'.format(out_path, name),
                   sep =',')
 
     df = pd.concat([tdf, df], axis = 1)
     return df
 
 
-def write_csv(df):
+def write_csv(df, out_path):
     '''
     Write output as a csv
     '''
-    df.to_csv(path_or_buf='statistics.csv',
+    df.to_csv(path_or_buf='{}/statistics.csv'.format(out_path),
               sep =',')
 
 
-def main():
-    cond_di = open_condition(sys.argv[1])
-    df = open_RPMMM(sys.argv[2])
+def main(RPMMM, cond, comp, out_path = './'):
+    df = open_RPMMM(RPMMM)
+    cond_di = open_condition(cond)
+    check_input(list(df), cond_di, comp)
     df = reorder_by_condition(df, cond_di)
-    df = make_comparisons(df, sys.argv[3], cond_di)
-    write_csv(df)
+    df = make_comparisons(df, comp, cond_di, out_path)
+    write_csv(df, out_path)
 
 
 if __name__ == '__main__':
-    main()
+    RPMMM = sys.argv[1]
+    condition = sys.argv[2]
+    comparison = sys.argv[3]
+    if sys.argv[4]:
+        out_path = sys.argv[4]
+    main(RPMMM, condition, comparison, out_path)

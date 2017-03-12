@@ -1,10 +1,11 @@
 #!/usr/bin/python2
 
+import os
 import sys
 import glob
 import xlsxwriter
 
-def verify_outputs_exist(dir, files):
+def verify_outputs_exist(files):
     '''
     Verify the necessary output files exist in directory.
     If not, state which files are missing.
@@ -89,11 +90,17 @@ def create_workbook(files, vs_files):
     wb.close()
 
 
-def main():
-    files, vs_files = verify_outputs_exist('.', glob.glob('*'))
+def main(out_path):
+    try:
+        os.chdir(out_path)
+    except OSError:
+        print('Output location does not exist. Check path.')
+        sys.exit()
+    files, vs_files = verify_outputs_exist(glob.glob('*'))
     create_workbook(files, vs_files)
 
 
 if __name__ == '__main__':
-    main()
+    out_path = sys.argv[1]
+    main(out_path)
 

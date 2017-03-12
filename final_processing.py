@@ -32,7 +32,9 @@ from bin.utils import load_mirquant_config_file
 from bin.final_analysis import f_utils, \
                         generate_mapping_info, \
                         lenDist, \
-                        generate_normalized_counts
+                        generate_normalized_counts, \
+                        statistics, \
+                        assemble_xls
 
 
 def create_output_folder(outPath):
@@ -84,7 +86,21 @@ def RPMMandRPMMM(species, outPath, samples):
     print "Generating normalized counts tables..."
     generate_normalized_counts.main(species, outPath, samples)
     print "DONE!\n"
-       
+
+
+def calculate_statistics(basePath, outPath):
+    '''
+    If conditions.txt exists, calculate statistics.
+    If comparisons.txt exists, calculate the pair-wise comparisons.
+    '''
+    if os.path.exists('{}/conditions.txt'.format(basePath)):
+        os.system('cp {}/conditions.txt {}/'.format(basePath, outPath))
+        os.system('cp {}/comparisons.txt {}/'.format(basePath, outPath))
+        RPMMM = '{}/RPMMM_mirs_over_50.csv'.format(outPath)
+        cond = '{}/conditions.txt'.format(outPath)
+        comp = '{}/comparisons.txt'.format(outPath)
+        statistics.main(RPMMM, cond, comp, outPath)
+
 
 def main(conf):
     cfg = load_mirquant_config_file(conf)
@@ -93,6 +109,7 @@ def main(conf):
     mapping_stats(outPath, samples)
     length_distribution(outPath, samples)
     RPMMandRPMMM(cfg['parameters']['species'], outPath, samples)
+    calculate_statistics(cfg['paths']['project'], outPath)
 
 
 if __name__ == '__main__':
