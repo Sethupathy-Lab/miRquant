@@ -26,7 +26,7 @@ library(pheatmap)
 colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
 colnames(data_corr) <- NULL
 
-png("sample_correlation_heatmap.png")
+png("sample_correlation_values.png")
 pheatmap(data_corr,
          col=colors,
          main="Sample to Sample Correlations")
