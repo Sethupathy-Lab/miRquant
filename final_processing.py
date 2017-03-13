@@ -79,12 +79,12 @@ def length_distribution(outPath, samples):
     print "DONE!\n"
 
 
-def RPMMandRPMMM(species, outPath, samples):
+def RPMMandRPMMM(species, base_path, outPath, samples):
     '''
     Run RPMM and RPMMM on all the samples
     '''
     print "Generating normalized counts tables..."
-    generate_normalized_counts.main(species, outPath, samples)
+    generate_normalized_counts.main(species, outPath, base_path, samples)
     print "DONE!\n"
 
 
@@ -108,8 +108,9 @@ def main(conf):
     samples = sample_input_location(cfg['paths']['project'], cfg['paths']['output'])
     mapping_stats(outPath, samples)
     length_distribution(outPath, samples)
-    RPMMandRPMMM(cfg['parameters']['species'], outPath, samples)
+    RPMMandRPMMM(cfg['parameters']['species'], cfg['paths']['project'], outPath, samples)
     calculate_statistics(cfg['paths']['project'], outPath)
+    assemble_xls.main(outPath)
 
 
 if __name__ == '__main__':
