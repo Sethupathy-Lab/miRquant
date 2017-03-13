@@ -24,10 +24,21 @@ library(RColorBrewer)
 library(pheatmap)
 
 colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
-colnames(data_corr) <- NULL
 
-png("sample_correlation_values.png")
-pheatmap(data_corr,
-         col=colors,
-         main="Sample to Sample Correlations")
-invisible(dev.off())
+if (length(args) == 2) {
+  treat_ann <- read.table(args[2], row.names = 1, header = T)
+  names(treat_ann) <- 'Condition'
+
+  png("sample_correlation_values.png")
+  pheatmap(data_corr,
+           col=colors,
+           annotation = treat_ann,
+           main="Sample to Sample Correlations")
+  invisible(dev.off())
+} else {
+  png("sample_correlation_values.png")
+  pheatmap(data_corr,
+           col=colors,
+           main="Sample to Sample Correlations")
+  invisible(dev.off())
+}

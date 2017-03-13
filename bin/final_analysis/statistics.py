@@ -82,7 +82,7 @@ def reorder_by_condition(df, cond_di):
     return df[order]
 
 
-def make_comparisons(df, fi, cond_di):
+def make_comparisons(df, fi, cond_di, out_path):
     '''
     Open comparison file, where each line is the comparison to do, for example,
     to compare treatmentA to control, the comparison file line would be:

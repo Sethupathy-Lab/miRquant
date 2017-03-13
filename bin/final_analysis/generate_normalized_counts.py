@@ -110,7 +110,7 @@ def write_output(sample_dict, output_name, outPath):
     return output_name
     
 
-def main(species, outPath, samples):
+def main(species, outPath, base_path, samples):
     samples = f_utils.set_path_to_files_glob(samples, 'TAB_lenDist_summary.txt')
     datout, window, tot_c, mirs_dat, mirs, mirs_c = get_data_from_file(samples, species)
 
@@ -123,9 +123,12 @@ def main(species, outPath, samples):
     RPMMM_mir_50 = mirs_over_thresh(mir_wind, 50, mirs, species)
     out_name = write_output(mir_wind, 'RPMMM_all.csv', outPath)
     out_name = write_output(RPMMM_mir_50, 'RPMMM_mirs_over_50.csv', outPath)
-
-    cmd = 'Rscript {}/sample_correlation.R {}'.format(os.path.dirname(__file__), out_name)
-    os.system(cmd)
+    if os.path.exists('{}/conditions.txt'.format(base_path)):
+        cmd = 'Rscript {}/sample_correlation.R {} {}'.format(os.path.dirname(__file__), out_name, '{}/conditions.txt'.format(base_path))
+        os.system(cmd)
+    else:
+        cmd = 'Rscript {}/sample_correlation.R {}'.format(os.path.dirname(__file__), out_name)
+        os.system(cmd)
 
 
 if __name__ == '__main__':
@@ -141,9 +144,13 @@ if __name__ == '__main__':
              action='store', 
              help='Path to where the output file will be located')
     parser.add_argument(
+             'base_path', 
+             action='store', 
+             help='Path to where the output file will be located')
+    parser.add_argument(
              'samples', 
              action='store', 
              nargs='+',
              help='Path to where the sample output folders are located')
     arg = parser.parse_args()
-    main(arg.sp, arg.outPath, arg.samples)
+    main(arg.sp, arg.outPath, arg.base_path, arg.samples)
