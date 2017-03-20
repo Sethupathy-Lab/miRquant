@@ -29,14 +29,14 @@ if (length(args) == 2) {
   treat_ann <- read.table(args[2], row.names = 1, header = T)
   names(treat_ann) <- 'Condition'
 
-  png("sample_correlation_values.png")
+  png("sample_correlation_values.png", units = 'in', width = 8, height = 8, res = 150)
   pheatmap(data_corr,
            col=colors,
            annotation = treat_ann,
            main="Sample to Sample Correlations")
   invisible(dev.off())
 } else {
-  png("sample_correlation_values.png")
+  png("sample_correlation_values.png", units = 'in', width = 8, height = 8, res = 150)
   pheatmap(data_corr,
            col=colors,
            main="Sample to Sample Correlations")
