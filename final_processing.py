@@ -33,6 +33,7 @@ from bin.final_analysis import f_utils, \
                         generate_mapping_info, \
                         lenDist, \
                         generate_normalized_counts, \
+                        generate_normalized_RPMYM_counts, \
                         statistics, \
                         assemble_xls
 
@@ -85,6 +86,8 @@ def RPMMandRPMMM(species, base_path, outPath, samples):
     '''
     print "Generating normalized counts tables..."
     generate_normalized_counts.main(species, outPath, base_path, samples)
+    if species == 'hsa':
+        generate_normalized_RPMYM_counts.main(species, outPath, base_path, 'RPMYM', 100, samples)
     print "DONE!\n"
 
 
