@@ -18,8 +18,10 @@ usage = '''
 import argparse
 import datetime
 import glob
+from itertools import islice
 import logging
 import os
+from shutil import copyfile
 import subprocess
 import sys
 import time
@@ -76,6 +78,35 @@ def set_up_output_folder(fi, out_path):
     return dr, dr_i, fi_base
 
 
+def set_lib(dir_i, fi_base):
+    '''
+    Set basename for most outputs in IntermediateFiles folder
+    '''
+    return os.path.join(dir_i, fi_base)
+
+
+def check_if_fastq_trimmed(fi):
+    '''
+    Check to see if the input file is already trimmed
+    '''
+    len_di = {}
+    c = 0
+    with open(fi) as f:
+        while True:
+            read = list(islice(f, 4))
+            if not read:
+                break
+            read_len = len(read[1].rstrip())
+            len_di[read_len] = 1
+            c += 1
+    if len(len_di) > 15:
+        logging.warning('Input fastq looks already trimmed')
+        logging.warning('Bypassing cutadapt trimming\n')
+        return 1
+    else:
+        return 0
+
+
 def get_maxRNA_length(fi, cutadapt):
     '''
     Get the readlength from the fastq file
@@ -85,29 +116,28 @@ def get_maxRNA_length(fi, cutadapt):
         return len(next(f).rstrip()) - cutadapt['overlap'] + cutadapt['error']
 
 
-def set_lib(dir_i, fi_base):
-    '''
-    Set basename for most outputs in IntermediateFiles folder
-    '''
-    return os.path.join(dir_i, fi_base)
-
-
 def cutadapt_cmd(fi, lib, cutadapt):
     '''
     Cutadapt command to submit reads for trimming
     '''
+    logging.info('\n### Trimming adapters ###')
+    min_read_length = cutadapt['Minimum_Read_Length']
+    max_read_length = get_maxRNA_length(fi, cutadapt)
+
+    if check_if_fastq_trimmed(fi):
+        copyfile(fi, '{}.fq'.format(lib))
+        max_read_length = 42
+        return min_read_length, max_read_length
+
     overlap = cutadapt['overlap']
     error = cutadapt['error']
     error_rate = float(error) / overlap
-    min_read_length = cutadapt['Minimum_Read_Length']
     output = '{}.fq'.format(lib)
     untrimmed = '{}_UT.fq'.format(lib)
     too_short = '{}_ST.fq'.format(lib)
     with open('{}adaptor'.format('/'.join(lib.split('/')[:-2])), 'r') as f:
         adapter = f.read().rstrip()
     degen = get_degenerate_base_count(adapter)
-    print adapter
-    print degen
     overlap -= degen
 
     if degen > 0:
@@ -120,7 +150,6 @@ def cutadapt_cmd(fi, lib, cutadapt):
                 --untrimmed-output={} --too-short-output={} -o {} {}'.format(
                         adapter, error_rate, overlap, min_read_length,
                         untrimmed, too_short, output, fi)
-    logging.info('\n### Trimming adapters ###')
     logging.debug('adapter = {}'.format(adapter))
     logging.debug('error rate = {}'.format(error_rate))
     logging.debug('overlap = {}'.format(overlap))
@@ -131,7 +160,7 @@ def cutadapt_cmd(fi, lib, cutadapt):
     logging.debug('input = {}'.format(fi))
     logging.debug('degenerate bases in adapter = {}'.format(degen))
     pipe_to_logger(cut_adapt_cmd)
-    return min_read_length
+    return min_read_length, max_read_length
 
 
 def get_degenerate_base_count(adapter):
@@ -267,7 +296,6 @@ def window_creation(MINrna, MAXrna, lib, BI, tRNA, tmRNA):
     os.system('slopBed -b 40 -i {} -g {}.chromSizes >> {}'.format(tRNA, BI, OUTgseu))
     os.system('sort -k1,1 -k2,2n {} > {}'.format(OUTgseu, OUTt2))
     print 'add tRNA -> {}'.format(time.time() - start2)
-
     start2 = time.time()
     logging.info('Merging into windows bed...')
     os.system('mergeBed -d 65 -s -c 1 -o count -i {} > {}'.format(OUTt2, OUTt3))
@@ -289,10 +317,13 @@ def file_line_count(fi):
     '''
     calculates read counts by counting lines and dividing by 4
     '''
-    with open(fi) as f:
-        for i, l in enumerate(f):
-            pass
-    return i + 1
+    try:
+        with open(fi) as f:
+            for i, l in enumerate(f):
+                pass
+            return i + 1
+    except IOError:
+        return 0
 
 
 def mapping_statistics(ARG, lib, dr, fi_base):
@@ -384,9 +415,8 @@ def main(arg):
     define_input_varibles(cfg)
 
     generate_adapter_files.main(arg.sample, out_di['log'], arg.conf)
-    MAXrna = get_maxRNA_length(arg.sample, cfg['cutadapt'])
     lib = set_lib(dr_i, fi_base)
-    MINrna = cutadapt_cmd(arg.sample, lib, cfg['cutadapt'])
+    MINrna, MAXrna = cutadapt_cmd(arg.sample, lib, cfg['cutadapt'])
     logging.info('cutadapt = {}'.format(time.time() - start))
     separate_by_read_length(MINrna, MAXrna, lib, out_di['output'])
     for length in range(MINrna, MAXrna + 1):
