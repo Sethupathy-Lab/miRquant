@@ -1,7 +1,7 @@
-#miRquant Tutorial
+# miRquant Tutorial
 Last update to README: 12/6/16
 
-#miRquant 2.0  
+# miRquant 2.0  
 
 1. Information
 2. Installation
@@ -13,12 +13,12 @@ Last update to README: 12/6/16
   3. Sorting results
   4. Final analysis
 
-##Tutorial info
+## Tutorial info
 This tutorial is for two mouse samples.  The mouse samples are were prepared by TruSeq.
 
-##miRquant Installation  
-###Requirements
-#####Software
+## miRquant Installation  
+### Requirements
+##### Software
 miRquant 2.0 can be downloaded as a zip file ([click here](https://github.com/Sethupathy-Lab/miRquant/archive/master.zip)) or cloned from the [miRquant GitHub page](https://github.com/Sethupathy-Lab/miRquant).  
 
 In addition to these scripts, miRquant 2.0 requires the following software for various steps of the pipeline.
@@ -32,7 +32,7 @@ In addition to these scripts, miRquant 2.0 requires the following software for v
 
 Install these programs with in your system path.
 
-#####Resources
+##### Resources
 
 miRquant is currently set up to work with human, mouse and rat, with fruitfly support coming.
 
@@ -44,7 +44,7 @@ rat - [rn4](http://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)
 
 Download the appropriate genomes and the chromosome sizes for that genome release (\<release\>.chrom.sizes) 
 
-###Setup
+### Setup
 
 Once python/2.7.6 and pip are installed, change to the miRquant directory and type:
 
@@ -63,9 +63,9 @@ Store the genomes and the chromosome size files *in the same location*.
 Build Bowtie genome indexes for each genome.  Information on this can be found in the [Bowtie tutorial](http://bowtie-bio.sourceforge.net/tutorial.shtml).
 
 
-##Running miRQuant
+## Running miRQuant
 
-####Enter run parameters into the miRquant configuration file
+#### Enter run parameters into the miRquant configuration file
 
 
 The configuration directory contains two configuration files.
@@ -177,7 +177,7 @@ SampleB.fastq    CGTCCG
 where the first column is the name of the fastq file and the second column is the index sequence.  The _barcodes.txt_ file should be placed in the same directory as the fastq files.
 
 
-####Run the miRquant script:
+#### Run the miRquant script:
 From the miRquant directory:
 ```
 $ cd /path/to/miRquant
@@ -185,7 +185,7 @@ $ cd /path/to/miRquant
 $ python miRquant.py path/to/configuration/
 ```
 
-####Once all jobs have finished:
+#### Once all jobs have finished:
 Once the chain submission has finished, check for any errors in the log file.  Each sample will have a multiple output directories setup in the output directory specified in the miRquant configuration file, in the following structure.
 ```
 SAMPLE_NAME
@@ -220,13 +220,13 @@ EMhits =  # of reads with an exact alignment to the genome
 EMmiss = # of reads that fail to exactly align to genome
 ```
 
-####Run the next stage to collect results:
+#### Run the next stage to collect results:
 From your pipeline directory (/path/to/miRquant):
 ```
 $ python runC.py path/to/configuration
 ```
 
-####Run the next stage to generate TAB separated files:
+#### Run the next stage to generate TAB separated files:
 ```
 $ python process_summary_to_tab.py path/to/configuration
 ```
@@ -257,7 +257,7 @@ For each Sample:
   TAB_lenDist_summary.txt  -   length differences
   Shrimp_results.bed       -   bed file containing all results
 
-####Final processing
+#### Final processing
 To produce the final summary files, run:
 ```
 $ python final_processing.py path/to/configuration
