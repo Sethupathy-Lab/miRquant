@@ -101,6 +101,7 @@ def make_comparisons(df, fi, cond_di, out_path):
         # Calculate fold change
         cdf[name] = df['AVG_{}'.format(n)] / df['AVG_{}'.format(d)]
         # Run T-Test to get p-value
+        #  - will spit errors if all zeros for expression, but can ignore
         cdf['{}_pVal'.format(name)] = ttest(df[cond_di[n]], 
                                             df[cond_di[d]], 
                                             axis = 1, 
