@@ -218,7 +218,10 @@ def write_processed_shrimp_output(hits, tags, mirLi, mirStr, shrimp_dir):
         chr, st, sp, str = alter_window_name(win)
         dirName = '{}/{}'.format(dname, chr)
         if not os.path.exists(dirName):
-            os.makedirs(dirName)
+            try:
+                os.makedirs(dirName)
+            except:
+                pass
 
         fname = '{}/{}.results_{}'.format(dirName, win, read_size)
         if len(tag) > 0:
