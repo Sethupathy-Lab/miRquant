@@ -5,7 +5,7 @@ args <- commandArgs(TRUE)
 setwd(dirname(args[1]))
 
 # Load your normalized RRM file for your samples
-data <- read.csv(args[1], header = T, row.names = 1)
+data <- read.csv(args[1], header = T, row.names = 1, check.names = F)
 
 print("Dimensions (# of miRs, # of samples):")
 dim(data)
