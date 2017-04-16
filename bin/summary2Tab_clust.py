@@ -200,14 +200,17 @@ expBaseKeys = sorted(baseExp, key=baseExp.get, reverse = True)
 
 fOUT = 'TAB_{}'.format(res)
 with open(fOUT, 'w') as fo:
+    # Write header line
     fo.write('Name\tAnnotation\tmiRbaseOffset\tSeed\tPercent')
     for k in keys:
         fo.write('\t{}'.format(k))
     fo.write('\n')
+    # Write total line
     fo.write('Total\t\t\t\t')
     for k in keys:
         fo.write('\t{}'.format(tot[k]))
     fo.write('\n')
+    # Write feature line
     for e1 in expBaseKeys:
         expKeys1 = sorted(baseKeys[e1], key=baseExp.get, reverse = True)
         sumE = 0
