@@ -35,5 +35,5 @@ ggplot(bit, aes(x = X, y = value, fill = variable)) +
   geom_bar(stat="identity") +
   facet_wrap(~variable, ncol = 5) +
   scale_fill_discrete(guide=FALSE) +
-  labs(list(title="Length Distribution", x="Read length", y="Ratio of total reads")) 
+  labs(list(title="Length Distribution", x="Read length", y="Percent")) 
 invisible(dev.off())
