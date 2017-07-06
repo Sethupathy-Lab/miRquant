@@ -96,13 +96,15 @@ def calculate_statistics(basePath, outPath):
     If conditions.txt exists, calculate statistics.
     If comparisons.txt exists, calculate the pair-wise comparisons.
     '''
-    if os.path.exists('{}/conditions.txt'.format(basePath)):
-        os.system('cp {}/conditions.txt {}/'.format(basePath, outPath))
-        os.system('cp {}/comparisons.txt {}/'.format(basePath, outPath))
+    if os.path.exists('{}/conditions.csv'.format(basePath)):
+        print "Calculating statistics..."
+        os.system('cp {}/conditions.csv {}/'.format(basePath, outPath))
+        os.system('cp {}/comparisons.csv {}/'.format(basePath, outPath))
         RPMMM = '{}/RPMMM_mirs_over_50.csv'.format(outPath)
-        cond = '{}/conditions.txt'.format(outPath)
-        comp = '{}/comparisons.txt'.format(outPath)
+        cond = '{}/conditions.csv'.format(outPath)
+        comp = '{}/comparisons.csv'.format(outPath)
         statistics.main(RPMMM, cond, comp, outPath)
+        print "DONE!\n"
 
 
 def main(conf):
