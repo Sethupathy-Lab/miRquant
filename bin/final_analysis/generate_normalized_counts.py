@@ -123,12 +123,24 @@ def main(species, outPath, base_path, samples):
     RPMMM_mir_50 = mirs_over_thresh(mir_wind, 50, mirs, species)
     out_name = write_output(mir_wind, 'RPMMM_all.csv', outPath)
     out_name = write_output(RPMMM_mir_50, 'RPMMM_mirs_over_50.csv', outPath)
-    if os.path.exists('{}/conditions.txt'.format(base_path)):
-        cmd = 'Rscript {}/sample_correlation.R {} {}'.format(os.path.dirname(__file__), out_name, '{}/conditions.txt'.format(base_path))
+    print 'DONE!\n'
+    if os.path.exists('{}/conditions.csv'.format(base_path)):
+        print 'Generating sample correlation heatmap...'
+        cmd = 'Rscript {}/sample_correlation.R {} {}'.format(os.path.dirname(__file__), out_name, '{}/conditions.csv'.format(base_path))
+        os.system(cmd)
+        print 'DONE!\n'
+        print 'Generating PCA...'
+        cmd = 'Rscript {}/pca.R {} {}'.format(os.path.dirname(__file__), out_name, '{}/conditions.csv'.format(base_path))
         os.system(cmd)
     else:
+        print 'Generating sample correlation heatmap...'
         cmd = 'Rscript {}/sample_correlation.R {}'.format(os.path.dirname(__file__), out_name)
         os.system(cmd)
+        print 'DONE!\n'
+        print 'Generating PCA...'
+        cmd = 'Rscript {}/pca.R {}'.format(os.path.dirname(__file__), out_name)
+        os.system(cmd)
+
 
 
 if __name__ == '__main__':

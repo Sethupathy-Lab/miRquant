@@ -13,6 +13,7 @@ def verify_outputs_exist(files):
     req_files = ['Mapping_Statistics.csv', 
                  'length_distribution.csv',
                  'sample_correlation_values.csv',
+                 'PCA.csv',
                  'RPMMM_all.csv',
                  'RPMMM_mirs_over_50.csv',
                  'statistics.csv']
@@ -37,6 +38,7 @@ def insert_image(file, wb):
     image = file.replace('.csv', '.png')
     try:
         ws = wb.get_worksheet_by_name(name)
+        i = 1
         with open(file) as f:
             for i, l in enumerate(f):
                 pass
@@ -86,6 +88,7 @@ def create_workbook(files, vs_files):
             ws.write_row(i, 0, row)
     wb = insert_image('length_distribution.csv', wb)
     wb = insert_image('sample_correlation_values.csv', wb)
+    wb = insert_image('PCA.csv', wb)
     wb = add_comparison_sheets(wb, vs_files)
     wb.close()
 
