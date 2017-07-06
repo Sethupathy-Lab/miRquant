@@ -40,7 +40,8 @@ def open_condition(fi):
     with open(fi, 'r') as f:
         f.next()
         for l in f:
-            samp, cond = l.rstrip().split()
+            cond_li = l.rstrip().split(',')
+            samp, cond = cond_li[0], cond_li[1]
             try:
                 cond_di[cond].append(samp)
             except KeyError:
@@ -52,8 +53,11 @@ def check_input(samples, conditions, comparisons):
     '''
     holder
     '''
+#    print samples
+#    print conditions
     with open(comparisons) as f:
-        comp = list(set([c for l in f.read().split('\t') for c in l.split() if l]))
+        comp = list(set([c for l in f.read().split(',') for c in l.split() if l]))
+#    print comp
     samp_li = [s for k in conditions for s in conditions[k]]
     samp_issue = [s for s in samp_li if s not in samples]
     comp_issue = [c for c in comp if c not in conditions]
@@ -96,7 +100,7 @@ def make_comparisons(df, fi, cond_di, out_path):
     tdf = pd.DataFrame()
     for comp in li:
         cdf = pd.DataFrame()
-        n, d = comp.split()
+        n, d = comp.split(',')
         name = 'vs'.join([n, d])
         # Calculate fold change
         cdf[name] = df['AVG_{}'.format(n)] / df['AVG_{}'.format(d)]
@@ -110,7 +114,7 @@ def make_comparisons(df, fi, cond_di, out_path):
         tdf = pd.concat([tdf, cdf], axis = 1)
         cdf['AVG_{}'.format(n)] = df['AVG_{}'.format(n)]
         cdf['AVG_{}'.format(d)] = df['AVG_{}'.format(d)]
-        cdf = cdf.sort_index(by=['{}_pVal'.format(name)], ascending=[True])
+        cdf = cdf.sort_values(by=['{}_pVal'.format(name)], ascending=[True])
         cdf.to_csv(path_or_buf='{}/{}.csv'.format(out_path, name),
                   sep =',')
 

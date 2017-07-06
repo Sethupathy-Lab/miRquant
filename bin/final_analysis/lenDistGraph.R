@@ -20,10 +20,14 @@ for (name in names(lenData)) {
     new_names <- append(new_names, name)
   }
 }
-names(lenData) <- new_names
+
+# Confirm shortened names are unique before using
+if (length(new_names) == length(unique(new_names))) {
+  names(lenData) <- new_names
+}
 
 # Convert data for ggplot input
-bit <- melt(lenData, id.vars = "X")
+bit <- melt(lenData, id.vars = "Length")
 
 # Determine number of samples per role in output (based on total # of samples)
 wrap = round(length(lenData) * .33)
@@ -31,9 +35,14 @@ height_multi = ceiling(length(lenData) / 5)
 
 # Write output to lenDistHistogram.png
 png("length_distribution.png", width = 10, height = 2 * height_multi, units = "in", res = 150)
-ggplot(bit, aes(x = X, y = value, fill = variable)) +
-  geom_bar(stat="identity") +
+ggplot(bit, aes(x = Length, y = value)) +
+  geom_bar(stat="identity", width = 1) +
   facet_wrap(~variable, ncol = 5) +
-  scale_fill_discrete(guide=FALSE) +
-  labs(list(title="Length Distribution", x="Read length", y="Percent")) 
+  ggtitle('Read Length Distribution') +
+  scale_y_continuous('Proportion of reads',
+                     breaks = seq(0, max(bit$value), 5),
+                     limits = c(0, max(bit$value) * 1.1),
+                     expand = c(0,0)) +
+  scale_x_continuous('Read length') +
+  theme_bw()
 invisible(dev.off())

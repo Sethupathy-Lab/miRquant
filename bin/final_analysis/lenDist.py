@@ -43,7 +43,7 @@ def write_length_distribution(outPath, len_di, lengths):
     '''
     output_name = '{}{}'.format(outPath, 'length_distribution.csv')
     with open(output_name, "w") as f:
-        f.write(',{}\n'.format(','.join(sorted(len_di))))
+        f.write('Length,{}\n'.format(','.join(sorted(len_di))))
         for len in lengths:
             f.write(len)
             for sample in sorted(len_di):
