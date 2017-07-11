@@ -25,7 +25,11 @@ def combine_result_files(sample, cfg, job, temp_fi, conf):
     g1Res_path = '{}/IntermediateFiles/g1Results/'.format(sample)
     files = glob.glob('{}CHR*.results'.format(g1Res_path))
     log_loc = '{}collect_results_logs/'.format(out_di['log'])
-    os.makedirs(log_loc)
+    try:
+        os.makedirs(log_loc)
+    except OSError:
+        os.system('rm -r {}'.format(log_loc))
+        os.makedirs(log_loc)
     for f in sorted(files):
         chr_dir = f.replace('.results', '')
         temp_name = '{}_collectRes.temp'.format(os.path.basename(chr_dir))
