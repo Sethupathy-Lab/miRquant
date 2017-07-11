@@ -133,6 +133,7 @@ where:
 |-- RPMM_mirs_over_100.csv                 <- RPMM over 100 for at least one sample
 |-- length_distribution.csv                <- Read length distribution for samples as table
 |-- length_distribution.png                <- Read length distribution for samples as bar graph
+|-- principal_component_analysis.png       <- Principal component analysis of samples
 |-- sample_correlation_heatmap.png         <- Sample pair-wise Pearson correlation values as heatmap with hierarchical clustering
 `-- sample_correlation_values.csv          <- Sample pair-wise Pearson correlation table
 ```
@@ -147,7 +148,11 @@ For each sample, miRquant reports the length distributions of all trimmed reads.
 
 #### Cross-sample comparisons
 ![ExpHM](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/expression_heatmap.png "Expression correlation heatmap")
-miRquant computes pair-wise Pearson correlations of miRNA expression profiles across all samples and carries out hierarchical clustering to plot the expression correlation heatmap.  Only miRNAs above a specified expression threshold are included in the correlation analysis.  An example is provided, in which miRNA profiles are being compared across two different conditions, with three replicates each.  The color in each of the squares in the heatmap corresponds to the extent of miRNA expression correlation between two particular samples.  In this example, the heatmap and dendogram show that the replicates are grouped appropriately by condition, and that the two conditions cluster separately.
+miRquant computes pair-wise Pearson correlations of miRNA expression profiles across all samples and carries out hierarchical clustering to plot the expression correlation heatmap.  Only the top 50 most variable miRNAs above a specified expression threshold are included in the correlation analysis.  An example is provided, in which miRNA profiles are being compared across two different conditions, with three replicates each.  The color in each of the squares in the heatmap corresponds to the extent of miRNA expression correlation between two particular samples.  In this example, the heatmap and dendogram show that the replicates are grouped appropriately by condition, and that the two conditions cluster separately.
+
+#### Principal component analysis
+![PCA](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/principal_component_analysis.png "Principal Component Analysis")
+miRquant performs a principal component analysis for all samples, which is a way to describe the variation in the data. This can be used to identify samples that are outliers. Furthermore, if a conditions file is provided, samples are colored according to condition. In this manner, samples can be assessed by their ability to cluster by treatment.
 
 #### Normalized expression
 ![RPMM](https://github.com/Sethupathy-Lab/miRquant/blob/master/.imgs/normalized_reads_table.png "Normalized reads")  
