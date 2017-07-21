@@ -36,7 +36,12 @@ def result_file_dict(bt, dirc):
     EM = {}         # exact matchs
     with open(bt, 'r') as f:
         for l in f:
-            chrB, offB, endB, windB, countB, strB = l.rstrip().split('\t')
+            try:
+                chrB, offB, endB, windB, countB, strB = l.rstrip().split('\t')
+            except:
+                print bt
+                print l
+                sys.exit()
             oName = ':'.join([offB, endB])
             if windB not in EM:
                 EM[windB] = {}
