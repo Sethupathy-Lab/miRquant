@@ -71,7 +71,7 @@ def check_for_one_glob_file(s, term):
     if len(files) == 1:
         return files[0]
     elif len(files) < 1:
-        print 'No files for {}'.format(os.path.basename(s))
+        print 'No files for {}'.format(s)
         sys.exit()
     elif len(files) > 1:
         print 'Too many files for {}'.format(os.path.basename(s))
