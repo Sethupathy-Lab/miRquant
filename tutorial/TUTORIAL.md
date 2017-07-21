@@ -177,6 +177,22 @@ SampleB.fastq    CGTCCG
 where the first column is the name of the fastq file and the second column is the index sequence.  The _barcodes.txt_ file should be placed in the same directory as the fastq files.
 
 
+##### **_OPTIONAL_** Condition and comparison files
+While not a part of this tutorial, a condition and comparison file can also be provided. Providing these files will allow for a more thorough final report. These files should be placed in the directory containing the sequencing files and be named **conditions.csv** and **comparisons.csv**. 
+
+The conditions file will be a two columned comma-separated file where the first column has the header 'Sample' and contains the names of the sample fastqs without the extension (eg. SampleA.fastq -> SampleA). The second column has the header 'Condition' and assigns a condition to each sample. Supplying a conditions file has the folling benefits: 1) Condition information will be added to the sample correlation heatmap 2) Condition information will be added to the principal component analysis 3) A statistical analysis will be performed to find the average expression within each condition. Here is an example of a **conditions.csv** file:
+```
+Sample,Condition
+SampleA,Control
+SampleB,Treatment
+SampleC,Treatment
+SampleD,Control
+```
+The comparisons file will be a two columned comma-separated file used for statistical comparisons. Each column must be one of the conditions from the conditions file. These comparisons will be used for the generation of fold changes and p-values. The condition in the first column with be the numerator for the fold change calculation while the second will be the denominator (eg Treatment expression / Control expression). Here is an example of a **comparisons.csv** file:
+```
+Treatment,Control
+```
+
 #### Run the miRquant script:
 From the miRquant directory:
 ```
