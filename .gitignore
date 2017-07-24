@@ -1,0 +1,10 @@
+furthur_developments.txt
+implementation_made.md
+uncENV.sh
+*.log
+bin/*.log
+tutorial/trash
+Sox9GFP/
+*Sox*
+test*
+logs/

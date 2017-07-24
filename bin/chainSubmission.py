@@ -99,8 +99,9 @@ def check_if_fastq_trimmed(fi):
             read_len = len(read[1].rstrip())
             len_di[read_len] = 1
             c += 1
-    if len(len_di) > 15:
-        logging.warning('Input fastq looks already trimmed')
+    if len(len_di) > 1:
+        logging.warning('Multiple read lengths detected in fastq')
+        logging.warning('Assuming fastq is trimmed (check fastq read lengths if incorrect)')
         logging.warning('Bypassing cutadapt trimming\n')
         return 1
     else:
@@ -116,7 +117,7 @@ def get_maxRNA_length(fi, cutadapt):
         return len(next(f).rstrip()) - cutadapt['overlap'] + cutadapt['error']
 
 
-def cutadapt_cmd(fi, lib, cutadapt):
+def cutadapt_cmd(fi, lib, cutadapt, log, cfg):
     '''
     Cutadapt command to submit reads for trimming
     '''
@@ -129,6 +130,7 @@ def cutadapt_cmd(fi, lib, cutadapt):
         max_read_length = 42
         return min_read_length, max_read_length
 
+    generate_adapter_files.main(fi, log, cfg)
     overlap = cutadapt['overlap']
     error = cutadapt['error']
     error_rate = float(error) / overlap
@@ -414,9 +416,8 @@ def main(arg):
     tRNA, tmRNA, BI = res_li[4], res_li[3], res_li[7]
     define_input_varibles(cfg)
 
-    generate_adapter_files.main(arg.sample, out_di['log'], arg.conf)
     lib = set_lib(dr_i, fi_base)
-    MINrna, MAXrna = cutadapt_cmd(arg.sample, lib, cfg['cutadapt'])
+    MINrna, MAXrna = cutadapt_cmd(arg.sample, lib, cfg['cutadapt'], out_di['log'], arg.conf)
     logging.info('cutadapt = {}'.format(time.time() - start))
     separate_by_read_length(MINrna, MAXrna, lib, out_di['output'])
     for length in range(MINrna, MAXrna + 1):
