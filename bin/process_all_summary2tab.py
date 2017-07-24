@@ -113,7 +113,7 @@ def main(conf):
     cfg = load_mirquant_config_file(conf) 
     samples = return_sample_results_directories(cfg['paths']['project'])
     for sample in samples:
-        print 'Processing sample {}...'.format(sample)
+        print '\nProcessing sample {}...'.format(sample)
         samp_name = os.path.basename(sample[:-1])
         out_di = sample_output_paths(cfg['paths']['output'], samp_name)
         run_summary2Tab_clust(cfg['paths'], cfg['parameters']['species'], sample, conf)
