@@ -62,12 +62,12 @@ def sample_input_location(basePath, outPath):
     return ['{}{}/output/'.format(outPath, os.path.basename(s)) for s in samps]
 
 
-def mapping_stats(outPath, samples):
+def mapping_stats(basePath, outPath, samples):
     '''
     Run mapping_stats.py on all the samples
     '''
     print "Calculating mapping statistics... "
-    generate_mapping_info.main(outPath, samples)
+    generate_mapping_info.main(basePath, outPath, samples)
     print "DONE!\n"
 
 
@@ -111,7 +111,7 @@ def main(conf):
     cfg = load_mirquant_config_file(conf)
     outPath = create_output_folder(cfg['paths']['output'])
     samples = sample_input_location(cfg['paths']['project'], cfg['paths']['output'])
-    mapping_stats(outPath, samples)
+    mapping_stats(cfg['paths']['project'], outPath, samples)
     length_distribution(outPath, samples)
     RPMMandRPMMM(cfg['parameters']['species'], cfg['paths']['project'], outPath, samples)
     calculate_statistics(cfg['paths']['project'], outPath)

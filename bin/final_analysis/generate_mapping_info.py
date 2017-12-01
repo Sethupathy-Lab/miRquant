@@ -85,6 +85,13 @@ def output_line_headers():
             ["tRNAMapPer","Percent tRNA Mapped"],
             ["yRNAMapped","yRNA Mapped Reads"],
             ["yRNAMapPer","Percent yRNA Mapped"]]
+
+
+def check_for_conditions_file(outPath):
+    '''
+    Check for conditions file here.
+    '''
+    pass
         
         
 def write_mapping_file(out_di, out_dir, line_head_li):
@@ -93,21 +100,20 @@ def write_mapping_file(out_di, out_dir, line_head_li):
     '''
     with open('{}/Mapping_Statistics.csv'.format(out_dir), 'w') as f:
         header = [h[1] for h in line_head_li]
-        key_li = [h[0] for h in line_head_li]
-        print header
         f.write('Sample_name,{}\n'.format(','.join(header)))
         for sample in sorted(out_di):
             f.write('{}'.format(sample))
-            for item in key_li:
-                f.write(',{}'.format(out_di[sample][item]))
+            for item in line_head_li:
+                f.write(',{}'.format(out_di[sample][item[0]]))
             f.write('\n')
 
 
-def main(outPath, samples):
+def main(basePath, outPath, samples):
     samples = f_utils.set_path_to_files_glob(samples, 'stats')
     out_di = mapping_stats_dict(samples)
     out_di = calculate_additional_stats(out_di)
     line_head_li = output_line_headers()
+    check_for_conditions_file(outPath)
     write_mapping_file(out_di, outPath, line_head_li)
 
 
@@ -115,6 +121,10 @@ if __name__ == '__main__':
     f_utils.check_for_input(sys.argv, usage)
     parser = argparse.ArgumentParser(
              description=usage)
+    parser.add_argument(
+             'basePath', 
+             action='store', 
+             help='Path to conditions file will be located')
     parser.add_argument(
              'outPath', 
              action='store', 
@@ -125,4 +135,4 @@ if __name__ == '__main__':
              action='store', 
              help='Path to where the sample output folders are located')
     arg = parser.parse_args()
-    main(arg.outPath, arg.samples)
+    main(arg.basePath, arg.outPath, arg.samples)
