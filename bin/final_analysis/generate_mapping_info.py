@@ -92,11 +92,14 @@ def write_mapping_file(out_di, out_dir, line_head_li):
     Writes the output dictionary to a file, called MappingInfoTable.csv
     '''
     with open('{}/Mapping_Statistics.csv'.format(out_dir), 'w') as f:
-        f.write('Sample_name,{}\n'.format(','.join(sorted(out_di))))
-        for item in line_head_li:
-            f.write('{}'.format(item[1]))
-            for sample in sorted(out_di):
-                f.write(',{}'.format(out_di[sample][item[0]]))
+        header = [h[1] for h in line_head_li]
+        key_li = [h[0] for h in line_head_li]
+        print header
+        f.write('Sample_name,{}\n'.format(','.join(header)))
+        for sample in sorted(out_di):
+            f.write('{}'.format(sample))
+            for item in key_li:
+                f.write(',{}'.format(out_di[sample][item]))
             f.write('\n')
 
 
