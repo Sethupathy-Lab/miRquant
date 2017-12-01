@@ -8,3 +8,6 @@ Sox9GFP/
 *Sox*
 test*
 logs/
+**/*.pyc
+*.pyc
+bin/*.pyc
