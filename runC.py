@@ -25,6 +25,7 @@ def combine_result_files(sample, cfg, job, temp_fi, conf):
     g1Res_path = '{}/IntermediateFiles/g1Results/'.format(sample)
     files = glob.glob('{}CHR*.results'.format(g1Res_path))
     log_loc = '{}collect_results_logs/'.format(out_di['log'])
+    os.system('rm -r {}*summary'.format(g1Res_path))
     try:
         os.makedirs(log_loc)
     except OSError:
@@ -50,7 +51,10 @@ def combine_chromosome_results_files(sample_res, job):
 
     for sample in sample_res:
         g1_dir = '{}/IntermediateFiles/g1Results/'.format(sample)
-        os.makedirs('{}trash'.format(g1_dir))
+        try:
+            os.makedirs('{}trash'.format(g1_dir))
+        except:
+            pass
         if len(job) > 0:
             os.system('{0} "cat {1}*_Shrimp_results.bed >> {1}Shrimp_results.bed"'.format(job, g1_dir))
         else:
@@ -58,9 +62,9 @@ def combine_chromosome_results_files(sample_res, job):
         for summ in summary_li:
             summ_loc = '{}/{}'.format(g1_dir, summ)
             if len(job) > 0:
-                os.system('{0} "cat {1}/* >> {1}.txt; mv {1} {2}/trash"'.format(job, summ_loc, g1_dir))
+                os.system('{0} "for x in {1}/*; do cat $x >> {1}.txt; done; mv {1} {2}/trash"'.format(job, summ_loc, g1_dir))
             else:
-                os.system('cat {1}/* >> {1}.txt; mv {1} {2}/trash'.format(job, summ_loc, g1_dir))
+                os.system('for x in {0}/*; do cat $x >> {0}.txt; done; mv {0} {1}/trash'.format(summ_loc, g1_dir))
 
 
 def wait_for_collect_res(temp_fi, sample_res, job):
@@ -97,6 +101,7 @@ def main(args):
     sample_res = return_sample_results_directories(cfg['paths']['project'])
     temp_fi = []
     for sample in sample_res:
+        print '\nRunning runC on sample {}'.format(sample)
         temp_fi = combine_result_files(sample, cfg, job, temp_fi, args.conf)
     wait_for_collect_res(temp_fi, sample_res, job)
 
