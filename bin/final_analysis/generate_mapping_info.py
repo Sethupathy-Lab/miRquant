@@ -87,25 +87,46 @@ def output_line_headers():
             ["yRNAMapPer","Percent yRNA Mapped"]]
 
 
-def check_for_conditions_file(outPath):
+def check_for_conditions_file(basePath):
     '''
     Check for conditions file here.
+    If present, load into a dictionary.
     '''
-    pass
+    if os.path.isfile('{}/conditions.csv'.format(basePath)):
+        with open('{}/conditions.csv'.format(basePath)) as f:
+            try:
+                return {l.split(',')[0]: l.split(',')[1] for l in f.read().split('\n') if l}
+            except IndexError:
+                print 'WARNING: Conditions file must be a csv file of type "Sample,Condtion"'
+                print 'See miRquant documentation for an example'
+                sys.exit()
+    else:
+        print 'WARNING: No conditions file detected'
         
         
-def write_mapping_file(out_di, out_dir, line_head_li):
+def write_mapping_file(out_di, out_dir, line_head_li, cond_di):
     '''
     Writes the output dictionary to a file, called MappingInfoTable.csv
     '''
     with open('{}/Mapping_Statistics.csv'.format(out_dir), 'w') as f:
         header = [h[1] for h in line_head_li]
-        f.write('Sample_name,{}\n'.format(','.join(header)))
-        for sample in sorted(out_di):
-            f.write('{}'.format(sample))
-            for item in line_head_li:
-                f.write(',{}'.format(out_di[sample][item[0]]))
-            f.write('\n')
+        if cond_di:
+            f.write('Sample_name,Condition,{}\n'.format(','.join(header)))
+            for sample in sorted(out_di):
+                f.write('{}'.format(sample))
+                f.write(',{}'.format(cond_di.get(sample, 'UNKNOWN')))
+                for item in line_head_li:
+                    f.write(',{}'.format(out_di[sample][item[0]]))
+                f.write('\n')
+        else:
+            f.write('Sample_name,{}\n'.format(','.join(header)))
+            for sample in sorted(out_di):
+                f.write('{}'.format(sample))
+                for item in line_head_li:
+                    f.write(',{}'.format(out_di[sample][item[0]]))
+                f.write('\n')
+
+
 
 
 def main(basePath, outPath, samples):
@@ -113,8 +134,12 @@ def main(basePath, outPath, samples):
     out_di = mapping_stats_dict(samples)
     out_di = calculate_additional_stats(out_di)
     line_head_li = output_line_headers()
-    check_for_conditions_file(outPath)
-    write_mapping_file(out_di, outPath, line_head_li)
+    cond_di = check_for_conditions_file(basePath)
+    if cond_di:
+        print cond_di
+    else:
+        print 'no cond'
+    write_mapping_file(out_di, outPath, line_head_li, cond_di)
 
 
 if __name__ == '__main__':

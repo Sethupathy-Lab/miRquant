@@ -50,6 +50,22 @@ def get_data_from_file(samples, spec):
                     mirs_dat[file][l[0]] = float(l[count_i])
                     mirs[l[0]] = 1
     return datout, window, total_c, mirs_dat, mirs, mir_c
+
+
+def write_raw_counts_table(datout, window, out_path):
+    '''
+    Write table of non-normalized count data
+    '''
+    sorted_files = sorted(datout)
+    with open('{}raw_miR_counts.csv'.format(out_path), 'w') as f:
+        f.write('miR,{}\n'.format(','.join(sorted_files)))
+        for wind in window:
+            if 'mir' not in wind and 'let' not in wind:
+                continue
+            f.write('{}'.format(wind))
+            for fi in sorted_files:
+                f.write(',{}'.format(datout[fi].get(wind, 0)))
+            f.write('\n')
     
 
 def calc_normalized_count(di, file, wind, c_di):
@@ -114,6 +130,8 @@ def main(species, outPath, base_path, samples):
     samples = f_utils.set_path_to_files_glob(samples, 'TAB_lenDist_summary.txt')
     datout, window, tot_c, mirs_dat, mirs, mirs_c = get_data_from_file(samples, species)
 
+    write_raw_counts_table(datout, window, outPath)
+    
     all_wind = windows_to_norm_counts(datout, window, tot_c)
     RPMM_mir_100 = mirs_over_thresh(all_wind, 100, window, species)
     out_name = write_output(all_wind, 'RPMM_all.csv', outPath)
