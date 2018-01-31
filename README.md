@@ -46,6 +46,7 @@ human - [hg19](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/)
 mouse - [mm9](http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/), [mm10](http://hgdownload.cse.ucsc.edu/goldenPath/mm10/bigZips/)  
 rat - [rn4](http://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)  
 fruitfly - [dm3](http://hgdownload.cse.ucsc.edu/goldenPath/dm3/bigZips/)  
+dog - [canFam3[(http://hgdownload.cse.ucsc.edu/goldenPath/canFam3/bigZips/)  
 
 Download the appropriate genomes and the chromosome sizes for that genome release (\<release\>.chrom.sizes) 
 
