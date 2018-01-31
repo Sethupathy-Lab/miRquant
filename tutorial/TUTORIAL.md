@@ -41,6 +41,8 @@ The specific genome releases used in miRquant are:
 human - [hg19](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/)  
 mouse - [mm9](http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/), [mm10](http://hgdownload.cse.ucsc.edu/goldenPath/mm9/bigZips/)  
 rat - [rn4](http://hgdownload.cse.ucsc.edu/goldenPath/rn4/bigZips/)  
+fruitfly - dm3  
+dog - [canFam3](http://hgdownload.cse.ucsc.edu/goldenPath/canFam3/bigZips/)
 
 Download the appropriate genomes and the chromosome sizes for that genome release (\<release\>.chrom.sizes) 
 
@@ -55,8 +57,10 @@ pip install --user -r requirements.txt
 Change the genome fasta name to \<prefix\>.fa and the chromosome sizes file to \<prefix\>.chromSizes.  The prefixes for each species is as follows:
 
 human - hg19  
-mouse - mm9, mm10
+mouse - mm9, mm10  
 rat - rn4  
+fruitfly - dm3  
+dog - canFam3
 
 Store the genomes and the chromosome size files *in the same location*.
 
