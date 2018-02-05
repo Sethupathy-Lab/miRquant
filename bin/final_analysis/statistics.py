@@ -114,7 +114,7 @@ def make_comparisons(df, fi, cond_di, out_path):
         tdf = pd.concat([tdf, cdf], axis = 1)
         cdf['AVG_{}'.format(n)] = df['AVG_{}'.format(n)]
         cdf['AVG_{}'.format(d)] = df['AVG_{}'.format(d)]
-        cdf = cdf.sort_values(by=['{}_pVal'.format(name)], ascending=[True])
+        cdf = cdf.sort_values(by=['pValue'.format(name)], ascending=[True])
         cdf.to_csv(path_or_buf='{}/{}.csv'.format(out_path, name),
                   sep =',')
 
