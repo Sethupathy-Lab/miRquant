@@ -127,6 +127,12 @@ def write_mapping_file(out_di, out_dir, line_head_li, cond_di):
                 f.write('\n')
 
 
+def create_map_stats_image(script_dir, out_dir):
+    '''
+    Creates an image summary of the mapping statistics.
+    '''
+    map_file = '{}/Mapping_Statistics.csv'.format(out_dir)
+    os.system('Rscript --vanilla {}/mapping_stats_figure.R {}'.format(script_dir, map_file))
 
 
 def main(basePath, outPath, samples):
@@ -135,11 +141,8 @@ def main(basePath, outPath, samples):
     out_di = calculate_additional_stats(out_di)
     line_head_li = output_line_headers()
     cond_di = check_for_conditions_file(basePath)
-    if cond_di:
-        print cond_di
-    else:
-        print 'no cond'
     write_mapping_file(out_di, outPath, line_head_li, cond_di)
+    create_map_stats_image(os.path.dirname(__file__), outPath)
 
 
 if __name__ == '__main__':

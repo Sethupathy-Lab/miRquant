@@ -86,6 +86,7 @@ def create_workbook(files, vs_files):
             li = [l.split(',') for l in fi.read().split('\n') if l]
         for i, row in enumerate(li):
             ws.write_row(i, 0, row)
+    wb = insert_image('Mapping_Statistics.csv', wb)
     wb = insert_image('length_distribution.csv', wb)
     wb = insert_image('sample_correlation_values.csv', wb)
     wb = insert_image('PCA.csv', wb)

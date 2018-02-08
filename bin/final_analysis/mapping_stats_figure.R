@@ -29,7 +29,7 @@ map_stats <- read.csv('Mapping_Statistics.csv') %>%
   select(Sample_name, contains('Percent'))
 
 # Create mapping statistics image
-png('mapping_statistics_image.png', units = 'in', width = 8, height = 6, res = 250)
+png('Mapping_Statistics.png', units = 'in', width = 8, height = 6, res = 250)
 map_stats %>%
   gather(category, percent, -Sample_name) %>%
   mutate(category = factor(category, levels = c("Percent.Trimmed.Reads",
@@ -50,4 +50,4 @@ map_stats %>%
         text = element_text(color = 'black'),
         axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5, color = 'black'),
         axis.title.x = element_blank())
-dev.off()
+invisible(dev.off())
