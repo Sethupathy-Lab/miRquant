@@ -16,6 +16,7 @@ def verify_outputs_exist(files):
                  'PCA.csv',
                  'RPMMM_all.csv',
                  'RPMMM_mirs_over_50.csv',
+                 'RPMMM_mirs_over_50_log2.csv',
                  'statistics.csv']
 
     file_exist = []

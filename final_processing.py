@@ -35,7 +35,8 @@ from bin.final_analysis import f_utils, \
                         generate_normalized_counts, \
                         generate_normalized_RPMYM_counts, \
                         statistics, \
-                        assemble_xls
+                        assemble_xls, \
+                        autoDESeq
 
 
 def create_output_folder(outPath):
@@ -107,8 +108,18 @@ def calculate_statistics(basePath, outPath):
         print "DONE!\n"
 
 
-def main(conf):
-    cfg = load_mirquant_config_file(conf)
+def DESeq(basePath, outPath, D):
+    '''
+    If DESeq flag given and conditions file exists, run DESeq2 on 
+    the raw counts file.
+    '''
+    if os.path.exists('{}/conditions.csv'.format(basePath)) and D:
+        print('HI')
+        autoDESeq.runDESeq(outPath)
+
+
+def main(arg):
+    cfg = load_mirquant_config_file(arg.conf)
     outPath = create_output_folder(cfg['paths']['output'])
     samples = sample_input_location(cfg['paths']['project'], cfg['paths']['output'])
     mapping_stats(cfg['paths']['project'], outPath, samples)
@@ -116,6 +127,7 @@ def main(conf):
     RPMMandRPMMM(cfg['parameters']['species'], cfg['paths']['project'], outPath, samples)
     calculate_statistics(cfg['paths']['project'], outPath)
     assemble_xls.main(outPath)
+    DESeq(cfg['paths']['project'], outPath, arg.DESeq)
 
 
 if __name__ == '__main__':
@@ -126,5 +138,9 @@ if __name__ == '__main__':
             'conf',
             action='store',
             help='Path to configuration directory')
+    parser.add_argument(
+            '-d','--DESeq',
+            action='store_true',
+            help='Run DESeq2 on raw counts file (requires conditions file)')
     arg = parser.parse_args()
-    main(arg.conf)
+    main(arg)

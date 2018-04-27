@@ -86,7 +86,19 @@ def reorder_by_condition(df, cond_di):
     return df[order]
 
 
-def make_comparisons(df, fi, cond_di, out_path, logRPMMM = False):
+def log_df(df, cond_di, out_path):
+    '''
+    Make a log2 RPMMM_miRs_over_50 file and dataframe.
+    '''
+    df += 1
+    df = df.applymap(np.log2)
+    df = reorder_by_condition(df, cond_di)
+    df = df[df.columns.drop(list(df.filter(regex='AVG_')))]
+    df.to_csv(path_or_buf='{}/{}'.format(out_path, 'RPMMM_mirs_over_50_log2.csv', sep =','))
+    return df
+
+
+def make_comparisons(df, df_log, fi, cond_di, out_path):
     '''
     Open comparison file, where each line is the comparison to do, for example,
     to compare treatmentA to control, the comparison file line would be:
@@ -110,17 +122,17 @@ def make_comparisons(df, fi, cond_di, out_path, logRPMMM = False):
                                             df[cond_di[d]], 
                                             axis = 1, 
                                             equal_var=True)[1]
+        cdf['pValue_log2'.format(name)] = ttest(df_log[cond_di[n]], 
+                                                df_log[cond_di[d]], 
+                                                axis = 1, 
+                                                equal_var=True)[1]
         cdf = cdf.replace([np.inf, np.nan], 'NA')
         tdf = pd.concat([tdf, cdf], axis = 1)
         cdf['AVG_{}'.format(n)] = df['AVG_{}'.format(n)]
         cdf['AVG_{}'.format(d)] = df['AVG_{}'.format(d)]
         cdf = cdf.sort_values(by=['pValue'.format(name)], ascending=[True])
-        if not logRPMMM:
-            cdf.to_csv(path_or_buf='{}/{}.csv'.format(out_path, name),
-                       sep =',')
-        else:
-            cdf.to_csv(path_or_buf='{}/{}_logRPMMM.csv'.format(out_path, name.replace('vs', '-')),
-                       sep =',')
+        cdf.to_csv(path_or_buf='{}/{}.csv'.format(out_path, name),
+                   sep =',')
 
     df = pd.concat([tdf, df], axis = 1)
     return df
@@ -135,20 +147,13 @@ def write_csv(df, out_path):
 
 
 def main(RPMMM, cond, comp, out_path = './'):
-    df = open_RPMMM(RPMMM)
     cond_di = open_condition(cond)
-    check_input(list(df), cond_di, comp)
-    df = reorder_by_condition(df, cond_di)
-    df = make_comparisons(df, comp, cond_di, out_path)
-    write_csv(df, out_path)
-
-    # Same, but for log2 values
     df = open_RPMMM(RPMMM)
-    df += 1
-    df = df.applymap(np.log2)
+    check_input(list(df), cond_di, comp)
+    df_log = log_df(df, cond_di, out_path)
     df = reorder_by_condition(df, cond_di)
-    df = make_comparisons(df, comp, cond_di, out_path, True)
-
+    df = make_comparisons(df, df_log, comp, cond_di, out_path)
+    write_csv(df, out_path)
 
 
 if __name__ == '__main__':
