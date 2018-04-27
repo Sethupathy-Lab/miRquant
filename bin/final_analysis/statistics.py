@@ -86,7 +86,7 @@ def reorder_by_condition(df, cond_di):
     return df[order]
 
 
-def make_comparisons(df, fi, cond_di, out_path):
+def make_comparisons(df, fi, cond_di, out_path, logRPMMM = False):
     '''
     Open comparison file, where each line is the comparison to do, for example,
     to compare treatmentA to control, the comparison file line would be:
@@ -115,8 +115,12 @@ def make_comparisons(df, fi, cond_di, out_path):
         cdf['AVG_{}'.format(n)] = df['AVG_{}'.format(n)]
         cdf['AVG_{}'.format(d)] = df['AVG_{}'.format(d)]
         cdf = cdf.sort_values(by=['pValue'.format(name)], ascending=[True])
-        cdf.to_csv(path_or_buf='{}/{}.csv'.format(out_path, name),
-                  sep =',')
+        if not logRPMMM:
+            cdf.to_csv(path_or_buf='{}/{}.csv'.format(out_path, name),
+                       sep =',')
+        else:
+            cdf.to_csv(path_or_buf='{}/{}_logRPMMM.csv'.format(out_path, name.replace('vs', '-')),
+                       sep =',')
 
     df = pd.concat([tdf, df], axis = 1)
     return df
@@ -137,6 +141,14 @@ def main(RPMMM, cond, comp, out_path = './'):
     df = reorder_by_condition(df, cond_di)
     df = make_comparisons(df, comp, cond_di, out_path)
     write_csv(df, out_path)
+
+    # Same, but for log2 values
+    df = open_RPMMM(RPMMM)
+    df += 1
+    df = df.applymap(np.log2)
+    df = reorder_by_condition(df, cond_di)
+    df = make_comparisons(df, comp, cond_di, out_path, True)
+
 
 
 if __name__ == '__main__':

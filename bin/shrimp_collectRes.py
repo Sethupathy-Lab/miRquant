@@ -425,7 +425,13 @@ def mainChunk(res, counters, bedFile, dirc, EM, TRNAfile, miRi, outDir, mirquant
         searchName = res.split('.')[0]
         cmd = 'grep -A1 "{}" {}'.format(searchName, filesLib)
         grepResults = sp.Popen(cmd, stdout=sp.PIPE, shell = True).communicate()[0]
-        REFString = grepResults.split('\n')[1]
+        try:
+            REFString = grepResults.split('\n')[1]
+        except:
+            print searchName
+            print filesLib
+            print grepResults.split('\n')
+            raise
 
     out_di = {'exact' : ExMat, 'summary' : {}, 'p5' : {}, 'p3' : {}, 'E' : {}, 'shift' : {}, 'lenDist' : {}} 
     visited = {}

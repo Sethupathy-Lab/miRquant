@@ -15,6 +15,8 @@ def mirANDtrna_to_bed(miR_file, tRNA_file):
     there lines into a different type of bedline containing chromosome, start,
     end, and strand.
     '''
+    print miR_file
+    print tRNA_file
     bedInfo = {}
     with open(miR_file, 'r') as f:
         for l in f:

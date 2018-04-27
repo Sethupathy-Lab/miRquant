@@ -1,0 +1,10 @@
+1. Download mature and hairpin fasta files from miRbase
+2. Downlaod gff for species of interest from miRbase
+3. Download genome fasta from ensembl
+4. Assemble chromosomes fastas into master fasta
+5. Fix header lines to be >chr1, >chr2, ect for all numbered chromosomes and X / Y chromosomes
+6. Get chromosome sizes using the following commands:
+samtools faidx input.fa
+cut -f1,2 input.fa.fai > input.chromSizes
+7. Generate resource files using create resource python script
+8. Download ref file from mysql, remove header
