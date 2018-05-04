@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 #import matplotlib.pyplot as plt
 from scipy.stats import ttest_ind as ttest
+from scipy import stats
 
 
 usage = '''
@@ -53,11 +54,8 @@ def check_input(samples, conditions, comparisons):
     '''
     holder
     '''
-#    print samples
-#    print conditions
     with open(comparisons) as f:
         comp = list(set([c for l in f.read().split(',') for c in l.split() if l]))
-#    print comp
     samp_li = [s for k in conditions for s in conditions[k]]
     samp_issue = [s for s in samp_li if s not in samples]
     comp_issue = [c for c in comp if c not in conditions]
@@ -98,7 +96,19 @@ def log_df(df, cond_di, out_path):
     return df
 
 
-def make_comparisons(df, df_log, fi, cond_di, out_path):
+def boxcox_df(df, cond_di, out_path):
+    '''
+    Make a box cox RPMMM_miRs_over_50 file and dataframe.
+    '''
+    df += 1
+    df = df.apply(lambda x: stats.boxcox(x)[0])
+    df = reorder_by_condition(df, cond_di)
+    df = df[df.columns.drop(list(df.filter(regex='AVG_')))]
+    df.to_csv(path_or_buf='{}/{}'.format(out_path, 'RPMMM_mirs_over_50_boxcox.csv', sep =','))
+    return df
+
+
+def make_comparisons(df, df_log, df_box, fi, cond_di, out_path):
     '''
     Open comparison file, where each line is the comparison to do, for example,
     to compare treatmentA to control, the comparison file line would be:
@@ -126,6 +136,10 @@ def make_comparisons(df, df_log, fi, cond_di, out_path):
                                                 df_log[cond_di[d]], 
                                                 axis = 1, 
                                                 equal_var=True)[1]
+        cdf['pValue_boxcox'.format(name)] = ttest(df_box[cond_di[n]], 
+                                                  df_box[cond_di[d]], 
+                                                  axis = 1, 
+                                                  equal_var=True)[1]
         cdf = cdf.replace([np.inf, np.nan], 'NA')
         tdf = pd.concat([tdf, cdf], axis = 1)
         cdf['AVG_{}'.format(n)] = df['AVG_{}'.format(n)]
@@ -151,8 +165,9 @@ def main(RPMMM, cond, comp, out_path = './'):
     df = open_RPMMM(RPMMM)
     check_input(list(df), cond_di, comp)
     df_log = log_df(df, cond_di, out_path)
+    df_box = boxcox_df(df, cond_di, out_path)
     df = reorder_by_condition(df, cond_di)
-    df = make_comparisons(df, df_log, comp, cond_di, out_path)
+    df = make_comparisons(df, df_log, df_box, comp, cond_di, out_path)
     write_csv(df, out_path)
 
 

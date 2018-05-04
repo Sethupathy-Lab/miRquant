@@ -7,7 +7,8 @@ def runDESeq(outPath):
     counts = '{}/raw_miR_counts.csv'.format(outPath)
     cond = '{}/conditions.csv'.format(outPath)
     comp = '{}/comparisons.csv'.format(outPath)
-    os.system('Rscript --vanilla {}/miRDESeq.R {} {} {}'.format(out_dir, 
-                                                                counts,
-                                                                cond,
-                                                                comp))
+    cmd = 'Rscript {}/miR_DESeq.R {} {} {}'.format(out_dir, 
+                                                   counts,
+                                                   cond,
+                                                   comp)
+    os.system(cmd)

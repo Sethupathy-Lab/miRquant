@@ -114,8 +114,9 @@ def DESeq(basePath, outPath, D):
     the raw counts file.
     '''
     if os.path.exists('{}/conditions.csv'.format(basePath)) and D:
-        print('HI')
+        print "Running DESeq..."
         autoDESeq.runDESeq(outPath)
+        print "DONE!\n"
 
 
 def main(arg):
