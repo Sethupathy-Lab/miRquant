@@ -16,7 +16,7 @@ def verify_outputs_exist(files):
                  'PCA.csv',
                  'RPMMM_all.csv',
                  'RPMMM_mirs_over_50.csv',
-                 'RPMMM_mirs_over_50_log2.csv',
+                 'RPMMM_mirs_over_50_boxcox.csv',
                  'statistics.csv']
 
     file_exist = []
@@ -26,6 +26,7 @@ def verify_outputs_exist(files):
         else:
             print 'Warning: Missing output file -> {}'.format(f)
     vs_files = glob.glob('*vs*')
+
     if len(vs_files) == 0:
         print '\nNo statistic comparison files found'
     return file_exist, vs_files
@@ -69,6 +70,21 @@ def add_comparison_sheets(wb, vs_files):
                                                        'criteria': '<=', 
                                                        'value': .05, 
                                                        'format': format1})
+
+            DESeq_res = glob.glob('DESeq_output/*{}*.csv'.format(name))
+            print DESeq_res
+            if len(DESeq_res) == 1:
+                name = os.path.basename(DESeq_res[0]).split('.')[0]
+                ws = wb.add_worksheet(name)
+                with open(DESeq_res[0]) as f:
+                    li = [l.split(',') for l in f.read().split('\n') if l]
+                for i, row in enumerate(li):
+                    ws.write_row(i, 0, row)
+                ws.conditional_format('F2:F{}'.format(i), {'type': 'cell', 
+                                                           'criteria': '<=', 
+                                                           'value': .05, 
+                                                           'format': format1})
+
         return wb
     else:
         return wb

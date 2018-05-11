@@ -101,7 +101,7 @@ def boxcox_df(df, cond_di, out_path):
     Make a box cox RPMMM_miRs_over_50 file and dataframe.
     '''
     df += 1
-    df = df.apply(lambda x: stats.boxcox(x)[0])
+    df = df.apply(lambda x: stats.boxcox(x)[0], 1)
     df = reorder_by_condition(df, cond_di)
     df = df[df.columns.drop(list(df.filter(regex='AVG_')))]
     df.to_csv(path_or_buf='{}/{}'.format(out_path, 'RPMMM_mirs_over_50_boxcox.csv', sep =','))
@@ -132,10 +132,10 @@ def make_comparisons(df, df_log, df_box, fi, cond_di, out_path):
                                             df[cond_di[d]], 
                                             axis = 1, 
                                             equal_var=True)[1]
-        cdf['pValue_log2'.format(name)] = ttest(df_log[cond_di[n]], 
-                                                df_log[cond_di[d]], 
-                                                axis = 1, 
-                                                equal_var=True)[1]
+#        cdf['pValue_log2'.format(name)] = ttest(df_log[cond_di[n]], 
+#                                                df_log[cond_di[d]], 
+#                                                axis = 1, 
+#                                                equal_var=True)[1]
         cdf['pValue_boxcox'.format(name)] = ttest(df_box[cond_di[n]], 
                                                   df_box[cond_di[d]], 
                                                   axis = 1, 
@@ -165,7 +165,8 @@ def main(RPMMM, cond, comp, out_path = './'):
     df = open_RPMMM(RPMMM)
     check_input(list(df), cond_di, comp)
     df_log = log_df(df, cond_di, out_path)
-    df_box = boxcox_df(df, cond_di, out_path)
+#    df_box = boxcox_df(df, cond_di, out_path)
+    df_box = open_RPMMM(RPMMM.replace('.csv', '_boxcox.csv'))
     df = reorder_by_condition(df, cond_di)
     df = make_comparisons(df, df_log, df_box, comp, cond_di, out_path)
     write_csv(df, out_path)

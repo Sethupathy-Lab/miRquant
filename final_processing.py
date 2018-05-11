@@ -87,8 +87,8 @@ def RPMMandRPMMM(species, base_path, outPath, samples):
     '''
     print "Generating normalized counts tables..."
     generate_normalized_counts.main(species, outPath, base_path, samples)
-    if species == 'hsa':
-        generate_normalized_RPMYM_counts.main(species, outPath, base_path, 'RPMYM', 100, samples)
+#    if species == 'hsa':
+#        generate_normalized_RPMYM_counts.main(species, outPath, base_path, 'RPMYM', 100, samples)
     print "DONE!\n"
 
 
@@ -123,12 +123,12 @@ def main(arg):
     cfg = load_mirquant_config_file(arg.conf)
     outPath = create_output_folder(cfg['paths']['output'])
     samples = sample_input_location(cfg['paths']['project'], cfg['paths']['output'])
-    mapping_stats(cfg['paths']['project'], outPath, samples)
-    length_distribution(outPath, samples)
+    #mapping_stats(cfg['paths']['project'], outPath, samples)
+    #length_distribution(outPath, samples)
     RPMMandRPMMM(cfg['parameters']['species'], cfg['paths']['project'], outPath, samples)
     calculate_statistics(cfg['paths']['project'], outPath)
-    assemble_xls.main(outPath)
     DESeq(cfg['paths']['project'], outPath, arg.DESeq)
+    assemble_xls.main(outPath)
 
 
 if __name__ == '__main__':

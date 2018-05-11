@@ -122,12 +122,13 @@ for (row in c(1:nrow(comparisons))) {
   res.5 <- res.5[!is.na(res.5$pvalue),]
   
   ## Write res.cont DESeq data to output file
-  write.csv(res.5, file=paste0("DESeq_output/DESeq_", cond1, "VS", cond2, ".csv"), quote=F)
+  res.5 <- res.5[order(res.5$pvalue),]
+  write.csv(res.5, file=paste0("DESeq_output/DESeq_", cond1, "vs", cond2, ".csv"), quote=F)
   
   res.5$name <- rownames(res.5)
   
   ## Volcano plot
-  png(paste0("DESeq_output/DESeq_", cond1, "VS", cond2, "_PVAL.05_VolcanoPlot.png"), units = 'in', width = 6, height = 6, res = 250)
+  png(paste0("DESeq_output/DESeq_", cond1, "vs", cond2, "_PVAL.05_VolcanoPlot.png"), units = 'in', width = 6, height = 6, res = 250)
   g <- volcanoPlot(res.5)
   print(g)
   dev.off()

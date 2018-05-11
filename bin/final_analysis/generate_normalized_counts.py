@@ -124,6 +124,14 @@ def write_output(sample_dict, output_name, outPath):
                 f.write(',{0:.2f}'.format(sample_dict[sample][window]))
             f.write('\n')
     return output_name
+
+
+def create_boxcox_trans(out_name):
+    '''
+    Creates a boxcox transformation of the RPMMM_mir_50.
+    '''
+    cmd = 'Rscript {}/boxcox.R {}'.format(os.path.dirname(__file__), out_name)
+    os.system(cmd)
     
 
 def main(species, outPath, base_path, samples):
@@ -142,6 +150,7 @@ def main(species, outPath, base_path, samples):
     out_name = write_output(mir_wind, 'RPMMM_all.csv', outPath)
     out_name = write_output(RPMMM_mir_50, 'RPMMM_mirs_over_50.csv', outPath)
     print 'DONE!\n'
+    create_boxcox_trans(out_name)
     if os.path.exists('{}/conditions.csv'.format(base_path)):
         print 'Generating sample correlation heatmap...'
         cmd = 'Rscript {}/sample_correlation.R {} {}'.format(os.path.dirname(__file__), out_name, '{}/conditions.csv'.format(base_path))
