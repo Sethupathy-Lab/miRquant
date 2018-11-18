@@ -34,6 +34,12 @@ invisible(file.create('PCA.csv'))
 # Load your normalized RPMMM file for your samples
 data <- read.csv(args[1], header = T, row.names = 1, check.names = F)
 
+# Subset data to those in condition file (if condition file provided)
+if (length(args) == 2) {
+  cond <- read.csv(args[2], row.names = 1, header = T)
+  data <- data[,rownames(cond)]
+}
+
 # Add small amount for log step
 data <- data + .01
 
