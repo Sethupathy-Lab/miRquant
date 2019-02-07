@@ -28,7 +28,7 @@ miRquant 2.0 can be downloaded as a zip file or cloned from the [miRquant GitHub
 In addition to these scripts, miRquant 2.0 requires the following software for various steps of the pipeline.
 
 * cutadapt v1.12  
-* bedtools v2.26.0  
+* bedtools v2.27.0  
 * bowtie v1.1.0  
 * python v2.7.6  
 * SHRiMP v2.2.2  
