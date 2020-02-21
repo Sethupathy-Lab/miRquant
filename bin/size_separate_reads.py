@@ -59,7 +59,7 @@ def separate_reads_by_length(lib_file, output_di, min, max, len_tot_di):
             else:
                 output_di['NP'].write(''.join(read))
                 len_tot_di['NP'] += 1
-                print 'Out of size range: {}'.format(read[1].rstrip())
+#                print 'Out of size range: {}'.format(read[1].rstrip())
     return len_tot_di, tot_reads
 
 

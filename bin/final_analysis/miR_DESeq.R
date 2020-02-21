@@ -120,17 +120,43 @@ for (row in c(1:nrow(comparisons))) {
   res.5$padj <- p.adjust(res.5$pvalue, method="BH")
   
   res.5 <- res.5[!is.na(res.5$pvalue),]
-  
+
+  ## Get average normalized counts for each condition and add to file
+  cond1_s <- conditions %>%
+  filter(Condition == cond1) %>%
+  pull(Sample) %>%
+  as.vector()
+
+  cond2_s <- conditions %>%
+  filter(Condition == cond2) %>%
+  pull(Sample) %>%
+  as.vector()
+
+  avg_df <- as.data.frame(normalized.counts) %>%
+  mutate(miR = rownames(.),
+         cond1_avg = rowMeans(.[,cond1_s]),
+         cond2_avg = rowMeans(.[,cond2_s]))
+
+  avg_df <- avg_df[,c('miR', 'cond1_avg', 'cond2_avg')]
+
+  names(avg_df) <- c('miR', paste0('avg_', cond1), paste0('avg_', cond2))
+
   ## Write res.cont DESeq data to output file
   res.5 <- res.5[order(res.5$pvalue),]
-  write.csv(res.5, file=paste0("DESeq_output/DESeq_", cond1, "vs", cond2, ".csv"), quote=F)
+  res.5 <- res.5 %>%
+  as.data.frame() %>%
+  mutate(miR = rownames(.)) %>%
+  select(miR, everything()) %>%
+  left_join(avg_df)
+
+  write_csv(res.5, paste0("DESeq_output/DESeq_", cond1, "vs", cond2, ".csv"))
   
   res.5$name <- rownames(res.5)
   
   ## Volcano plot
-  png(paste0("DESeq_output/DESeq_", cond1, "vs", cond2, "_PVAL.05_VolcanoPlot.png"), units = 'in', width = 6, height = 6, res = 250)
-  g <- volcanoPlot(res.5)
-  print(g)
-  dev.off()
-  print(g)
+#  png(paste0("DESeq_output/DESeq_", cond1, "vs", cond2, "_PVAL.05_VolcanoPlot.png"), units = 'in', width = 6, height = 6, res = 250)
+#  g <- volcanoPlot(res.5)
+#  print(g)
+#  dev.off()
+#  print(g)
 }

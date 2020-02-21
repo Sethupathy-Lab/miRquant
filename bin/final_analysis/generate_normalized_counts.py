@@ -60,7 +60,7 @@ def write_raw_counts_table(datout, window, out_path):
     with open('{}raw_miR_counts.csv'.format(out_path), 'w') as f:
         f.write('miR,{}\n'.format(','.join(sorted_files)))
         for wind in window:
-            if 'mir' not in wind and 'let' not in wind:
+            if 'mir' not in wind and 'let' not in wind and 'miR' not in wind:
                 continue
             f.write('{}'.format(wind))
             for fi in sorted_files:

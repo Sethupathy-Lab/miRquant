@@ -75,6 +75,7 @@ def wait_for_collect_res(temp_fi, sample_res, job):
     c = 0
     print 'Waiting for results to be collected...'
     while True:
+        sys.stdout.flush()
         c += 1
         time.sleep(60) 
         temp_fi = [f for f in temp_fi if os.path.exists(f)]
@@ -101,7 +102,7 @@ def main(args):
     sample_res = return_sample_results_directories(cfg['paths']['project'])
     temp_fi = []
     for sample in sample_res:
-        print '\nRunning runC on sample {}'.format(sample)
+        print '\nRunning runC on sample {}\n'.format(sample)
         temp_fi = combine_result_files(sample, cfg, job, temp_fi, args.conf)
     wait_for_collect_res(temp_fi, sample_res, job)
 

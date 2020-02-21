@@ -72,7 +72,7 @@ with open(res, 'r') as f, open(tfile_name, 'w') as fo:
         info = l.rstrip().split('\t')
         N = info[0]
         en, et, off = N.split(',')
-        Nbase = re.sub('_[+-]_\d', '', en)
+        Nbase = re.sub('_[+-]_\d*', '', en)
         C, nC = info[1].split(':')
         expression[N] = float(nC)  # holds total counts for that line
 
@@ -199,6 +199,7 @@ keys = sorted(tot, key=tot.get, reverse = True)
 
 expKeys = sorted(expression, key=expression.get, reverse = True)
 expBaseKeys = sorted(baseExp, key=baseExp.get, reverse = True)
+print('hi')
 
 fOUT = 'TAB_{}'.format(res)
 with open(fOUT, 'w') as fo:

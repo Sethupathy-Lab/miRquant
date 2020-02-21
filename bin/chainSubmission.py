@@ -125,6 +125,9 @@ def cutadapt_cmd(fi, lib, cutadapt, log, cfg):
     min_read_length = cutadapt['Minimum_Read_Length']
     max_read_length = get_maxRNA_length(fi, cutadapt)
 
+    if max_read_length > 42:
+        max_read_length = 42
+
     if check_if_fastq_trimmed(fi):
         copyfile(fi, '{}.fq'.format(lib))
         max_read_length = 42
